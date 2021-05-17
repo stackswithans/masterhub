@@ -1,7 +1,6 @@
 <script lang="typescript">
     import { channel } from "./xana";
     let videoText = "";
-    channel.onopen = () => { channel.send(JSON.stringify({ message: "Hello" })); };
     let getVideo = async () => {
         let constraints = { audio: false, video: true };
         try{
@@ -11,6 +10,7 @@
             video.srcObject = stream;
             video.play();
             videoText = "Playing video";
+            channel.send(JSON.stringify({ message: "Hello" }));
         }
         catch(err){
             console.log(err);
