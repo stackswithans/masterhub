@@ -1,5 +1,7 @@
 <script lang="typescript">
+    import { channel } from "./xana";
     let videoText = "";
+    channel.onopen = () => { channel.send(JSON.stringify({ message: "Hello" })); };
     let getVideo = async () => {
         let constraints = { audio: false, video: true };
         try{
