@@ -18,5 +18,5 @@ CHANNEL_LAYERS = {
 }
 
 
-CORS_ALLOWED_ORIGINS = ["http://locahost:5000"]
+CORS_ALLOWED_ORIGINS = ["http://localhost:5000"]
 CORS_ALLOWED_METHODS = list(default_methods)

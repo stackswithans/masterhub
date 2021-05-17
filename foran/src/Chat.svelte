@@ -1,27 +1,43 @@
 <script lang="typescript">
-    import { channel } from "./xana";
-    let videoText = "";
-    let getVideo = async () => {
-        let constraints = { audio: false, video: true };
+    import { host } from "./config";
+    let newCallId = "";
+    let callId = ""; 
+
+    const createNewCall = async () =>{
         try{
-            let video = document.querySelector("video");
-            videoText = "Getting video...";
-            let stream = await navigator.mediaDevices.getUserMedia(constraints);
-            video.srcObject = stream;
-            video.play();
-            videoText = "Playing video";
-            channel.send(JSON.stringify({ message: "Hello" }));
+            const res =  await fetch(host + "/call/", {
+                method: 'POST',
+                mode: 'cors',
+                credentials: 'same-origin',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                redirect: 'follow', 
+                referrerPolicy: 'no-referrer',
+                body: JSON.stringify({ user: "" })
+            });
+
+            res.json().then( data => {
+                
+
+                newCallId = JSON.parse(data).callId;
+            });
         }
         catch(err){
             console.log(err);
         }
     };
+
+    const joinCall = () =>{};
 </script>
 
 <main>
-    <video kind="captions" src=""></video>
-    <p>{videoText}</p>
-    <button on:click={getVideo}>Get video</button>
+    <button on:click={createNewCall} >Create new call</button>
+    <p>{newCallId}</p>
+    <h2>or</h2>
+    <p>Join an existing call:</p>
+    <input bind:value={callId} type="text" placeholder="Call code here" id="join-input"/>
+    <button on:click={joinCall}>Join</button>
 </main>
 
 <style>
@@ -32,10 +48,6 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-    }
-
-    video{
-        width: 50%
     }
 
     button{
