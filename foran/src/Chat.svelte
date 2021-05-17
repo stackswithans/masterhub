@@ -1,27 +1,12 @@
 <script lang="typescript">
-    import { host } from "./config";
+    import { host, postData } from "./scripts/utils";
     let newCallId = "";
     let callId = ""; 
 
     const createNewCall = async () =>{
         try{
-            const res =  await fetch(host + "/call/", {
-                method: 'POST',
-                mode: 'cors',
-                credentials: 'same-origin',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                redirect: 'follow', 
-                referrerPolicy: 'no-referrer',
-                body: JSON.stringify({ user: "" })
-            });
-
-            res.json().then( data => {
-                
-
-                newCallId = JSON.parse(data).callId;
-            });
+            const res = await postData(host + "call/", { user: "" });
+            newCallId = JSON.parse(res).callId;
         }
         catch(err){
             console.log(err);
