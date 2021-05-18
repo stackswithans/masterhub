@@ -7,7 +7,7 @@ type onTrackCallback = (
 
 export const joinCall = (callId: String, fn: onTrackCallback) => {
     const hostname = new URL(host).host;
-    const channel = new WebSocket(`ws://${hostname}/ws/call/${callId}`);
+    const channel = new WebSocket(`ws://${hostname}/ws/call`);
     channel.onmessage = (event) => {
         console.log(event.data);
     };
