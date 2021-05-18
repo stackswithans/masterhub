@@ -6,7 +6,7 @@
     let callId = ""; 
     const createNewCall = async () =>{
         try{
-            const res = await postData(host + "call/", { user: "" });
+            const res = await postData(host + "call/", { user: "Sténio Jacinto" });
             newCallId = JSON.parse(res).callId;
         }
         catch(err){

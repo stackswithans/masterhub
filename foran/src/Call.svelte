@@ -1,41 +1,61 @@
 <script lang="typescript">
+    import { onMount } from 'svelte';
     import { channel } from "./scripts/xana";
     import {host, getData} from "./scripts/utils";
+
     export let callId: string;
+    let videoText = "";
 
     const startCallOr404 = async() => {
         const res = await getData(host + "call/" + callId);
+        if(res.status == 404){
+            throw Error("Bad call id");
+        }
         return res.json();
     }
-
-    let videoText = "";
+    
     let getVideo = async () => {
         let constraints = { audio: false, video: true };
         try{
-            let video = document.querySelector("video");
-            videoText = "Getting video...";
+            //TODO: Fix this race condition
             let stream = await navigator.mediaDevices.getUserMedia(constraints);
+            let video = document.querySelector("#remote-video") as HTMLMediaElement;
+            let video2 = document.querySelector("#local-video") as HTMLMediaElement;
+            videoText = "Getting video...";
             video.srcObject = stream;
+            video2.srcObject = stream;
             video.play();
+            video2.play();
             videoText = "Playing video";
-            channel.send(JSON.stringify({ message: "Hello" }));
         }
         catch(err){
             console.log(err);
         }
     };
+
+    const promise = startCallOr404();
+    promise.then(data => {
+        getVideo();
+    });
 </script>
 
-{#await startCallOr404()}
+{#await promise}
     <main>
         <p>Starting call...</p>
     </main>
 {:then callData}
     <main>
-        <h3> Chamada: {JSON.parse(callData).callId} </h3>
-        <video kind="captions" src=""></video>
-        <button on:click={getVideo}>Get video</button>
-        <p>{videoText}</p>
+        <aside>
+            <div id="call-info">
+                <h3>Outro Boy</h3>
+            </div>
+            <video id="remote-video" kind="captions" src=""></video>
+            <p>{videoText}</p>
+        </aside>
+        <aside>
+            <h3> Dono da chamada: {JSON.parse(callData).user} </h3>
+            <video id="local-video" kind="captions" src=""></video>
+        </aside>
     </main>
 {:catch err}
     <main>
@@ -48,16 +68,27 @@
         display: flex;
         width: 100%;
         height: 100%;
+        box-sizing: border-box;
+    }
+
+    aside{
+        display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: first;
         align-items: center;
+        box-sizing: border-box;
+    }
+
+    aside:first-child{
+        width: 80%;
+    }
+
+    aside:nth-child(2){
+        width: 20%;
     }
 
     video{
-        width: 50%
-    }
-
-    button{
-        padding: 1rem;
+        position: relative;
+        width: 80%; 
     }
 </style>
