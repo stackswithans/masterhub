@@ -1,5 +1,4 @@
 <script lang="typescript">
-    import { onMount } from 'svelte';
     import { channel } from "./scripts/xana";
     import {host, getData} from "./scripts/utils";
 
