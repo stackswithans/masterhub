@@ -16,7 +16,8 @@
     let getVideo = async () => {
         let constraints = { audio: false, video: true };
         try{
-            //TODO: Fix this race condition
+            //TODO: Fix this race condition: video can be null cause tag may not
+            //Have been rendered by the time getVideo is called
             let stream = await navigator.mediaDevices.getUserMedia(constraints);
             let remoteVideo = document.querySelector("#remote-video") as HTMLMediaElement;
             let localVideo = document.querySelector("#local-video") as HTMLMediaElement;
