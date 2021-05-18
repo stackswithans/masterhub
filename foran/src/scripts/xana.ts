@@ -1,9 +1,18 @@
-export const channel = new WebSocket("ws://127.0.0.1:8000/ws/lesson/");
+import { host } from "./utils";
 
-channel.onmessage = (event) => {
-    console.log(event.data);
-};
+type onTrackCallback = (
+    track: MediaStreamTrack,
+    streams: MediaStream[]
+) => void;
 
-channel.onerror = (e) => {
-    console.log(e);
+export const joinCall = (callId: String, fn: onTrackCallback) => {
+    const hostname = new URL(host).host;
+    const channel = new WebSocket(`ws://${hostname}/ws/call/${callId}`);
+    channel.onmessage = (event) => {
+        console.log(event.data);
+    };
+
+    channel.onerror = (e) => {
+        console.log(e);
+    };
 };

@@ -1,5 +1,5 @@
 <script lang="typescript">
-    import { channel } from "./scripts/xana";
+    import { joinCall } from "./scripts/xana";
     import {host, getData} from "./scripts/utils";
 
     export let callId: string;
@@ -18,14 +18,18 @@
         try{
             //TODO: Fix this race condition
             let stream = await navigator.mediaDevices.getUserMedia(constraints);
-            let video = document.querySelector("#remote-video") as HTMLMediaElement;
-            let video2 = document.querySelector("#local-video") as HTMLMediaElement;
+            let remoteVideo = document.querySelector("#remote-video") as HTMLMediaElement;
+            let localVideo = document.querySelector("#local-video") as HTMLMediaElement;
             videoText = "Getting video...";
-            video.srcObject = stream;
-            video2.srcObject = stream;
-            video.play();
-            video2.play();
+            localVideo.srcObject = stream;
+            localVideo.play();
             videoText = "Playing video";
+            //Join the video call
+            joinCall(callId, (track: MediaStreamTrack, streams: MediaStream[]) =>{
+                if(remoteVideo) return;
+                remoteVideo.srcObject = stream[0];
+                remoteVideo.play();
+            });
         }
         catch(err){
             console.log(err);
@@ -36,6 +40,7 @@
     promise.then(data => {
         getVideo();
     });
+
 </script>
 
 {#await promise}

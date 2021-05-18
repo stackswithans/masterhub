@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 from channels.http import AsgiHandler
 from django.core.asgi import get_asgi_application
 from channels.routing import ProtocolTypeRouter, URLRouter
-import lesson.routing
+import call.routing
 
 load_dotenv()
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "tilbage.settings")
@@ -21,6 +21,6 @@ django.setup()
 application = ProtocolTypeRouter(
     {
         "http": get_asgi_application(),
-        "websocket": URLRouter(lesson.routing.websocket_urlpatterns),
+        "websocket": URLRouter(call.routing.websocket_urlpatterns),
     }
 )
