@@ -3,4 +3,7 @@ from rest_framework.routers import SimpleRouter
 import call.views as views
 
 
-urlpatterns = [path("", views.new_call)]
+urlpatterns = [
+    path("", views.call_create),
+    path("/<string:call_id>", views.call_join),
+]
