@@ -10,6 +10,7 @@ class CallConnection {
     pc: RTCPeerConnection;
     polite: boolean;
     makingOffer: boolean = false;
+    ignoreOffer: boolean = false;
     channel: WebSocket;
 
     constructor(callId: string, channel: WebSocket) {
@@ -29,20 +30,82 @@ class CallConnection {
         });
         this.channel = channel;
         this.polite = false;
+        //Signal channel setup
+        channel.onopen = () => {
+            channel.send(
+                JSON.stringify({
+                    type: "join-call",
+                    callId: callId,
+                })
+            );
+            this.configurePerfectNegotiation();
+        };
     }
 
-    configureNegotiation() {
+    async sendLocalDescription() {
+        await this.pc.setLocalDescription();
+        this.channel.send(
+            JSON.stringify({
+                type: "offer-answer",
+                description: this.pc.localDescription,
+            })
+        );
+    }
+
+    configurePerfectNegotiation() {
         this.pc.onnegotiationneeded = async () => {
             try {
                 this.makingOffer = true;
-                await this.pc.setLocalDescription();
-                this.channel.send(
-                    JSON.stringify({ description: this.pc.localDescription })
-                );
+                await this.sendLocalDescription();
             } catch (err) {
                 console.error(err);
             } finally {
                 this.makingOffer = false;
+            }
+        };
+        // Handle ice candidate
+        this.pc.onicecandidate = ({ candidate }) =>
+            this.channel.send(
+                JSON.stringify({ type: "ice-candidate", candidate })
+            );
+        // Handle incoming offers or answers
+        this.channel.onmessage = async (event) => {
+            const message = JSON.parse(event.data);
+            try {
+                switch (message.type) {
+                    case "join-accept":
+                        console.log("Connection to call succesfull");
+                        break;
+                    case "peer-type":
+                        this.polite = message.polite == "true";
+                        console.log(
+                            "my peer type is polite: " + message.polite
+                        );
+                        break;
+                    case "offer-answer":
+                        const offerCollision =
+                            message.description.type == "offer" &&
+                            (this.makingOffer ||
+                                this.pc.signalingState != "stable");
+
+                        this.ignoreOffer = !this.polite && offerCollision;
+                        if (this.ignoreOffer) {
+                            return;
+                        }
+                        await this.pc.setRemoteDescription(message.description);
+                        if (message.description.type == "offer") {
+                            await this.sendLocalDescription();
+                        }
+                        break;
+                    case "ice-candidate":
+                        this.pc
+                            .addIceCandidate(message.candidate)
+                            .then()
+                            .catch((err) => console.log(err));
+                        break;
+                }
+            } catch (err) {
+                console.log(err);
             }
         };
     }
@@ -55,8 +118,11 @@ export const joinCall = (
 ) => {
     const hostname = new URL(host).host;
     const channel = new WebSocket(`ws://${hostname}/ws/call`);
-
     const conn = new CallConnection(callId, channel);
+
+    channel.onerror = (e) => {
+        console.log(e);
+    };
     // Transmit to remote peer
     localStream
         .getTracks()
@@ -64,32 +130,4 @@ export const joinCall = (
 
     //Call remote peer stream handler
     conn.pc.ontrack = ({ track, streams }) => fn(track, streams);
-
-    //Signal channel setup
-    channel.onopen = () => {
-        channel.send(
-            JSON.stringify({
-                type: "join-call",
-                callId: callId,
-            })
-        );
-    };
-
-    channel.onmessage = (event) => {
-        console.log(event.data);
-        const message = JSON.parse(event.data);
-        switch (message.type) {
-            case "join-accept":
-                console.log("Connection to call succesfull");
-                break;
-            case "peer-type":
-                conn.polite = message.polite == "true";
-                console.log("my peer type is polite: " + message.polite);
-                break;
-        }
-    };
-
-    channel.onerror = (e) => {
-        console.log(e);
-    };
 };
