@@ -26,10 +26,12 @@
             localVideo.play();
             videoText = "Playing video";
             //Join the video call
-            joinCall(callId, (track: MediaStreamTrack, streams: MediaStream[]) =>{
-                if(remoteVideo) return;
-                remoteVideo.srcObject = stream[0];
-                remoteVideo.play();
+            joinCall(callId, stream, (track: MediaStreamTrack, streams: readonly MediaStream[]) =>{
+                track.onunmute = () =>{
+                    if(remoteVideo) return;
+                    remoteVideo.srcObject = streams[0];
+                    remoteVideo.play();
+                }
             });
         }
         catch(err){
