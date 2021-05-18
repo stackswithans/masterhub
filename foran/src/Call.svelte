@@ -26,9 +26,10 @@
             localVideo.play();
             videoText = "Playing video";
             //Join the video call
-            joinCall(callId, stream, (track: MediaStreamTrack, streams: readonly MediaStream[]) =>{
+            joinCall(callId, stream, (track: MediaStreamTrack, streams: readonly MediaStream[]) => {
                 track.onunmute = () =>{
-                    if(remoteVideo) return;
+                    console.log("Video available");
+                    if(remoteVideo.srcObject) return;
                     remoteVideo.srcObject = streams[0];
                     remoteVideo.play();
                 }

@@ -9,6 +9,7 @@ class CallConsumer(WebsocketConsumer):
         # Add user data here
         self.group_name = None
         self.call = None
+        self.peer = None
         self.accept()
 
     def disconnect(self, close_code):
@@ -37,6 +38,21 @@ class CallConsumer(WebsocketConsumer):
                 self.group_name, self.channel_name
             )
             response = {"type": "join-accept", "message": ""}
+        elif ms_type in ("offer-answer", "ice-candidate"):
+            # Ice candidate are sent before other peer connects
+            if self.peer is None:
+                return
+            # Forward offer/answer to other peer
+            data = {
+                "type": "call_peer_send",
+                "ms_type": ms_type,
+            }
+            if ms_type == "offer-answer":
+                data["description"] = msg["description"]
+            else:
+                data["candidate"] = msg["candidate"]
+            async_to_sync(self.channel_layer.send)(self.peer, data)
+            return
         self.send(text_data=json.dumps(response))
 
     def call_new_participant(self, event):
@@ -48,6 +64,17 @@ class CallConsumer(WebsocketConsumer):
         async_to_sync(self.channel_layer.send)(
             event["new_channel"], {"type": "call_peer_type", "polite": "false"}
         )
+        # Connect to the other end of the channel
+        self.peer = event["new_channel"]
+        async_to_sync(self.channel_layer.send)(
+            event["new_channel"],
+            {"type": "call_connect", "peer": self.channel_name},
+        )
+
+    def call_peer_send(self, event):
+        data = {**event}
+        del data["type"]
+        self.send(text_data=json.dumps({"type": event["ms_type"], **data}))
 
     def call_peer_type(self, event):
         self.send(
@@ -58,3 +85,8 @@ class CallConsumer(WebsocketConsumer):
                 }
             )
         )
+
+    def call_connect(self, event):
+        if self.peer is not None:
+            return
+        self.peer = event["peer"]
