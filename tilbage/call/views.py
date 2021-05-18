@@ -15,6 +15,7 @@ def call_create(request):
     new_call = Call.objects.create(
         user=user, callId=uuid.uuid4().hex, participants=0
     )
+    new_call.save()
     return Response(renderer.render({"callId": new_call.callId}))
 
 

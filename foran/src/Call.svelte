@@ -1,5 +1,5 @@
 <script lang="typescript">
-    import { channel } from "./xana";
+    import { channel } from "./scripts/xana";
     let videoText = "";
     let getVideo = async () => {
         let constraints = { audio: false, video: true };

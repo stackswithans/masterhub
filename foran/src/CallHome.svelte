@@ -1,8 +1,9 @@
 <script lang="typescript">
-    import { host, postData } from "./scripts/utils";
+    import { host, postData, getData } from "./scripts/utils";
+    import { navigate } from "svelte-routing";
+
     let newCallId = "";
     let callId = ""; 
-
     const createNewCall = async () =>{
         try{
             const res = await postData(host + "call/", { user: "" });
@@ -13,7 +14,9 @@
         }
     };
 
-    const joinCall = () =>{};
+    const joinCall = async () =>{
+        navigate(`call/${callId}`);
+    };
 </script>
 
 <main>
