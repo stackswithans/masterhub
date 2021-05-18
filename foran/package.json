@@ -5,7 +5,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "svelte-check && rollup -c -w",
-    "start": "sirv public -s --no-clear",
+    "start": "sirv public -s --host --no-clear",
     "validate": "svelte-check"
   },
   "devDependencies": {

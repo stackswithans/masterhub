@@ -1,4 +1,4 @@
-import { host } from "./utils";
+import { reverse } from "./utils";
 
 type onTrackCallback = (
     track: MediaStreamTrack,
@@ -134,8 +134,7 @@ export const joinCall = (
     localStream: MediaStream,
     fn: onTrackCallback
 ) => {
-    const hostname = new URL(host).host;
-    const channel = new WebSocket(`ws://${hostname}/ws/call`);
+    const channel = new WebSocket(reverse("callSocket"));
     const conn = new CallConnection(callId, localStream, channel);
 
     channel.onerror = (e) => {

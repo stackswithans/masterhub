@@ -1,5 +1,12 @@
-export const host = "http://localhost:8000/";
+export const host = window.location.protocol + "//" + window.location.hostname;
+export const clientHost = host + ":" + location.port + "/";
+export const apiHost = host + ":" + "8000" + "/";
 
+//endpoints
+const endpoints = {
+    call: apiHost + "call/",
+    callSocket: `ws://${window.location.hostname + ":" + "8000"}/ws/call`,
+};
 export const postData = async (url = "", data = {}) => {
     const response = await fetch(url, {
         method: "POST",
@@ -29,4 +36,12 @@ export const getData = async (url = "") => {
         referrerPolicy: "no-referrer",
     });
     return response;
+};
+
+export const reverse = (path: string, pathParams?: Array<string>): string => {
+    if (!(path in endpoints)) throw new Error("Invalid endpoint path name");
+    if (!pathParams) pathParams = [];
+    return [endpoints[path], ...pathParams].reduce(
+        (accumulator, current) => accumulator + current
+    );
 };

@@ -1,12 +1,12 @@
 <script lang="typescript">
-    import {host, postData} from "./scripts/utils";
+    import {reverse, postData} from "./scripts/utils";
     import {navigate} from "svelte-routing";
 
     let newCallId = "";
     let callId = ""; 
     const createNewCall = async () =>{
         try{
-            const res = await postData(host + "call/", { user: "Sténio Jacinto" });
+            const res = await postData(reverse("call"), { user: "Sténio Jacinto" });
             newCallId = JSON.parse(res).callId;
         }
         catch(err){
@@ -14,8 +14,8 @@
         }
     };
 
-    const joinCall = async () =>{
-        navigate(`call/${callId}`);
+    const joinCall = () =>{
+        navigate(`call/${callId}`, {replace: true});
     };
 </script>
 

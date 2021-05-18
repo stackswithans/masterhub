@@ -5,7 +5,7 @@ from settings.base import *
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [".localhost", "127.0.0.1", "192.168.0.13"]
 
 # Databases
 DATABASES["default"] = {
@@ -18,5 +18,5 @@ CHANNEL_LAYERS = {
 }
 
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:5000"]
+CORS_ALLOWED_ORIGINS = ["http://localhost:5000", "http://192.168.0.13:5000"]
 CORS_ALLOWED_METHODS = list(default_methods)

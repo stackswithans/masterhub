@@ -1,12 +1,12 @@
 <script lang="typescript">
     import { joinCall } from "./scripts/xana";
-    import {host, getData} from "./scripts/utils";
+    import {reverse, getData} from "./scripts/utils";
 
     export let callId: string;
     let videoText = "";
 
     const startCallOr404 = async() => {
-        const res = await getData(host + "call/" + callId);
+        const res = await getData(reverse("call", [callId]));
         if(res.status == 404){
             throw Error("Bad call id");
         }
