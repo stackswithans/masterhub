@@ -1,6 +1,6 @@
 <script lang="typescript">
-    import { host, postData, getData } from "./scripts/utils";
-    import { navigate } from "svelte-routing";
+    import {host, postData} from "./scripts/utils";
+    import {navigate} from "svelte-routing";
 
     let newCallId = "";
     let callId = ""; 
