@@ -18,7 +18,14 @@
         try{
             //TODO: Fix this race condition: video can be null cause tag may not
             //Have been rendered by the time getVideo is called
-            let stream = await navigator.mediaDevices.getUserMedia(constraints);
+            let stream = null;
+            if(!navigator.mediaDevices)
+                throw new Error("mediaDevices not supported in this browser");
+            stream = await navigator.mediaDevices.getUserMedia(constraints);
+            if (stream == null){
+                videoText = "Impossível encontrar uma câmera"; 
+                throw new Error("Impossível encontrar uma camera");
+            }
             let remoteVideo = document.querySelector("#remote-video") as HTMLMediaElement;
             let localVideo = document.querySelector("#local-video") as HTMLMediaElement;
             videoText = "Getting video...";

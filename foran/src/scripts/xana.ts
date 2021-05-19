@@ -122,7 +122,7 @@ class CallConnection {
                 console.log(err);
             }
         };
-        // Transmit to remote peer
+        // Start Transmission to remote peer
         this.localStream.getTracks().forEach((track) => {
             this.pc.addTrack(track, this.localStream);
         });
