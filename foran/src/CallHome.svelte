@@ -46,6 +46,7 @@
 
     div{
         margin-top: 1rem;
+        display: flex;
     }
 
     .parent :global(.spacing){

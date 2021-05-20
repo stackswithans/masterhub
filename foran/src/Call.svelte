@@ -1,39 +1,30 @@
 <script lang="typescript">
     import Input from "./Input.svelte";
+    import Button from "./Button.svelte";
+    import { onMount, tick } from "svelte";
     import { joinCall } from "./scripts/xana";
     import {reverse, getData} from "./scripts/utils";
 
     export let callId: string;
     let user = "";
-    let videoText = "";
 
-    const startCallOr404 = async() => {
-        const res = await getData(reverse("call", [callId]));
-        if(res.status == 404){
-            throw Error("Bad call id");
-        }
-        return res.json();
-    }
-    
+    let loading = true; 
+    let callFound = null;
+
+    let remoteVideo: HTMLMediaElement; 
+    let localVideo: HTMLMediaElement; 
+
     let getVideo = async () => {
         let constraints = { audio: false, video: true };
         try{
-            //TODO: Fix this race condition: video can be null cause tag may not
-            //Have been rendered by the time getVideo is called
-            let stream = null;
             if(!navigator.mediaDevices)
                 throw new Error("mediaDevices not supported in this browser");
-            stream = await navigator.mediaDevices.getUserMedia(constraints);
+            let stream = await navigator.mediaDevices.getUserMedia(constraints);
             if (stream == null){
-                videoText = "Impossível encontrar uma câmera"; 
                 throw new Error("Impossível encontrar uma camera");
             }
-            let remoteVideo = document.querySelector("#remote-video") as HTMLMediaElement;
-            let localVideo = document.querySelector("#local-video") as HTMLMediaElement;
-            videoText = "Getting video...";
             localVideo.srcObject = stream;
             localVideo.play();
-            videoText = "Playing video";
             //Join the video call
             joinCall(callId, stream, (track: MediaStreamTrack, streams: readonly MediaStream[]) => {
                 track.onunmute = () =>{
@@ -49,31 +40,43 @@
         }
     };
 
-    const promise = startCallOr404();
-    promise.then(data => {
+    onMount(async() => {
+        const res = await getData(reverse("call", [callId]));
+        loading = false;
+        if(res.status == 404){
+            return;
+        }
+        callFound = true;
+        //Wait for changes to the DOM
+        await tick();
+        remoteVideo = document.querySelector("#remote-video") as HTMLMediaElement;
+        localVideo = document.querySelector("#local-video") as HTMLMediaElement;
         getVideo();
     });
 
 </script>
 
 <main>
-{#if user === ""}
-    <div id="name-prompt">
-        <p>Por favor introduza o seu nome</p>
-        <Input bind:value={user}/>
-    </div>
-{:else}
-    <aside>
-        <div id="call-info">
-            <h3>Outro Boy</h3>
+{#if loading}
+    <p>Carregando dados a cerca da chamada...</p>
+{:else if !loading && callFound}
+    {#if user === ""}
+        <div id="name-prompt">
+            <p>Por favor introduza o seu nome para entrar na chamada</p>
+            <Input bind:value={user}/>
+            <Button text="Join"/>
         </div>
-        <video id="remote-video" kind="captions" src=""></video>
-        <p>{videoText}</p>
-    </aside>
-    <aside>
-        <video id="local-video" kind="captions" src=""></video>
-    </aside>
-    <h1>A chamada desejada não existe!</h1>
+    {:else}
+        <aside>
+            <video id="remote-video" kind="captions" src=""></video>
+        </aside>
+        <aside>
+            <video id="local-video" kind="captions" src=""></video>
+        </aside>
+        <h1>A chamada desejada não existe!</h1>
+    {/if}
+{:else}
+    <p>A chamada não foi encontrada.</p>
 {/if}
 </main>
 
@@ -83,7 +86,8 @@
         box-sizing: border-box;
         flex-direction: column;
         text-align: center;
-        color: white;
+        justify-content: center;
+        align-items: center;
     }
 
     main{
@@ -94,6 +98,7 @@
         justify-content: center;
         align-items: center;
         background-color: var(--p-color);
+        color: white;
     }
 
     aside{

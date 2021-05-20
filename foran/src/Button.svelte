@@ -12,6 +12,7 @@
         color: white;
         border: None;
         background-color: #4A5955;
+        width: fit-content;
     }
 
     button:hover{
