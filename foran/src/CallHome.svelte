@@ -1,5 +1,6 @@
 <script lang="typescript">
     import Input from "./Input.svelte";
+    import Button from "./Button.svelte";
     import {reverse, postData} from "./scripts/utils";
     import {navigate} from "svelte-routing";
 
@@ -22,9 +23,9 @@
 <main>
     <p>Join an existing call or create a new one:</p>
     <Input bind:value={callId} />
-    <div>
-        <button on:click={joinCall}>Join</button>
-        <button on:click={createNewCall} >New call</button>
+    <div class="parent">
+        <Button on:click={joinCall} className="spacing" text="Join"/>
+        <Button on:click={createNewCall} text="New call"/>
     </div>
 </main>
 
@@ -47,19 +48,7 @@
         margin-top: 1rem;
     }
 
-    div button:first-child{
+    .parent :global(.spacing){
         margin-right: 1rem;
-
-    }
-
-    button{
-        padding: 0.5rem;
-        color: white;
-        border: None;
-        background-color: #4A5955;
-    }
-
-    button:hover{
-        cursor: pointer;
     }
 </style>
