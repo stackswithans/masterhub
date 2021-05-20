@@ -18,4 +18,8 @@
         padding: 0;
     }
 
+    :global(:root){
+        --p-color: #36413E;
+        --s-color: #4a5955;
+    }
 </style>

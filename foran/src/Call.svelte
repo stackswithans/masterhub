@@ -1,8 +1,10 @@
 <script lang="typescript">
+    import Input from "./Input.svelte";
     import { joinCall } from "./scripts/xana";
     import {reverse, getData} from "./scripts/utils";
 
     export let callId: string;
+    let user = "";
     let videoText = "";
 
     const startCallOr404 = async() => {
@@ -54,36 +56,44 @@
 
 </script>
 
-{#await promise}
-    <main>
-        <p>Starting call...</p>
-    </main>
-{:then callData}
-    <main>
-        <aside>
-            <div id="call-info">
-                <h3>Outro Boy</h3>
-            </div>
-            <video id="remote-video" kind="captions" src=""></video>
-            <p>{videoText}</p>
-        </aside>
-        <aside>
-            <h3> Dono da chamada: {JSON.parse(callData).user} </h3>
-            <video id="local-video" kind="captions" src=""></video>
-        </aside>
-    </main>
-{:catch err}
-    <main>
-        <h1>A chamada desejada não existe!</h1>
-    </main>
-{/await}
+<main>
+{#if user === ""}
+    <div id="name-prompt">
+        <p>Por favor introduza o seu nome</p>
+        <Input bind:value={user}/>
+    </div>
+{:else}
+    <aside>
+        <div id="call-info">
+            <h3>Outro Boy</h3>
+        </div>
+        <video id="remote-video" kind="captions" src=""></video>
+        <p>{videoText}</p>
+    </aside>
+    <aside>
+        <video id="local-video" kind="captions" src=""></video>
+    </aside>
+    <h1>A chamada desejada não existe!</h1>
+{/if}
+</main>
 
 <style>
+    #name-prompt{
+        display: flex;
+        box-sizing: border-box;
+        flex-direction: column;
+        text-align: center;
+        color: white;
+    }
+
     main{
         display: flex;
         width: 100%;
         height: 100%;
         box-sizing: border-box;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--p-color);
     }
 
     aside{

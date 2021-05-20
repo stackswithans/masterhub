@@ -1,4 +1,5 @@
 <script lang="typescript">
+    import Input from "./Input.svelte";
     import {reverse, postData} from "./scripts/utils";
     import {navigate} from "svelte-routing";
 
@@ -20,7 +21,7 @@
 
 <main>
     <p>Join an existing call or create a new one:</p>
-    <input bind:value={callId} type="text"  id="join-input"/>
+    <Input bind:value={callId} />
     <div>
         <button on:click={joinCall}>Join</button>
         <button on:click={createNewCall} >New call</button>
@@ -37,18 +38,9 @@
         background-color: #36413E;
     }
 
-    p, input{
+    p{
         color: white;
         border: None;
-    }
-
-    input{
-        background: transparent;
-        border-bottom: 3px solid #4A5955;
-    }
-
-    input:focus{
-        outline: None;
     }
 
     div{
