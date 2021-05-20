@@ -2,12 +2,11 @@
     import {reverse, postData} from "./scripts/utils";
     import {navigate} from "svelte-routing";
 
-    let newCallId = "";
     let callId = ""; 
-    const createNewCall = async () =>{
+    const createNewCall = async () => {
         try{
             const res = await postData(reverse("call"), { user: "Sténio Jacinto" });
-            newCallId = JSON.parse(res).callId;
+            callId = JSON.parse(res).callId;
         }
         catch(err){
             console.log(err);
@@ -20,25 +19,46 @@
 </script>
 
 <main>
-    <button on:click={createNewCall} >Create new call</button>
-    <p>{newCallId}</p>
-    <h2>or</h2>
-    <p>Join an existing call:</p>
-    <input bind:value={callId} type="text" placeholder="Call code here" id="join-input"/>
-    <button on:click={joinCall}>Join</button>
+    <p>Join an existing call or create a new one:</p>
+    <input bind:value={callId} type="text"  id="join-input"/>
+    <div>
+        <button on:click={joinCall}>Join</button>
+        <button on:click={createNewCall} >Create new call</button>
+    </div>
 </main>
 
 <style>
     main{
-        display: flex;
-        width: 100%;
+        display: flex; width: 100%;
         height: 100%;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        background-color: #36413E;
+    }
+
+    p, input{
+        color: white;
+        border: None;
+    }
+
+    input{
+        background: transparent;
+        border-bottom: 1px solid white;
+    }
+
+    input:focus{
+        outline: None;
     }
 
     button{
-        padding: 1rem;
+        padding: 0.5rem;
+        color: white;
+        border: None;
+        background-color: #4A5955;
+    }
+
+    button:hover{
+        cursor: pointer;
     }
 </style>
