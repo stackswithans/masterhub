@@ -23,7 +23,7 @@
     <input bind:value={callId} type="text"  id="join-input"/>
     <div>
         <button on:click={joinCall}>Join</button>
-        <button on:click={createNewCall} >Create new call</button>
+        <button on:click={createNewCall} >New call</button>
     </div>
 </main>
 
@@ -44,11 +44,20 @@
 
     input{
         background: transparent;
-        border-bottom: 1px solid white;
+        border-bottom: 3px solid #4A5955;
     }
 
     input:focus{
         outline: None;
+    }
+
+    div{
+        margin-top: 1rem;
+    }
+
+    div button:first-child{
+        margin-right: 1rem;
+
     }
 
     button{
