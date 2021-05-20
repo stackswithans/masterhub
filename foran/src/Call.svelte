@@ -10,6 +10,7 @@
 
     let loading = true; 
     let callFound = null;
+    let enterCall = false;
 
     let remoteVideo: HTMLMediaElement; 
     let localVideo: HTMLMediaElement; 
@@ -23,6 +24,8 @@
             if (stream == null){
                 throw new Error("Impossível encontrar uma camera");
             }
+            remoteVideo = document.querySelector("#remote-video") as HTMLMediaElement;
+            localVideo = document.querySelector("#local-video") as HTMLMediaElement;
             localVideo.srcObject = stream;
             localVideo.play();
             //Join the video call
@@ -40,6 +43,12 @@
         }
     };
 
+    const doCall = async () => {
+        enterCall = true;
+        await tick();
+        getVideo();
+    }
+
     onMount(async() => {
         const res = await getData(reverse("call", [callId]));
         loading = false;
@@ -47,11 +56,6 @@
             return;
         }
         callFound = true;
-        //Wait for changes to the DOM
-        await tick();
-        remoteVideo = document.querySelector("#remote-video") as HTMLMediaElement;
-        localVideo = document.querySelector("#local-video") as HTMLMediaElement;
-        getVideo();
     });
 
 </script>
@@ -60,11 +64,11 @@
 {#if loading}
     <p>Carregando dados a cerca da chamada...</p>
 {:else if !loading && callFound}
-    {#if user === ""}
+    {#if !enterCall}
         <div id="name-prompt">
             <p>Por favor introduza o seu nome para entrar na chamada</p>
             <Input bind:value={user}/>
-            <Button text="Join"/>
+            <Button on:click={doCall} text="Join"/>
         </div>
     {:else}
         <aside>
@@ -73,7 +77,6 @@
         <aside>
             <video id="local-video" kind="captions" src=""></video>
         </aside>
-        <h1>A chamada desejada não existe!</h1>
     {/if}
 {:else}
     <p>A chamada não foi encontrada.</p>
