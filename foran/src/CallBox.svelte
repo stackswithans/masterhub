@@ -1,14 +1,14 @@
 
 <script lang="typescript">
-    export let stream: MediaStream;
-    $: document.querySelector("video").srcObject = stream;
+    export let video: HTMLVideoElement
 </script>
 
-<video></video>
+<video bind:this={video}></video>
 
 <style>
     video{
-
-
+        display: flex;
+        width: 598px;
+        height: 437px;
     }
 </style>

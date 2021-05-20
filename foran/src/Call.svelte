@@ -1,6 +1,7 @@
 <script lang="typescript">
     import Input from "./Input.svelte";
     import Button from "./Button.svelte";
+    import CallBox from "./CallBox.svelte";
     import { onMount, tick } from "svelte";
     import { joinCall } from "./scripts/xana";
     import {reverse, getData} from "./scripts/utils";
@@ -12,8 +13,8 @@
     let callFound = null;
     let enterCall = false;
 
-    let remoteVideo: HTMLMediaElement; 
-    let localVideo: HTMLMediaElement; 
+    let remoteVideo: MediaStream; 
+    let localVideo: HTMLVideoElement; 
 
     let getVideo = async () => {
         let constraints = { audio: false, video: true };
@@ -24,17 +25,15 @@
             if (stream == null){
                 throw new Error("Impossível encontrar uma camera");
             }
-            remoteVideo = document.querySelector("#remote-video") as HTMLMediaElement;
-            localVideo = document.querySelector("#local-video") as HTMLMediaElement;
+            //remoteVideo = document.querySelector("#remote-video") as HTMLMediaElement;
+            //localVideo = document.querySelector("#local-video") as HTMLMediaElement;
             localVideo.srcObject = stream;
             localVideo.play();
             //Join the video call
             joinCall(callId, stream, (track: MediaStreamTrack, streams: readonly MediaStream[]) => {
-                track.onunmute = () =>{
-                    console.log("Video available");
-                    if(remoteVideo.srcObject) return;
-                    remoteVideo.srcObject = streams[0];
-                    remoteVideo.play();
+                track.onunmute = () => {
+                    if(remoteVideo) return;
+                    remoteVideo = streams[0];
                 }
             });
         }
@@ -71,12 +70,7 @@
             <Button on:click={doCall} text="Join"/>
         </div>
     {:else}
-        <aside>
-            <video id="remote-video" kind="captions" src=""></video>
-        </aside>
-        <aside>
-            <video id="local-video" kind="captions" src=""></video>
-        </aside>
+        <CallBox bind:video={localVideo}/>
     {/if}
 {:else}
     <p>A chamada não foi encontrada.</p>
@@ -102,26 +96,5 @@
         align-items: center;
         background-color: var(--p-color);
         color: white;
-    }
-
-    aside{
-        display: flex;
-        flex-direction: column;
-        justify-content: first;
-        align-items: center;
-        box-sizing: border-box;
-    }
-
-    aside:first-child{
-        width: 80%;
-    }
-
-    aside:nth-child(2){
-        width: 20%;
-    }
-
-    video{
-        position: relative;
-        width: 80%; 
     }
 </style>
