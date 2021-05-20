@@ -13,7 +13,7 @@
     let callFound = null;
     let enterCall = false;
 
-    let remoteVideo: MediaStream; 
+    let remoteVideo: HTMLVideoElement; 
     let localVideo: HTMLVideoElement; 
 
     let getVideo = async () => {
@@ -29,11 +29,14 @@
             //localVideo = document.querySelector("#local-video") as HTMLMediaElement;
             localVideo.srcObject = stream;
             localVideo.play();
+            remoteVideo.srcObject = stream;
+            remoteVideo.play();
             //Join the video call
             joinCall(callId, stream, (track: MediaStreamTrack, streams: readonly MediaStream[]) => {
                 track.onunmute = () => {
                     if(remoteVideo) return;
-                    remoteVideo = streams[0];
+                    remoteVideo.srcObject = streams[0];
+                    remoteVideo.play()
                 }
             });
         }
@@ -70,7 +73,10 @@
             <Button on:click={doCall} text="Join"/>
         </div>
     {:else}
-        <CallBox bind:video={localVideo}/>
+        <div class="callboxes">
+            <CallBox bind:video={localVideo}/>
+            <CallBox bind:video={remoteVideo}/>
+        </div>
     {/if}
 {:else}
     <p>A chamada não foi encontrada.</p>
@@ -85,6 +91,15 @@
         text-align: center;
         justify-content: center;
         align-items: center;
+    }
+
+    .callboxes{
+        display:flex;
+        box-sizing: border-box;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 100%;
+        height: 100%;
     }
 
     main{

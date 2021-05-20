@@ -8,7 +8,9 @@
 <style>
     video{
         display: flex;
-        width: 598px;
-        height: 437px;
+        border-radius: 15px;
+        background: red;
+        max-width: 60%;
+        max-height: 60%;
     }
 </style>
