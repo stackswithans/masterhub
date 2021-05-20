@@ -29,8 +29,6 @@
             //localVideo = document.querySelector("#local-video") as HTMLMediaElement;
             localVideo.srcObject = stream;
             localVideo.play();
-            remoteVideo.srcObject = stream;
-            remoteVideo.play();
             //Join the video call
             joinCall(callId, stream, (track: MediaStreamTrack, streams: readonly MediaStream[]) => {
                 track.onunmute = () => {
@@ -74,8 +72,7 @@
         </div>
     {:else}
         <div class="callboxes">
-            <CallBox bind:video={localVideo}/>
-            <CallBox bind:video={remoteVideo}/>
+            <CallBox caption={user} bind:video={localVideo}/>
         </div>
     {/if}
 {:else}
