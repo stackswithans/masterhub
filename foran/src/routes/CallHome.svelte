@@ -1,7 +1,5 @@
 <script lang="typescript">
-    import Input from "./Input.svelte";
-    import Button from "./Button.svelte";
-    import {reverse, postData} from "./scripts/utils";
+    import {reverse, postData} from "../scripts/utils";
     import {navigate} from "svelte-routing";
 
     let callId = ""; 
@@ -22,11 +20,6 @@
 
 <main>
     <p>Join an existing call or create a new one:</p>
-    <Input bind:value={callId} />
-    <div class="parent">
-        <Button on:click={joinCall} className="spacing" text="Join"/>
-        <Button on:click={createNewCall} text="New call"/>
-    </div>
 </main>
 
 <style>

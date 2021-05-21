@@ -1,16 +1,21 @@
 <script lang="typescript">
-        import CallHome from "./CallHome.svelte";
-        import Call from "./Call.svelte";
         import { Router, Route } from "svelte-routing";
 	export let url: string = "";
 </script>
 
-<Router url="{url}">
-    <Route path="" component="{CallHome}" />
-    <Route path="call" component="{CallHome}" />
-    <Route path="call/:callId" component="{Call}" />
-</Router>
+<!-- Add fonts -->
+<svelte:head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+</svelte:head>
 
+<!-- 
+<Router url="{url}">
+    <Route path="" component="{}" />
+</Router>
+ -->
 
 <style>
     :global(body){

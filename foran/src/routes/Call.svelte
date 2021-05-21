@@ -1,12 +1,9 @@
 <script lang="typescript">
     //Side effects
     //import {polyfill} from "./scripts/polyfill";
-    import Input from "./Input.svelte";
-    import Button from "./Button.svelte";
-    import CallBox from "./CallBox.svelte";
     import { onMount, tick } from "svelte";
-    import { joinCall } from "./scripts/xana";
-    import {reverse, getData} from "./scripts/utils";
+    import { joinCall } from "../scripts/xana";
+    import {reverse, getData} from "../scripts/utils";
 
     export let callId: string;
     let user = "";
@@ -68,22 +65,9 @@
     <p>Carregando dados a cerca da chamada...</p>
 {:else if !loading && callFound}
     {#if !enterCall}
-        <div id="name-prompt">
-            <p >Por favor introduza o seu nome para entrar na chamada</p>
-            <Input bind:value={user}/>
-            <Button on:click={doCall} text="Join"/>
-        </div>
     {:else}
         {#if !callStart}
             <h2 style="margin-top:2rem">Esperando alguém se juntar à chamada...</h2>
-        {/if}
-        <div class="callboxes">
-            <CallBox caption={user} bind:video={localVideo}/>
-        </div>
-        {#if callStart}
-            <div class="callboxes">
-                <CallBox caption={remoteUser} bind:video={remoteVideo}/>
-            </div>
         {/if}
     {/if}
 {:else}
