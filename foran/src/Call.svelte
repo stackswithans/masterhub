@@ -1,4 +1,6 @@
 <script lang="typescript">
+    //Side effects
+    //import {polyfill} from "./scripts/polyfill";
     import Input from "./Input.svelte";
     import Button from "./Button.svelte";
     import CallBox from "./CallBox.svelte";
@@ -8,31 +10,32 @@
 
     export let callId: string;
     let user = "";
+    let remoteUser = "";
 
     let loading = true; 
     let callFound = null;
     let enterCall = false;
 
+    let callStart = false;
     let remoteVideo: HTMLVideoElement; 
     let localVideo: HTMLVideoElement; 
 
     let getVideo = async () => {
         let constraints = { audio: false, video: true };
+        let stream = null;
         try{
-            if(!navigator.mediaDevices)
-                throw new Error("mediaDevices not supported in this browser");
-            let stream = await navigator.mediaDevices.getUserMedia(constraints);
+            if(navigator.mediaDevices === undefined) throw new Error("Browser does not support mediaDevices");
+            stream = await navigator.mediaDevices.getUserMedia(constraints);
             if (stream == null){
-                throw new Error("Impossível encontrar uma camera");
+                throw new Error("Impossível encontrar uma câmera");
             }
-            //remoteVideo = document.querySelector("#remote-video") as HTMLMediaElement;
-            //localVideo = document.querySelector("#local-video") as HTMLMediaElement;
             localVideo.srcObject = stream;
             localVideo.play();
-            //Join the video call
             joinCall(callId, stream, (track: MediaStreamTrack, streams: readonly MediaStream[]) => {
-                track.onunmute = () => {
+                track.onunmute = async () => {
                     if(remoteVideo) return;
+                    callStart = true;
+                    await tick();
                     remoteVideo.srcObject = streams[0];
                     remoteVideo.play()
                 }
@@ -66,14 +69,22 @@
 {:else if !loading && callFound}
     {#if !enterCall}
         <div id="name-prompt">
-            <p>Por favor introduza o seu nome para entrar na chamada</p>
+            <p >Por favor introduza o seu nome para entrar na chamada</p>
             <Input bind:value={user}/>
             <Button on:click={doCall} text="Join"/>
         </div>
     {:else}
+        {#if !callStart}
+            <h2 style="margin-top:2rem">Esperando alguém se juntar à chamada...</h2>
+        {/if}
         <div class="callboxes">
             <CallBox caption={user} bind:video={localVideo}/>
         </div>
+        {#if callStart}
+            <div class="callboxes">
+                <CallBox caption={remoteUser} bind:video={remoteVideo}/>
+            </div>
+        {/if}
     {/if}
 {:else}
     <p>A chamada não foi encontrada.</p>
@@ -104,6 +115,7 @@
         width: 100%;
         height: 100%;
         box-sizing: border-box;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         background-color: var(--p-color);

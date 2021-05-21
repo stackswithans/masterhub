@@ -25,6 +25,7 @@
 
     video{
         display: flex;
+        box-sizing: border-box;
         border:1px solid transparent;
         width: 100%;
         height: 100%;
