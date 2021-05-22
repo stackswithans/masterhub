@@ -7,13 +7,13 @@
     export let url: string = ""; 
 </script>
 
-<a bind:this={element} style="color:var({color}); border-color:var({color});--highlight-color:var({color});" href="{url}">{text}</a>
+<a bind:this={element} style="color:var({color}); border-color:var({color});--highlight-color:var({color});" href="{url}" use:link>{text}</a>
 
 <style>
     a{
         text-decoration: None;
         padding: 0.5rem ;
-        font-size: 1.1rem;
+        font-size: 1rem;
         font-family:"Roboto", sans-serif; 
     }
 
