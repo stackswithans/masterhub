@@ -22,10 +22,11 @@
         padding: 0;
         box-sizing: border-box;
         font-family: "Roboto", sans-serif;
+        height: fit-content;
     }
 
     :global(body){
-        min-height: 100vh;
+        height: fit-content;
     }
 
     /*color pallete*/

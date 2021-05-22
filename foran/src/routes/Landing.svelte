@@ -5,7 +5,7 @@
 </script>
 
 
-<div class="container">
+<div class="row">
     <NavBar theme="dark"/>
     <section class="split">
         <div class="brand-text">
@@ -21,14 +21,20 @@
         <img src="/assets/images/landing-img-1.png" alt="">
     </section>
 </div>
+<div class="row">
+
+</div>
 
 
 
 <style>
-    .container{
-        width: 100%;
-        min-height: 100%;
+    :global(body){
         background-color: var(--color-8);
+    }
+
+    .row{
+        width: 100%;
+        min-height: 100vh;
     }
 
     section{
