@@ -1,4 +1,5 @@
 <script lang="typescript">
+        import Landing from "./routes/Landing.svelte";
         import { Router, Route } from "svelte-routing";
 	export let url: string = "";
 </script>
@@ -11,21 +12,33 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
 </svelte:head>
 
-<!-- 
 <Router url="{url}">
-    <Route path="" component="{}" />
+    <Route path="" component="{Landing}"/>
 </Router>
- -->
 
 <style>
-    :global(body){
+    :global(html, body, *){
         margin: 0;
         padding: 0;
         box-sizing: border-box;
     }
 
+    :global(body){
+        min-height: 100vh;
+    }
+
+    /*color pallete*/
     :global(:root){
-        --p-color: #36413E;
-        --s-color: #4a5955;
+        --color-1: #FFC800;
+        --color-2: #FAC800;
+        --color-3: #404040;
+        --color-4: #FAFAFA;
+        --color-5: #FFD333;
+        --color-6: #969696;
+        --color-7: #FFFFFF;
+        --color-8: #F0F0EB;
+        --color-9: #646464;
+        --color-10: #FFD331;
+        --color-11: #E4E4E4;
     }
 </style>
