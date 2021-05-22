@@ -1,13 +1,16 @@
 <script lang="typescript">
     import NavLink from "./NavLink.svelte";
+    export let theme: string;
+
+    let color = (theme === "dark")? "--color-3": "--color-7";
 </script>
 
 
 <header>
     <ul>
-        <NavLink text="Acerca" color="--color-3"/>
-        <NavLink text="Quero Aprender" color="--color-3"/>
-        <NavLink text="Quero Ensinar" color="--color-3"/>
+        <NavLink text="Acerca" {color}/>
+        <NavLink text="Quero Aprender" {color}/>
+        <NavLink text="Quero Ensinar" {color}/>
     </ul>
 </header>
 
@@ -27,6 +30,5 @@
         flex-grow: 1;
         justify-content: flex-end;
         gap: 1rem;
-        font-family:"Roboto", sans-serif; 
     }
 </style>

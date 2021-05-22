@@ -4,7 +4,7 @@
 
 
 <div class="container">
-    <NavBar/>
+    <NavBar theme="dark"/>
 </div>
 
 
