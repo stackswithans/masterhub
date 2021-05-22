@@ -32,15 +32,15 @@
     /*color pallete*/
     :global(:root){
         --color-1: #FFC800;
-        --color-2: #FAC800;
+        --color-2: #FFC800;
         --color-3: #404040;
         --color-4: #FAFAFA;
-        --color-5: #FFD333;
+        --color-5: #FFC800;
         --color-6: #969696;
         --color-7: #FFFFFF;
         --color-8: #F0F0EB;
         --color-9: #646464;
-        --color-10: #FFD331;
+        --color-10: #FFC800;
         --color-11: #E4E4E4;
     }
 </style>

@@ -109,10 +109,46 @@
 
     #why-us-cards{
         display: grid;
-        max-width: 33%;
-        max-height: 35%;
+        max-width: 30%;
+        max-height: 25%;
         grid-template-rows: 50% 50%;
         grid-template-columns: 50% 50%;
         gap: 1rem;
+    }
+
+    @media(max-width: 1366px){
+        .split{
+            margin-top: 1rem;
+        }
+
+        #why-us-cards{
+            max-width: 29%;
+            max-height: 25%;
+        }
+    }
+
+    @media(max-width: 1200px){
+        .split{
+            margin-top: 2rem;
+        }
+
+        :global(html){
+            font-size: 12px;
+        }
+    }
+
+    @media(max-width: 1024px){
+        .split{
+            margin-top: 3rem;
+        }
+
+        :global(html){
+            font-size: 12px;
+        }
+
+        #why-us-cards{
+            max-width: 29%;
+            max-height: 25%;
+        }
     }
 </style>
