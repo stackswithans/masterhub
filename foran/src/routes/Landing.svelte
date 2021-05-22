@@ -2,12 +2,13 @@
     import ButtonLink from "../components/ButtonLink.svelte";
     import Brand from "../components/Brand.svelte";
     import NavBar from "../components/NavBar.svelte";
+    import LandingCard from "../components/LandingCard.svelte";
 </script>
 
 
-<div class="row">
+<section class="row">
     <NavBar theme="dark"/>
-    <section class="split">
+    <div class="split">
         <div class="brand-text">
             <Brand theme="light" size="3rem"/>
             <p>Aprender nunca foi tão fácil, assasadaddajdkadjakdjajdakjdakj
@@ -18,12 +19,25 @@
                 <ButtonLink url="#" width="8.25rem" height="2.25rem" text="Saiba mais" color="--color-7"/>
             </div>
         </div>
-        <img src="/assets/images/landing-img-1.png" alt="">
-    </section>
-</div>
-<div class="row">
+        <img src="/assets/images/landing-img-1.png" alt="A student taking online classes">
+    </div>
+</section>
+<section class="row">
+    <header id="section-2-header">
+        <h1> <span style="color:var(--color-5);">Porquê</span> escolher o MasterHub?</h1>
+        <p>Só aqui é que receberá educação de classe mundial,  O MasterHub oferece a oportunidade de interagir com experts em diversas áreas do conhecimento.</p> 
 
-</div>
+    </header>
+    <div id="section-2-content">
+        <img src="/assets/images/landing-img-2.png" alt="Person explaining statistics">
+        <div id="why-us-cards">
+            <LandingCard bColor="--color-2" icon="/assets/icons/landing-class.png" title="Professores" text="Melhores mestres do mundo"/>
+            <LandingCard bColor="--color-6" icon="/assets/icons/landing-idea.png" title="Estratégia" text="Melhores mestres do mundo"/>
+            <LandingCard bColor="--color-6" icon="/assets/icons/landing-cog.png" title="Fácil" text="Melhores mestres do mundo"/>
+            <LandingCard bgColor="--color-7" icon="/assets/icons/landing-video-call.png" title="Online" text="Melhores mestres do mundo"/>
+        </div>
+    </div>
+</section>
 
 
 
@@ -34,13 +48,7 @@
 
     .row{
         width: 100%;
-        min-height: 100vh;
-    }
-
-    section{
-        height:100%;
-        font-size: 1rem;
-        margin-top: 2rem;
+        height: 100vh;
     }
 
     .brand-text{
@@ -50,14 +58,12 @@
     }
 
     .brand-text p{
-        margin-top: 1rem;
         overflow-wrap: break-word;
     }
 
     .brand-text .link-button{
         margin-top: 3rem;
     }
-
 
     .split{
         display: flex;
@@ -66,8 +72,47 @@
         gap: 1rem;
     }
 
-    img{
+    .row:first-child  img{
+        max-width: 40%;
+        max-height: 40%;
+    }
+
+    .row:nth-child(2) {
+        padding-top: 2rem;
+    }
+
+    #section-2-header{
+        text-align: center;
+        margin-bottom: 2.4rem;
+    }
+
+    #section-2-header h1{
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    #section-2-header p{
+        max-width: 75%;
+        margin: auto;
+        overflow-wrap: break-word;
+    }
+
+    #section-2-content{
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    #section-2-content img{
         max-width: 35%;
         max-height: 35%;
+    }
+
+    #why-us-cards{
+        display: grid;
+        max-width: 33%;
+        max-height: 35%;
+        grid-template-rows: 50% 50%;
+        grid-template-columns: 50% 50%;
+        gap: 1rem;
     }
 </style>
