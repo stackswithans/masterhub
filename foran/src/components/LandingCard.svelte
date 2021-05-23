@@ -11,6 +11,7 @@
     `
 </script>
 
+
 <div style="{inlineStyles}">
     <img src="{icon}" alt="">
     <h1>{title}</h1>
