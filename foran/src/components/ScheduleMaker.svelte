@@ -1,11 +1,14 @@
 <script lang="typescript">
     import { onMount } from "svelte";
 
+    let startHour = 6;
+    let hours = 12; 
+
     //A matrix of boolean that maps to the schedule table
     //True indicates that a time slot has been selected
     //Each time slot is an hour long
-    let schedule: Array<Array<boolean>> = new Array(24); //Time slots
-    for(let i = 0; i < 24; i++)
+    let schedule: Array<Array<boolean>> = new Array(hours); //Time slots
+    for(let i = 0; i < hours; i++)
         schedule[i] = [false, false, false, false, false, false, false];//Weekdays
 
     const selectTimeSlot = (event) => {
@@ -41,11 +44,16 @@
     <th>Sab</th>
     {#each schedule as row, i}
         <tr class="row">
-            <td>{i}:00</td>
+            <td>{i + startHour}:00</td>
             {#each row as _}
                 <td on:click={selectTimeSlot}></td>
             {/each}
         </tr>
+        {#if i == hours - 1}
+            <tr>
+                <td>{hours + startHour}:00</td>
+            </tr>
+        {/if}
     {/each}
 </table>
 
@@ -63,7 +71,7 @@
         text-align: end;
         vertical-align: text-top;
         width: 2rem; 
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 
 
@@ -75,7 +83,9 @@
     }
 
     td:not(:first-child):hover{
+        transition: background-color 1s;
         background-color: var(--color-2);
+        cursor: pointer;
     }
 
     .row:first-of-type td:nth-child(2){
@@ -86,11 +96,11 @@
         border-top-right-radius: 0.5rem;
     }
 
-    .row:last-of-type td:nth-child(2){
+    .row:nth-last-child(2) td:nth-child(2){
         border-bottom-left-radius: 0.5rem;
     }
 
-    .row:last-of-type td:last-child{
+    .row:nth-last-child(2) td:last-child{
         border-bottom-right-radius: 0.5rem;
     }
 
