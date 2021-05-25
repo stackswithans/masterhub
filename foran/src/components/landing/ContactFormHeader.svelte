@@ -1,7 +1,7 @@
 <header>
     <div class="header">
         <span></span>
-        <h1>Entra em <span>contacto</span></h1>
+        <h1>Entre em <span>contacto</span></h1>
     </div>
     <h1>Não hesite em nos contactar</h1>
 </header>

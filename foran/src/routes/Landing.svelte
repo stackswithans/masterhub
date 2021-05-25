@@ -2,9 +2,9 @@
     import ButtonLink from "../components/ButtonLink.svelte";
     import Brand from "../components/Brand.svelte";
     import NavBar from "../components/NavBar.svelte";
-    import LandingCard from "../components/LandingCard.svelte";
-    import LandingInput from "../components/LandingInput.svelte";
-    import ContactFormHeader from "../components/ContactFormHeader.svelte";
+    import LandingInput from "../components/landing/LandingInput.svelte";
+    import ContactFormHeader from "../components/landing/ContactFormHeader.svelte";
+    import CardGrid from "../components/landing/CardGrid.svelte";
 </script>
 
 
@@ -33,12 +33,7 @@
     </header>
     <div id="section-2-content">
         <img src="/assets/images/landing-img-2.png" alt="Person explaining statistics">
-        <div id="why-us-cards">
-            <LandingCard bColor="--color-2" icon="/assets/icons/landing-class.png" title="Professores" text="Melhores mestres do mundo"/>
-            <LandingCard bColor="--color-6" icon="/assets/icons/landing-idea.png" title="Estratégia" text="Melhores mestres do mundo"/>
-            <LandingCard bColor="--color-6" icon="/assets/icons/landing-cog.png" title="Fácil" text="Melhores mestres do mundo"/>
-            <LandingCard bgColor="--color-7" icon="/assets/icons/landing-video-call.png" title="Online" text="Melhores mestres do mundo"/>
-        </div>
+        <CardGrid/>
     </div>
 </section>
 
@@ -119,15 +114,6 @@
         max-height: 35%;
     }
 
-    #why-us-cards{
-        display: grid;
-        max-width: 30%;
-        max-height: 25%;
-        grid-template-rows: 50% 50%;
-        grid-template-columns: 50% 50%;
-        gap: 1rem;
-    }
-
     .row:nth-child(3){
         padding-top: 2rem;
         display: flex;
@@ -143,11 +129,6 @@
     @media(max-width: 1366px){
         .split{
             margin-top: 1rem;
-        }
-
-        #why-us-cards{
-            max-width: 29%;
-            max-height: 25%;
         }
     }
 
@@ -168,11 +149,6 @@
 
         :global(html){
             font-size: 12px;
-        }
-
-        #why-us-cards{
-            max-width: 29%;
-            max-height: 25%;
         }
     }
 </style>
