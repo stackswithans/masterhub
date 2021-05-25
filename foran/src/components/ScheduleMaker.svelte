@@ -66,6 +66,11 @@
         border-radius: 2rem;
     }
 
+    th {
+        font-family: "Roboto Condensed";
+        font-weight: normal;
+    }
+
     td:first-child{
         padding-right: 1%;
         text-align: end;
