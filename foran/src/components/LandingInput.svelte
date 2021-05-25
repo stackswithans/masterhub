@@ -29,6 +29,7 @@
         border-bottom: 1px solid var(--color-6);
         font-family:"Roboto";
         color: var(--color-3);
+        width: 100%;
     }
 
     input:focus, textarea:focus{

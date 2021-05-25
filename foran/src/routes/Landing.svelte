@@ -4,6 +4,7 @@
     import NavBar from "../components/NavBar.svelte";
     import LandingCard from "../components/LandingCard.svelte";
     import LandingInput from "../components/LandingInput.svelte";
+    import ContactFormHeader from "../components/ContactFormHeader.svelte";
 </script>
 
 
@@ -42,20 +43,14 @@
 </section>
 
 <section class="row">
-    <header id="section-3-header">
-        <span></span>
-        <h1>Entra em <span>contacto</span></h1>
-    </header>
-    <div id="section-3-body">
-        <div id="message-form">
-            <h1>Não hesite em nos contactar</h1>
-            <LandingInput label="Nome completo"/>
-            <LandingInput label="Email"/>
-            <LandingInput label="Assunto"/>
-            <LandingInput large={true} label="Escreva a sua mensagem aqui"/>
-        </div>
-        <img src="/assets/images/landing-contact.png" alt="Woman talking on the phone">
+    <div>
+        <ContactFormHeader/>
+        <LandingInput label="Nome completo"/>
+        <LandingInput label="Email"/>
+        <LandingInput label="Assunto"/>
+        <LandingInput large={true} label="Escreva a sua mensagem aqui"/>
     </div>
+    <img src="/assets/images/landing-contact.png" alt="Woman talking on the phone">
 </section>
 
 <style>
@@ -65,7 +60,6 @@
 
     .row{
         width: 100%;
-        height: 100%;
     }
 
     .brand-text{
@@ -95,7 +89,7 @@
     }
 
     .row:nth-child(2) {
-        padding-top: 5rem;
+        padding-top: 3rem;
     }
 
     #section-2-header{
@@ -134,46 +128,13 @@
     }
 
     .row:nth-child(3){
-        padding: 2rem 0 0 2rem;
-    }
-
-    #section-3-header{
-        display: flex;
-        align-items: center;
-        gap: 2rem;
-    }
-
-    #section-3-header h1{
-        color: var(--color-6);
-    }
-
-    #section-3-header h1 span{
-        color: var(--color-1);
-    }
-
-    #section-3-header > span{
-        display: block;
-        height: 0.125rem;
-        width: 6rem; 
-        background-color: var(--color-2);
-    }
-
-    #section-3-body{
-        display: flex;
-        justify-content: flex-start;
-        align-items: flex-start;
         padding-top: 2rem;
-        gap:4rem;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: flex-start;
     }
 
-    #message-form h1{
-        font-size: 2rem;
-        font-family: "Lato";
-        font-weight: bold;
-        margin-bottom: 2rem;
-    }
-
-    #section-3-body img{
+    .row:nth-child(3) img{
         max-width: 45%;
         max-height: 45%;
     }
