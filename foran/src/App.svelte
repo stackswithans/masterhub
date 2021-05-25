@@ -1,5 +1,6 @@
 <script lang="typescript">
         import Landing from "./routes/Landing.svelte";
+        import SignUp from "./routes/SignUp.svelte";
         import { Router, Route } from "svelte-routing";
 	export let url: string = "";
 </script>
@@ -14,6 +15,7 @@
 
 <Router url="{url}">
     <Route path="" component="{Landing}"/>
+    <Route path="/register" component="{SignUp}"/>
 </Router>
 
 <style>
