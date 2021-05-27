@@ -1,8 +1,8 @@
 <script lang="typescript">
     import NavBar from "../components/NavBar.svelte";
-    import RegisterHeader  from "../components/RegisterHeader.svelte";
+    import RegisterForm  from "../components/RegisterForm.svelte";
 
-    let step = 3;
+    let step = 1;
 </script>
 
 <div class="container">
@@ -13,9 +13,7 @@
                 <p>Seja bem-vindo, caro estudante!</p>
                 <img src="/assets/images/register-img-1.png" alt="">
             </aside>
-            <aside class="form">
-                <RegisterHeader step={step} description="Informações Pessoais"/>
-            </aside>
+            <RegisterForm/>
         </div>
     </main>
 </div>
@@ -67,12 +65,6 @@
         margin-top: 3em;
         max-width: 90%;
         max-height: 90%;
-    }
-
-    .form-layout .form{
-        flex-grow: 1;
-        height: 100%;
-        background-color: var(--color-4);
     }
 
     @media(max-width: 1300px){

@@ -1,29 +1,23 @@
-<script>
-    export let description = "";
+<script lang="typescript">
+    export let label = "";
 </script>
 
 <div>
-    <label class="description">{description}</label>
+    <label class="description">{label}</label>
     <input type="text" class="input-after">
 </div>
 
 <style>
-    div{
-        padding: 1rem;
-        width: 17rem;
-    }
-
     .description{
         position: relative;
-        width: 100%;
         font-family: "Roboto";
         font-weight: bold;
-        font-size: 1.2rem;
+        font-size: 1rem;
         color: var(--color-3);
     }
 
     .input-after{
-        width: 15rem;
+        width: 100%;
         margin-top: 1rem;
         border-radius: 5px;
     }
