@@ -1,17 +1,10 @@
-<script>
-    export let description = "";
+<script lang="typescript">
+    export let description: string = "";
 </script>
 
-<div>
-    <input type="text" placeholder={description} class="input-after">
-</div>
+<input type="text" placeholder={description} class="input-after">
 
 <style>
-    div{
-        padding: 1rem;
-        width: 20rem;
-    }
-
     .input-after{
         width: 18rem;
         border-radius: 5px;

@@ -3,7 +3,7 @@
 </script>
 
 <div>
-    <LoginInput description={""}/>
+    <LoginInput description="Hello"/>
 </div>
 
 
