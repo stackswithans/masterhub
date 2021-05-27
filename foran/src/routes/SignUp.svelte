@@ -1,10 +1,9 @@
 <script lang="typescript">
-    import ScheduleMaker from "../components/ScheduleMaker.svelte";
+    import LoginInput from "../components/LoginInput.svelte";
 </script>
 
 <div>
-    <ScheduleMaker/>
-
+    <LoginInput description={""}/>
 </div>
 
 
