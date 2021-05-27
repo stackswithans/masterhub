@@ -1,16 +1,22 @@
-<script>
-    export let description = "";
+<script lang="typescript">
+    import { onMount } from "svelte";
+    export let description: string = "";
+    export let step: number = 1;
+    let loader; 
+    onMount(() => {
+        loader.style.width = `${(105/3) * step}%`;
+    });
 </script>
 
 <div class="main">
     <label class="description">{description}</label>
-    <div class="loader"></div>
+    <div bind:this={loader} class="loader"></div>
 </div>
 
 <style>
     .main{
         padding: 1rem;
-        width: 30rem;
+        width: fit-content;
     }
 
     .description{
@@ -18,16 +24,14 @@
         width: 100%;
         font-family: "Roboto";
         font-weight: bold;
-        font-size: 1.8rem;
+        font-size: 1.4em;
         color: var(--color-3);
     }
 
     .loader{
-        width: 6rem;
-        height: 0.7rem;
+        height: 0.5rem;
         border-radius: 5px;
         background-color: var(--color-1);
         margin-top: 0.5rem;
     }
-
 </style>

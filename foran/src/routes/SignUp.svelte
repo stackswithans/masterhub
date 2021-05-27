@@ -1,13 +1,21 @@
 <script lang="typescript">
     import NavBar from "../components/NavBar.svelte";
+    import RegisterHeader  from "../components/RegisterHeader.svelte";
+
+    let step = 3;
 </script>
 
 <div class="container">
     <NavBar theme="light"/>
     <main class="content">
         <div class="form-layout">
-            <aside class="image"></aside>
-            <aside class="form"></aside>
+            <aside class="image">
+                <p>Seja bem-vindo, caro estudante!</p>
+                <img src="/assets/images/register-img-1.png" alt="">
+            </aside>
+            <aside class="form">
+                <RegisterHeader step={step} description="Informações Pessoais"/>
+            </aside>
         </div>
     </main>
 </div>
@@ -33,19 +41,49 @@
 
     .form-layout{
         display: flex;
-        width: 78%;
-        height: 68%;
+        font-size: 16px;
+        width: 55.5em; /*width-height ratio: 0.49*/
+        height: 27.195em;
     }
 
     .form-layout .image{
-        width: 40%;
+        display: flex;
+        padding-top: 1rem;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        width: 36%;
         height: 100%;
         background-color: var(--color-3);
+    }
+
+    .form-layout .image p{
+        color: white;
+        font-family: "Roboto Condensed";
+        font-size: 1.4em; 
+    }
+
+    .form-layout .image img{
+        margin-top: 3em;
+        max-width: 90%;
+        max-height: 90%;
     }
 
     .form-layout .form{
         flex-grow: 1;
         height: 100%;
         background-color: var(--color-4);
+    }
+
+    @media(max-width: 1300px){
+        .form-layout{
+            font-size: 13px;
+        }
+    }
+
+    @media(max-width: 1188px){
+        .form-layout{
+            font-size: 11px;
+        }
     }
 </style>
