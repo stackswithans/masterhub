@@ -72,6 +72,8 @@
     }
 
     td:first-child{
+        position: relative;
+        top: -0.3125rem;
         padding-right: 1%;
         text-align: end;
         vertical-align: text-top;
