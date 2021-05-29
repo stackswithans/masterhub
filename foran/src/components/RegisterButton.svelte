@@ -28,6 +28,7 @@
         border: 0;
         width: 19.5em; /*height-width ratio: 0.111;*/
         height: 1.80rem;
+        box-shadow: 0px 0px 1rem -10px black;
         border-radius: 25px;
     }
 
