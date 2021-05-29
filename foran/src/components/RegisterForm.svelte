@@ -1,13 +1,13 @@
 <script lang="typescript">
     import RegisterHeader  from "../components/RegisterHeader.svelte";
     import RegisterInput from "../components/RegisterInput.svelte";
-    import RegisterRadio from "../components/RegisterRadio.svelte";
     import RegisterButton from "../components/RegisterButton.svelte";
     import RadioGroup from "../components/RadioGroup.svelte";
+    export let type: String = "student";
  
     let step = 1;
     let steps = 2;
-    let options: Array<[string, string, boolean?]> = [["Masculino", "0"], ["Feminino", "1"], ["Prefiro não divulgar", "2", true] ]
+    let options: Array<[string, string, boolean?]> = [["Masculino", "0"], ["Feminino", "1"], ["Prefiro não divulgar", "2", true]]
     let sex: string = "1";
 
     const nextSection = () => {
@@ -17,37 +17,74 @@
 </script>
 
 <aside class="form-container">
-    {#if step == 1}
+    {#if type === "student"}
         <form>
-            <RegisterHeader {steps} {step} description="Informações Pessoais"/>
-            <div class="grid">
-                <RegisterInput label="Nome"/>
-                <RegisterInput label="Sobrenome"/>
-                <RegisterInput label="E-mail"/>
-                <RegisterInput label="Telefone"/>
-            </div>
-            <div class="section-2">
-                <h1>Gênero</h1>
-                <div class="buttons">
-                    <RadioGroup group={sex}  {options}/>
+        {#if step == 1}
+                <RegisterHeader {steps} {step} description="Informações Pessoais"/>
+                <div class="grid">
+                    <RegisterInput label="Nome"/>
+                    <RegisterInput label="Sobrenome"/>
+                    <RegisterInput label="E-mail"/>
+                    <RegisterInput label="Telefone"/>
                 </div>
-            </div>
-            <div class="footer">
-                <RegisterButton on:click={nextSection} text="Próximo passo"/>
-            </div>
+                <div class="section-2">
+                    <h1>Gênero</h1>
+                    <div class="buttons">
+                        <RadioGroup group={sex}  {options}/>
+                    </div>
+                </div>
+                <div class="footer">
+                    <RegisterButton on:click={nextSection} text="Próximo passo"/>
+                </div>
+        {:else if step == 2}
+                <RegisterHeader {steps} {step} description="Detalhes de Acesso"/>
+                <div class="grid">
+                    <RegisterInput type="password" label="Palavra-passe"/>
+                    <RegisterInput type="password" label="Confirm palavra-passe"/>
+                    <RegisterInput label="Pergunta de segurança"/>
+                    <RegisterInput label="Resposta"/>
+                </div>
+                <div class="footer">
+                    <RegisterButton arrow={false} text="Finalizar"/>
+                </div>
+        {/if}
         </form>
-    {:else if step == 2}
+    {:else}
         <form>
-            <RegisterHeader {steps} {step} description="Detalhes de Acesso"/>
-            <div class="grid">
-                <RegisterInput type="password" label="Palavra-passe"/>
-                <RegisterInput type="password" label="Confirm palavra-passe"/>
-                <RegisterInput label="Pergunta de segurança"/>
-                <RegisterInput label="Resposta"/>
+        {#if step == 1}
+            <RegisterHeader steps={3} {step} description="Informações Pessoais"/>
+                <div class="grid">
+                    <RegisterInput label="Nome"/>
+                    <RegisterInput label="Sobrenome"/>
+                    <RegisterInput label="Grau académico"/>
+                    <RegisterInput label="Profissão"/>
+                </div>
+                <div class="section-2">
+                    <h1>Gênero</h1>
+                    <div class="buttons">
+                        <RadioGroup group={sex}  {options}/>
+                    </div>
+                </div>
+                <div class="footer">
+                    <RegisterButton on:click={nextSection} text="Próximo passo"/>
+                </div>
+        {:else if step == 2}
+            <RegisterHeader {steps} {step} description="Informações Pessoais"/>
+            <div>
+
             </div>
-            <div class="footer">
-                <RegisterButton arrow={false} text="Finalizar"/>
-            </div>
+        {:else if step == 3}
+                <RegisterHeader {steps} {step} description="Detalhes de Acesso"/>
+                <div class="grid">
+                    <RegisterInput type="password" label="Palavra-passe"/>
+                    <RegisterInput type="password" label="Confirm palavra-passe"/>
+                    <RegisterInput label="Pergunta de segurança"/>
+                    <RegisterInput label="Resposta"/>
+                </div>
+                <div class="footer">
+                    <RegisterButton arrow={false} text="Finalizar"/>
+                </div>
+        {/if}
         </form>
     {/if}
 </aside>
