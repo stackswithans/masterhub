@@ -1,23 +1,31 @@
 <script lang="typescript">
-    import {onMount} from "svelte";
+    import { onMount, tick } from "svelte";
 
     export let label: string;
-    export let name: string;
     export let checked: boolean = false;
-    let button: HTMLInputElement;
+    export let group: string;
+    export let value: string;
+    export let id: string
+    
 
-    onMount(() => {
-        if(checked) button.checked = true;
-    });
+    let button: HTMLInputElement;
+    let border: HTMLDivElement;
+    let toggle: HTMLDivElement;
+
+
+    const toggleRadio = () => {
+        button.checked = !button.checked;
+        group = value;
+    }
 
 </script>
 
 <div class="container">
-    <div class="outer">
-      <div class="inner"></div>
+    <input {id} bind:group={group}  bind:this={button} {value} type="radio" class="button"/>
+    <div on:click={toggleRadio} bind:this={border} class="outer">
+        <div bind:this={toggle} class="inner"></div>
     </div>
-    <input id="input" bind:this={button} name={name} type="radio" class="button" hidden/>
-    <label for="" class="lab">{label}</label>
+    <label for="{id}" class="lab">{label}</label>
 </div>
 
 <style>
@@ -26,6 +34,21 @@
         align-items: center;
         gap: 0.5rem;
         width: fit-content;  
+    }
+
+    .container:hover{
+        cursor: pointer;
+    }
+
+    input{
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        white-space: nowrap;
+        border-width: 0;
     }
 
     .outer{
@@ -54,13 +77,18 @@
         background-color: var(--color-2);
     }
 
+    input:checked ~ .outer{
+        border-color: var(--color-2);
+    }
+
+    input:checked ~ .outer .inner{
+        background-color: var(--color-2);
+    }
+
     .lab{
         color: var(--color-3);
         font-family: "Roboto";
         font-size: 0.9rem;
     }
 
-    input{
-        display: none;
-    }
 </style>

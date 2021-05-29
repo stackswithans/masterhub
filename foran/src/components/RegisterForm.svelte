@@ -2,8 +2,11 @@
     import RegisterHeader  from "../components/RegisterHeader.svelte";
     import RegisterInput from "../components/RegisterInput.svelte";
     import RegisterRadio from "../components/RegisterRadio.svelte";
+    import RadioGroup from "../components/RadioGroup.svelte";
  
     let step = 1;
+    let options: Array<[string, string]> = [["Masculino", "0"], ["Feminino", "1"], ["Prefiro não divulgar", "2"] ]
+    let sex: string = "1";
 </script>
 
 <aside class="form-container">
@@ -18,9 +21,7 @@
         <div class="section-2">
             <h1>Gênero</h1>
             <div class="buttons">
-                <RegisterRadio name="sex" label="Masculino"/>
-                <RegisterRadio name="sex" label="Femenino"/>
-                <RegisterRadio checked={true} name="sex" label="Prefiro não divulgar"/>
+                <RadioGroup group={sex}  {options}/>
             </div>
         </div>
     </form>
