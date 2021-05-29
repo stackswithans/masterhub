@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <script src="https://kit.fontawesome.com/4b291d6efe.js" crossorigin="anonymous"></script>
 </svelte:head>
 
 <Router url="{url}">

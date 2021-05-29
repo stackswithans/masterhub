@@ -10,7 +10,7 @@
 </script>
 
 {#each options as [label, value, checked], i}
-    <RegisterRadio {label} bind:group={group} id={`input-${i}`} is_checked={checked} {value}/>
+    <RegisterRadio {label} bind:group={group} id={`input-${i}`} checked={checked} {value}/>
 {/each}
 
 <style>

@@ -2,20 +2,23 @@
     import { onMount } from "svelte";
     export let description: string = "";
     export let step: number = 1;
-    let loader; 
+    export let steps: number = 3;
+
+    let loader: HTMLDivElement; 
+
     onMount(() => {
-        loader.style.width = `${(105/3) * step}%`;
+        loader.style.width = `${(105/steps) * step}%`;
     });
 </script>
 
 <div class="main">
-    <label class="description">{description}</label>
+    <h1 class="description">{description}</h1>
     <div bind:this={loader} class="loader"></div>
 </div>
 
 <style>
     .main{
-        padding: 1rem;
+        padding-bottom: 1rem;
         width: fit-content;
     }
 
