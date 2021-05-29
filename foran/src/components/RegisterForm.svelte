@@ -5,7 +5,7 @@
     import RadioGroup from "../components/RadioGroup.svelte";
  
     let step = 1;
-    let options: Array<[string, string]> = [["Masculino", "0"], ["Feminino", "1"], ["Prefiro não divulgar", "2"] ]
+    let options: Array<[string, string, boolean?]> = [["Masculino", "0"], ["Feminino", "1"], ["Prefiro não divulgar", "2", true] ]
     let sex: string = "1";
 </script>
 

@@ -1,6 +1,4 @@
 <script lang="typescript">
-    import { onMount, tick } from "svelte";
-
     export let label: string;
     export let checked: boolean = false;
     export let group: string;
@@ -12,16 +10,19 @@
     let border: HTMLDivElement;
     let toggle: HTMLDivElement;
 
-
     const toggleRadio = () => {
-        button.checked = !button.checked;
+        button.checked = true;
         group = value;
     }
 
 </script>
 
 <div class="container">
-    <input {id} bind:group={group}  bind:this={button} {value} type="radio" class="button"/>
+    {#if checked}
+        <input {id} bind:group={group}  bind:this={button} {value} type="radio" class="button" checked/>
+    {:else}
+        <input {id} bind:group={group}  bind:this={button} {value} type="radio" class="button"/>
+    {/if}
     <div on:click={toggleRadio} bind:this={border} class="outer">
         <div bind:this={toggle} class="inner"></div>
     </div>
