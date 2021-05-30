@@ -21,5 +21,7 @@
         padding: calc(0.5rem - 3px);
         border-bottom: 3px solid var(--highlight-color);
         border-radius: 2px;
+        transition: all 0.3s linear;
     }
+
 </style>

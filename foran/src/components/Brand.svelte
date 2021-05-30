@@ -2,9 +2,8 @@
 <script lang="typescript">
     export let theme: string;
     export let size: string;
-    export let asLink: boolean;
 
-    let hColor = (theme === "light")? "--color-2" : "--color-7"; 
+    let hColor = (theme === "dark")? "--color-2" : "--color-7"; 
 </script>
 
 

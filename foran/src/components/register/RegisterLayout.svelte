@@ -3,7 +3,7 @@
 </script>
 
 <div class="container">
-    <NavBar theme="light"/>
+    <NavBar brand={true} theme="light"/>
     <main class="content">
         <div class="form-layout">
             <slot></slot>
