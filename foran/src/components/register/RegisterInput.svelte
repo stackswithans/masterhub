@@ -26,5 +26,4 @@
     .input-after:focus{
         outline: none;
     }
-
 </style>

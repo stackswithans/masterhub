@@ -1,6 +1,6 @@
 
 <script lang="typescript">
-    import RegisterRadio from "../components/RegisterRadio.svelte";
+    import RegisterRadio from "./RegisterRadio.svelte";
     export let options: Array<[string, string, boolean?]>;
     export let group: string;
 

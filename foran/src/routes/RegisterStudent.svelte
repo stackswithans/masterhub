@@ -1,7 +1,7 @@
 <script lang="typescript">
-    import RegisterAside  from "../components/RegisterAside.svelte";
-    import RegisterForm  from "../components/RegisterForm.svelte";
-    import RegisterLayout  from "../components/RegisterLayout.svelte";
+    import RegisterAside  from "../components/register/RegisterAside.svelte";
+    import RegisterForm  from "../components/register/RegisterForm.svelte";
+    import RegisterLayout  from "../components/register/RegisterLayout.svelte";
 </script>
 
 

@@ -1,5 +1,5 @@
 <script lang="typescript">
-    import NavBar from "../components/NavBar.svelte";
+    import NavBar from "../NavBar.svelte";
 </script>
 
 <div class="container">
