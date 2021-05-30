@@ -39,8 +39,8 @@
 
     input{
         position: absolute;
-        width: 1px;
-        height: 1px;
+        width: 0px;
+        height: 0px;
     }
 
     input:checked ~ .box{
@@ -59,5 +59,4 @@
         font-family: "Roboto";
         font-size: 0.9rem;
     }
-
 </style>

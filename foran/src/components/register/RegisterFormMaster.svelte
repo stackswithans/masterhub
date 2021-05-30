@@ -21,7 +21,7 @@
         { id: 4, description: "Desporto" }, 
         { id: 5, description: "Saúde" }, 
     ];
-    let areas: string[] = ["IOT"];
+    let areas: string[] = [];
 
     const nextSection = () => {
         //Validate fields here
