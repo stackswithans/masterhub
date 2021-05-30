@@ -12,7 +12,7 @@
     <NavBar theme="dark"/>
     <div class="split">
         <div class="brand-text">
-            <Brand theme="light" size="3rem"/>
+            <Brand theme="dark" size="3rem"/>
             <p>Aprender nunca foi tão fácil, assasadaddajdkadjakdjajdakjdakj
                 Com mestres cheios de vontade e skde conhecimento, 
                 Torna-te numa máquina ideal.
