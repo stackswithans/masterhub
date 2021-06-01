@@ -1,9 +1,6 @@
 <script lang="typescript">
-        import Landing from "./routes/Landing.svelte";
-        import RegisterStudent from "./routes/RegisterStudent.svelte";
-        import RegisterMaster from "./routes/RegisterMaster.svelte";
-        import { Router, Route } from "svelte-routing";
-	export let url: string = "";
+        import Router from "svelte-spa-router";
+        import routes from "./routes.js";
 </script>
 
 <!-- Add fonts -->
@@ -15,15 +12,7 @@
     <script src="https://kit.fontawesome.com/4b291d6efe.js" crossorigin="anonymous"></script>
 </svelte:head>
 
-<Router url="{url}">
-    <Route path="/" component="{Landing}"/>
-    <Route path="register/student">
-        <RegisterStudent/>
-    </Route>
-    <Route path="register/master">
-        <RegisterMaster/>
-    </Route>
-</Router>
+<Router {routes} />
 
 <style>
     :global(html, body, *){

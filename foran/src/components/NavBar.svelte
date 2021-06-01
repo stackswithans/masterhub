@@ -5,7 +5,6 @@
 
     export let theme: string;
     export let brand: boolean;
-
     let color = (theme === "dark")? "--color-3": "--color-7";
 </script>
 
@@ -16,10 +15,11 @@
     {:else}
         <div></div>
     {/if}
+
     <ul>
         <NavLink url="#" text="Acerca" {color}/>
-        <NavLink url="#" text="Quero Aprender" {color}/>
-        <NavLink url="#" text="Quero Ensinar" {color}/>
+        <NavLink url="register/student" text="Quero Aprender" {color}/>
+        <NavLink url="register/master" text="Quero Ensinar" {color}/>
         <ButtonLink url="#" text="Login" width="7.25rem" height="2.0625rem" color="--color-3"/>
     </ul>
 </nav>

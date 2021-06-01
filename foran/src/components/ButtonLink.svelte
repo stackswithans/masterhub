@@ -1,6 +1,4 @@
 <script lang="typescript">
-    import { link } from "svelte-routing";
-
     export let url: string;
     export let text: string;
     export let color: string;
@@ -14,11 +12,10 @@
 </script>
     
 
-<a href="{url}" use:link style="{styles}">{text}</a>
+<a href="#/{url}" style="{styles}">{text}</a>
 
 
-<style>
-    a {
+<style> a {
         display: flex;
         justify-content: center;
         align-items: center;

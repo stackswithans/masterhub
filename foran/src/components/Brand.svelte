@@ -1,6 +1,6 @@
 
 <script lang="typescript">
-    import { navigate } from "svelte-routing";
+    import { push } from "svelte-spa-router";
     export let theme: string;
     export let size: string;
 
@@ -8,7 +8,7 @@
 </script>
 
 
-<h1 on:click="{() =>{ navigate('/');}}" style="font-size:{size}"><span style="color:var({hColor});">Master</span>Hub</h1>
+<h1 on:click="{() =>{ push('/');}}" style="font-size:{size}"><span style="color:var({hColor});">Master</span>Hub</h1>
 
 
 <style>
