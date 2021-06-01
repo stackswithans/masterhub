@@ -20,7 +20,7 @@
         <NavLink url="#" text="Acerca" {color}/>
         <NavLink url="register/student" text="Quero Aprender" {color}/>
         <NavLink url="register/master" text="Quero Ensinar" {color}/>
-        <ButtonLink url="#" text="Login" width="7.25rem" height="2.0625rem" color="--color-3"/>
+        <ButtonLink url="/login" text="Login" width="7.25rem" height="2.0625rem" color="--color-3"/>
     </ul>
 </nav>
 

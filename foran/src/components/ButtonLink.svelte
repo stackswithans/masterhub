@@ -12,7 +12,7 @@
 </script>
     
 
-<a href="#/{url}" style="{styles}">{text}</a>
+<a href="#{url}" style="{styles}">{text}</a>
 
 
 <style> a {
