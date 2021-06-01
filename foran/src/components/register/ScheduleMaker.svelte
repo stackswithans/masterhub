@@ -59,7 +59,7 @@
 
 <style>
     table, tr{
-        width: 60%;
+        width: 100%;
     }
     
     table{

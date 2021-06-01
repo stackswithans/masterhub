@@ -2,32 +2,40 @@
     import NavLink from "./NavLink.svelte";
     import ButtonLink from "./ButtonLink.svelte";
     import Brand from "./Brand.svelte"
-    export let theme: string;
 
+    export let theme: string;
+    export let brand: boolean;
     let color = (theme === "dark")? "--color-3": "--color-7";
 </script>
 
 
-<header>
+<nav>
+    {#if brand}
+        <Brand size="2rem" {theme}/>
+    {:else}
+        <div></div>
+    {/if}
+
     <ul>
         <NavLink url="#" text="Acerca" {color}/>
-        <NavLink url="#" text="Quero Aprender" {color}/>
-        <NavLink url="#" text="Quero Ensinar" {color}/>
-        <ButtonLink url="#" text="Login" width="7.25rem" height="2.0625rem" color="--color-3"/>
+        <NavLink url="register/student" text="Quero Aprender" {color}/>
+        <NavLink url="register/master" text="Quero Ensinar" {color}/>
+        <ButtonLink url="/login" text="Login" width="7.25rem" height="2.0625rem" color="--color-3"/>
     </ul>
-</header>
+</nav>
 
 
 <style>
-    header{
+    nav{
         display: flex;
-        align-items: flex-end;
+        justify-content: space-between;
+        align-items: center;
         width: 100%;
         min-height: 5.0625rem;
-        padding: 0 3rem 0 0;
+        padding: 0 3rem 0 3rem;
     }
 
-    header ul{
+    nav ul{
         display: flex;
         flex-grow: 1;
         justify-content: flex-end;
