@@ -73,7 +73,7 @@
         align-items: center;
         justify-content: center;
         gap: 0.8rem;
-        margin: 3em 0 2em 0;
+        margin: 2em 0 2em 0;
     }
 
     .form-container button{
