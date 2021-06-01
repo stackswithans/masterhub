@@ -1,19 +1,23 @@
 
 <script lang="typescript">
+    import { push } from "svelte-spa-router";
     export let theme: string;
     export let size: string;
-    export let asLink: boolean;
 
-    let hColor = (theme === "light")? "--color-2" : "--color-7"; 
+    let hColor = (theme === "dark")? "--color-2" : "--color-7"; 
 </script>
 
 
-<h1 style="font-size:{size}"><span style="color:var({hColor});">Master</span>Hub</h1>
+<h1 on:click="{() =>{ push('/');}}" style="font-size:{size}"><span style="color:var({hColor});">Master</span>Hub</h1>
 
 
 <style>
     h1, 
     span{
         font-family:"Roboto Slab";
+    }
+
+    h1:hover{
+        cursor: pointer;
     }
 </style>

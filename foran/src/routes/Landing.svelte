@@ -12,11 +12,10 @@
     <NavBar theme="dark"/>
     <div class="split">
         <div class="brand-text">
-            <Brand theme="light" size="3rem"/>
-            <p>Aprender nunca foi tão fácil, assasadaddajdkadjakdjajdakjdakj
-                Com mestres cheios de vontade e skde conhecimento, 
-                Torna-te numa máquina ideal.
-            </p>
+            <Brand theme="dark" size="3rem"/>
+            <p>O MasterHub é uma plataforma de ensino totalmente online onde
+            podes encontrar tutores dispostos a lecionar os mais diversos assuntos,
+            em diversas áreas.</p>
             <div class="link-button">
                 <ButtonLink url="#" width="8.25rem" height="2.25rem" text="Saiba mais" color="--color-7"/>
             </div>
@@ -28,7 +27,9 @@
 <section class="row">
     <header id="section-2-header">
         <h1> <span style="color:var(--color-5);">Porquê</span> escolher o MasterHub?</h1>
-        <p>Só aqui é que receberá educação de classe mundial,  O MasterHub oferece a oportunidade de interagir com experts em diversas áreas do conhecimento.</p> 
+        <p>É uma plataforma revolucionária de ensino, nunca antes vista no contexto nacional
+        focada em juntar especialistas com pessoas que querem aprender.
+        O nosso modelo de aulas por videochamadas fornece maior interacção entre os tutores e os seus alunos.</p> 
 
     </header>
     <div id="section-2-content">
