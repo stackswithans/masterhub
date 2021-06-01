@@ -2,9 +2,10 @@
     export let src: string;
     export let alt: string;
     export let header: string;
+    export let width: string = "36%";
 </script>
 
-<aside class="image">
+<aside class="image" style="width:{width};">
     <p>{header}</p>
     <img {src} {alt}>
 </aside>
@@ -17,7 +18,6 @@
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
-        width: 36%;
         height: 100%;
         background-color: var(--color-3);
     }
