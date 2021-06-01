@@ -24,12 +24,13 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        padding: 2rem 0.2rem 2rem 0.2rem;
+        padding: 2rem 0.3rem 2rem 0.3rem;
         text-align: center;
         gap: 1.5rem;
         border: 2px solid var(--border-color);
         border-radius: 1rem;
         box-shadow: 0px 0px 1rem -10px black;
+        height: 100%;
     }
 
     div h1{
