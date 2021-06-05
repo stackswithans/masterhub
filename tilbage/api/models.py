@@ -33,9 +33,8 @@ class Master(MasterhubUser):
     k_categories = models.ManyToManyField(
         "KnowledgeCategory",
     )
-    job = models.ForeignKey(
-        "Job",
-        on_delete=models.CASCADE,
+    job = models.CharField(
+        max_length=100,
     )
     academic_degree = models.IntegerField(default=NONE, choices=DEGREES)
     timeslots = models.ManyToManyField("Timeslot")
@@ -79,8 +78,4 @@ class Timeslot(models.Model):
 
 
 class KnowledgeCategory(models.Model):
-    description = models.CharField(unique=True, max_length=100)
-
-
-class Job(models.Model):
     description = models.CharField(unique=True, max_length=100)
