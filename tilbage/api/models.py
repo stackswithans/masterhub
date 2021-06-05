@@ -13,22 +13,31 @@ class MasterhubUser(models.Model):
 
 class Master(MasterhubUser):
 
+    BACHELOR = 0
+    MASTERS = 1
+    DOCTORATE = 2
+    NONE = 3
+    DEGREES = (
+        (BACHELOR, "Licenciatura"),
+        (MASTERS, "Mestrado"),
+        (DOCTORATE, "Doutoramento"),
+        (NONE, "Nenhum"),
+    )
+
     mh_user = models.OneToOneField(
         MasterhubUser,
         on_delete=models.CASCADE,
         parent_link=True,
         primary_key=True,
     )
-
     k_categories = models.ManyToManyField(
         "KnowledgeCategory",
     )
-
     job = models.ForeignKey(
         "Job",
         on_delete=models.CASCADE,
     )
-
+    academic_degree = models.IntegerField(default=NONE, choices=DEGREES)
     timeslots = models.ManyToManyField("Timeslot")
 
 
