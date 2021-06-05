@@ -12,6 +12,7 @@ class MasterhubUser(models.Model):
 
 
 class Master(MasterhubUser):
+
     mh_user = models.OneToOneField(
         MasterhubUser,
         on_delete=models.CASCADE,
@@ -44,13 +45,28 @@ class Lesson(models.Model):
 
 
 class Timeslot(models.Model):
-    DAY_OF_WEEK = tuple(
-        [(index, weekday) for index, weekday in enumerate(calendar.day_name)]
-    )
-    TIME_OF_DAY = tuple([(index, f"{index}:00") for index in range(6, 18)])
+    MONDAY = 0
+    TUESDAY = 1
+    WEDNESDAY = 2
+    THURSDAY = 3
+    FRIDAY = 4
+    SATURDAY = 5
+    SUNDAY = 6
 
-    day = models.IntegerField()
-    time = models.IntegerField()
+    DAY_OF_WEEK = (
+        (MONDAY, "Mon"),
+        (TUESDAY, "Tues"),
+        (WEDNESDAY, "Wed"),
+        (THURSDAY, "Thur"),
+        (FRIDAY, "Fri"),
+        (SATURDAY, "Sat"),
+        (SUNDAY, "Sun"),
+    )
+
+    TIME_OF_DAY = tuple([(index, f"{index}:00") for index in range(6, 18 + 1)])
+
+    day = models.IntegerField(choices=DAY_OF_WEEK)
+    time = models.IntegerField(choices=TIME_OF_DAY)
 
 
 class KnowledgeCategory(models.Model):
