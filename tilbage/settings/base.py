@@ -102,3 +102,11 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = "/static/"
+
+
+# Rest framework settings
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    )
+}
