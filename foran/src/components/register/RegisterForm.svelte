@@ -21,7 +21,16 @@
     };
 
     const handleSubmit = async (event) => {
-        console.log(event.target.email.value)
+        let form: HTMLFormElement = event.target;
+        let data = {
+            "first_name": form.first_name.value, 
+            "last_name":form.last_name.value, 
+            "gender": gender, 
+            "telephone":form.telephone.value, 
+            "password":form.password.value, 
+
+        };
+        console.log(data);
         //Validate fields here
         //let response = await postFormData(reverse("users"));
     };
