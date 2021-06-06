@@ -26,10 +26,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "api",
     "corsheaders",
     "rest_framework",
     "channels",
-    "users",
     "lesson",
     "call",
 ]
@@ -101,6 +101,12 @@ USE_L10N = True
 
 USE_TZ = True
 
-AUTH_USER_MODEL = "users.CustomUser"
-
 STATIC_URL = "/static/"
+
+
+# Rest framework settings
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    )
+}
