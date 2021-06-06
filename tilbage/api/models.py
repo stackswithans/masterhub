@@ -4,10 +4,14 @@ from django.contrib.auth.models import User
 
 
 class MasterhubUser(models.Model):
-    GENDER = (("M", "Male"), ("F", "Female"), ("U", "UNKNOWN"))
+    MALE = "M"
+    FEMALE = "F"
+    UNKNOWN = "U"
+    GENDERS = ((MALE, "Male"), (FEMALE, "Female"), (UNKNOWN, "UNKNOWN"))
     user = models.OneToOneField(
         User, primary_key=True, on_delete=models.CASCADE
     )
+    gender = models.CharField(choices=GENDERS, default=UNKNOWN, max_length=100)
     telephone = models.CharField(unique=True, max_length=100)
 
 
@@ -33,9 +37,8 @@ class Master(MasterhubUser):
     k_categories = models.ManyToManyField(
         "KnowledgeCategory",
     )
-    job = models.ForeignKey(
-        "Job",
-        on_delete=models.CASCADE,
+    job = models.CharField(
+        max_length=100,
     )
     academic_degree = models.IntegerField(default=NONE, choices=DEGREES)
     timeslots = models.ManyToManyField("Timeslot")
@@ -79,8 +82,4 @@ class Timeslot(models.Model):
 
 
 class KnowledgeCategory(models.Model):
-    description = models.CharField(unique=True, max_length=100)
-
-
-class Job(models.Model):
     description = models.CharField(unique=True, max_length=100)
