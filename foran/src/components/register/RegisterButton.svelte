@@ -1,9 +1,10 @@
 <script lang="typescript">
     export let text = "";
+    export let type = "button";
     export let arrow = true;
 </script>
 
-<button on:click class="button" type="button">
+<button on:click class="button" type="{type}">
     {#if arrow}
         <div></div>
         {text}

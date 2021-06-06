@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User, MasterhubUser
+from django.contrib.auth.models import User
+from .models import MasterhubUser, Master
 
 
 class UserSerializer(serializers.Serializer):

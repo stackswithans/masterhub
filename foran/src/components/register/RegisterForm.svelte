@@ -1,51 +1,66 @@
 <script lang="typescript">
+    import { reverse, postFormData } from "../../scripts/utils";
     import RegisterHeader  from "./RegisterHeader.svelte";
     import RegisterInput from "./RegisterInput.svelte";
     import RegisterButton from "./RegisterButton.svelte";
-    import RadioGroup from "./RadioGroup.svelte";
+    import RegisterRadio from "./RegisterRadio.svelte";
+    import  FormSection from "./FormSection.svelte";
+
+    let section1Visible = true;
+    let section2Visible = false;
  
     let step = 1;
     let steps = 2;
-    let options: Array<[string, string, boolean?]> = [["Masculino", "0"], ["Feminino", "1"], ["Prefiro não divulgar", "2", true]]
-    let sex: string = "1";
+    let gender: string = "2";
 
     const nextSection = () => {
         //Validate fields here
         step += 1;
+        section1Visible = false;
+        section2Visible = true;
+    };
+
+    const handleSubmit = async (event) => {
+        console.log(event.target.email.value)
+        //Validate fields here
+        //let response = await postFormData(reverse("users"));
     };
 </script>
 
 <aside class="form-container">
-    <form>
-    {#if step == 1}
+    <form on:submit|preventDefault={handleSubmit}>
+        <FormSection visible={section1Visible}>
             <RegisterHeader {steps} {step} description="Informações Pessoais"/>
             <div class="grid">
-                <RegisterInput label="Nome"/>
-                <RegisterInput label="Sobrenome"/>
-                <RegisterInput label="E-mail"/>
-                <RegisterInput label="Telefone"/>
+                <RegisterInput name="first_name" label="Nome"/>
+                <RegisterInput name="last_name" label="Sobrenome"/>
+                <RegisterInput name="email" label="E-mail"/>
+                <RegisterInput name="telephone" label="Telefone"/>
             </div>
             <div class="radio-group">
                 <h1>Gênero</h1>
                 <div class="buttons">
-                    <RadioGroup group={sex}  {options}/>
+                    <RegisterRadio label="Masculino" bind:group={gender} value="0"/>
+                    <RegisterRadio label="Feminino" bind:group={gender} value="1"/>
+                    <RegisterRadio label="Prefiro não divulgar" bind:group={gender} value="2" checked/>
                 </div>
             </div>
             <div class="footer">
                 <RegisterButton on:click={nextSection} text="Próximo passo"/>
             </div>
-    {:else if step == 2}
+        </FormSection>
+        <FormSection visible={section2Visible}>
             <RegisterHeader {steps} {step} description="Detalhes de Acesso"/>
             <div class="grid">
-                <RegisterInput type="password" label="Palavra-passe"/>
+                <RegisterInput name="password" type="password" label="Palavra-passe"/>
                 <RegisterInput type="password" label="Confirm palavra-passe"/>
                 <RegisterInput label="Pergunta de segurança"/>
                 <RegisterInput label="Resposta"/>
             </div>
             <div class="footer">
-                <RegisterButton arrow={false} text="Finalizar"/>
+                <RegisterButton type="submit" arrow={false} text="Finalizar"/>
             </div>
-    {/if}
+        </FormSection>
     </form>
 </aside>
 
@@ -55,6 +70,8 @@
     height: 100%;
     background-color: var(--color-4);
 }
+
+
 
 form{
     width: 100%;

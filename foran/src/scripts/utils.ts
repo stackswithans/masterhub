@@ -4,6 +4,7 @@ export const apiHost = host + ":" + "8000" + "/";
 
 //endpoints
 const endpoints = {
+    users: apiHost + "api/users/",
     call: apiHost + "call/",
     callSocket: `ws://${window.location.hostname + ":" + "8000"}/ws/call`,
 };
@@ -19,6 +20,22 @@ export const postData = async (url = "", data = {}) => {
         redirect: "follow",
         referrerPolicy: "no-referrer",
         body: JSON.stringify(data),
+    });
+    return response.json();
+};
+
+export const postFormData = async (url = "", data: FormData) => {
+    const response = await fetch(url, {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+            Accept: "application/json",
+        },
+        redirect: "follow",
+        referrerPolicy: "no-referrer",
+        body: data,
     });
     return response.json();
 };
