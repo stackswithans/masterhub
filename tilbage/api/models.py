@@ -4,10 +4,14 @@ from django.contrib.auth.models import User
 
 
 class MasterhubUser(models.Model):
-    GENDER = (("M", "Male"), ("F", "Female"), ("U", "UNKNOWN"))
+    MALE = "M"
+    FEMALE = "F"
+    UNKNOWN = "U"
+    GENDERS = ((MALE, "Male"), (FEMALE, "Female"), (UNKNOWN, "UNKNOWN"))
     user = models.OneToOneField(
         User, primary_key=True, on_delete=models.CASCADE
     )
+    gender = models.CharField(choices=GENDERS, default=UNKNOWN, max_length=100)
     telephone = models.CharField(unique=True, max_length=100)
 
 
