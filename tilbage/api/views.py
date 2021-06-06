@@ -32,7 +32,7 @@ def users(request):
             "email": user.user.email,
             "utype": request.data["utype"],
             "name": f"{user.user.first_name} {user.user.last_name}",
-            "access": str(token.access_token),
-            "refresh": str(token),
+            "access_token": str(token.access_token),
+            "refresh_token": str(token),
         }
     )
