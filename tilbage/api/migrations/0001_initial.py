@@ -9,60 +9,136 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('auth', '0012_alter_user_first_name_max_length'),
+        ("auth", "0012_alter_user_first_name_max_length"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Job',
+            name="Job",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('description', models.CharField(max_length=100, unique=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("description", models.CharField(max_length=100, unique=True)),
             ],
         ),
         migrations.CreateModel(
-            name='KnowledgeCategory',
+            name="KnowledgeCategory",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('description', models.CharField(max_length=100, unique=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("description", models.CharField(max_length=100, unique=True)),
             ],
         ),
         migrations.CreateModel(
-            name='MasterhubUser',
+            name="MasterhubUser",
             fields=[
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, primary_key=True, serialize=False, to='auth.user')),
-                ('telephone', models.CharField(max_length=100, unique=True)),
+                (
+                    "user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        primary_key=True,
+                        serialize=False,
+                        to="auth.user",
+                    ),
+                ),
+                ("telephone", models.CharField(max_length=100, unique=True)),
             ],
         ),
         migrations.CreateModel(
-            name='Timeslot',
+            name="Timeslot",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('day', models.IntegerField()),
-                ('time', models.IntegerField()),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("day", models.IntegerField()),
+                ("time", models.IntegerField()),
             ],
         ),
         migrations.CreateModel(
-            name='Master',
+            name="Master",
             fields=[
-                ('mh_user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='api.masterhubuser')),
-                ('job', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.job')),
-                ('k_categories', models.ManyToManyField(to='api.KnowledgeCategory')),
-                ('timeslots', models.ManyToManyField(to='api.Timeslot')),
+                (
+                    "mh_user",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="api.masterhubuser",
+                    ),
+                ),
+                (
+                    "job",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="api.job",
+                    ),
+                ),
+                (
+                    "k_categories",
+                    models.ManyToManyField(to="api.KnowledgeCategory"),
+                ),
+                ("timeslots", models.ManyToManyField(to="api.Timeslot")),
             ],
-            bases=('api.masterhubuser',),
+            bases=("api.masterhubuser",),
         ),
         migrations.CreateModel(
-            name='Lesson',
+            name="Lesson",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=100)),
-                ('timeslot', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.timeslot')),
-                ('users', models.ManyToManyField(related_name='lesson_users', to='api.MasterhubUser')),
-                ('master', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='lesson_owner', to='api.master')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=100)),
+                (
+                    "timeslot",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="api.timeslot",
+                    ),
+                ),
+                (
+                    "users",
+                    models.ManyToManyField(
+                        related_name="lesson_users", to="api.MasterhubUser"
+                    ),
+                ),
+                (
+                    "master",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="lesson_owner",
+                        to="api.master",
+                    ),
+                ),
             ],
             options={
-                'unique_together': {('title', 'master')},
+                "unique_together": {("title", "master")},
             },
         ),
     ]

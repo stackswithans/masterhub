@@ -1,5 +1,5 @@
 <script lang="typescript">
-    import { reverse, postFormData } from "../../scripts/utils";
+    import { reverse, postData } from "../../scripts/utils";
     import RegisterHeader  from "./RegisterHeader.svelte";
     import RegisterInput from "./RegisterInput.svelte";
     import RegisterButton from "./RegisterButton.svelte";
@@ -23,6 +23,8 @@
     const handleSubmit = async (event) => {
         let form: HTMLFormElement = event.target;
         let data = {
+            "utype": "ST", 
+            "email": "stexor12@gmail.com",
             "first_name": form.first_name.value, 
             "last_name":form.last_name.value, 
             "gender": gender, 
@@ -31,8 +33,8 @@
 
         };
         console.log(data);
-        //Validate fields here
-        //let response = await postFormData(reverse("users"));
+        let response = await postData(reverse("users"), data);
+        console.log(response);
     };
 </script>
 
