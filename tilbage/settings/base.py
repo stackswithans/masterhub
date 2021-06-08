@@ -112,6 +112,8 @@ REST_FRAMEWORK = {
     )
 }
 
+REST_FRAMEWORK["EXCEPTION_HANDLER"] = "api.utils.full_details_exception_handler"
+
 # JWT settings
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=5),

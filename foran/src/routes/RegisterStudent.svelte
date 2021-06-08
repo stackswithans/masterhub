@@ -10,12 +10,47 @@
     import RegisterButton from "../components/register/RegisterButton.svelte";
     import RegisterRadio from "../components/register/RegisterRadio.svelte";
 
+    //Form fields
+    let fields = {
+        "email": null, 
+        "first_name": null, 
+        "last_name": null, 
+        "telephone":null, 
+        "password":null,  
+        "gender": "2",  
+    };
+
+    let errors = {
+        "email": [], 
+        "first_name": [], 
+        "last_name": [], 
+        "telephone": [], 
+        "password": [],  
+    };
+
     let step = 1;
     let steps = 2;
     let gender: string = "2";
 
-    const nextSection = () => {
+    const nextSection = async () => {
         //Validate fields here
+        if (step == 1){
+            let data = {
+                "utype": "ST", 
+                "email": fields.email, 
+                "first_name": fields.first_name, 
+                "last_name": fields.last_name, 
+                "telephone":fields.telephone, 
+            }
+            let response = await postData(reverse("users"), data);
+            if(response.code == 400){
+                for(let field in data){
+                    //Get specific field errors
+                    errors[field] = response.body[field];
+                }
+                return;
+            }
+        }
         step += 1;
     };
 
@@ -29,11 +64,15 @@
             "gender": gender, 
             "telephone":form.telephone.value, 
             "password":form.password.value, 
-
         };
         console.log(data);
         let response = await postData(reverse("users"), data);
-        console.log(response);
+        if(response.code >= 200 && response.code <= 299){
+            console.log(response.body);
+        } else {
+            alert("there has been an error");
+            console.log(response.body);
+        }
     };
 </script>
 
@@ -45,17 +84,17 @@
             <FormSection sectionStep={1} currentStep={step}>
                 <RegisterHeader {steps} {step} description="Informações Pessoais"/>
                 <div class="grid">
-                    <RegisterInput name="first_name" label="Nome"/>
-                    <RegisterInput name="last_name" label="Sobrenome"/>
-                    <RegisterInput name="email" label="E-mail"/>
-                    <RegisterInput name="telephone" label="Telefone"/>
+                    <RegisterInput errors={errors.first_name} bind:value={fields.first_name} name="first_name" label="Nome"/>
+                    <RegisterInput errors={errors.last_name} bind:value={fields.last_name} name="last_name" label="Sobrenome"/>
+                    <RegisterInput errors={errors.email} bind:value={fields.email} name="email" label="E-mail"/>
+                    <RegisterInput errors={errors.telephone} bind:value={fields.telephone} name="telephone" label="Telefone"/>
                 </div>
                 <div class="radio-group">
                     <h1>Gênero</h1>
                     <div class="buttons">
-                        <RegisterRadio label="Masculino" bind:group={gender} value="0"/>
-                        <RegisterRadio label="Feminino" bind:group={gender} value="1"/>
-                        <RegisterRadio label="Prefiro não divulgar" bind:group={gender} value="2" checked/>
+                        <RegisterRadio label="Masculino" bind:group={fields.gender} value="0"/>
+                        <RegisterRadio label="Feminino" bind:group={fields.gender} value="1"/>
+                        <RegisterRadio label="Prefiro não divulgar" bind:group={fields.gender} value="2" checked/>
                     </div>
                 </div>
                 <div class="footer">
@@ -65,7 +104,7 @@
             <FormSection sectionStep={2} currentStep={step}>
                 <RegisterHeader {steps} {step} description="Detalhes de Acesso"/>
                 <div class="grid">
-                    <RegisterInput name="password" type="password" label="Palavra-passe"/>
+                    <RegisterInput bind:this={fields.password} name="password" type="password" label="Palavra-passe"/>
                     <RegisterInput type="password" label="Confirm palavra-passe"/>
                     <RegisterInput label="Pergunta de segurança"/>
                     <RegisterInput label="Resposta"/>

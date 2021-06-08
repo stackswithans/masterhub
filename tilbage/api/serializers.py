@@ -2,15 +2,30 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import MasterhubUser, Master
 
+REQUIRED_ERR_MSG = "Este campo deve ser preenchido"
+DEFAULT_ERRORS = {
+    "blank": REQUIRED_ERR_MSG,
+    "null": REQUIRED_ERR_MSG,
+}
+
 
 class UserSerializer(serializers.Serializer):
     utype = serializers.CharField(max_length=2)  # MS or ST
-    first_name = serializers.CharField(required=True, max_length=100)
-    last_name = serializers.CharField(required=True, max_length=100)
-    email = serializers.EmailField(required=True)
-    password = serializers.CharField(required=True)
-    gender = serializers.IntegerField(required=True)
-    telephone = serializers.CharField(required=True, max_length=100)
+    first_name = serializers.CharField(
+        max_length=100,
+        error_messages=error_messages,
+    )
+    last_name = serializers.CharField(
+        max_length=100,
+        error_messages=error_messages,
+    )
+    email = serializers.EmailField(error_messages=DEFAULT_ERRORS)
+    password = serializers.CharField(error_messages=DEFAULT_ERRORS)
+    gender = serializers.IntegerField(error_messages=DEFAULT_ERRORS)
+    telephone = serializers.CharField(
+        max_length=9,
+        error_messages=DEFAULT_ERRORS,
+    )
 
     def create(self, validated_data):
         data = validated_data

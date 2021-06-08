@@ -2,11 +2,16 @@
     export let label = "";
     export let type: string = "text";
     export let name: string; 
+    export let value = "";
 </script>
 
 <div>
     <label class="description">{label}</label>
-    <input name={name} type="{type}" class="input-after">
+    {#if type == "text"}
+        <input name={name} bind:value={value} type="text" class="input-after">
+    {:else}
+        <input name={name} bind:value={value} type="password" class="input-after">
+    {/if}
 </div>
 
 <style>

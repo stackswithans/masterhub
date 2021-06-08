@@ -8,7 +8,10 @@ const endpoints = {
     call: apiHost + "call/",
     callSocket: `ws://${window.location.hostname + ":" + "8000"}/ws/call`,
 };
-export const postData = async (url = "", data = {}) => {
+export const postData = async (
+    url = "",
+    data = {}
+): Promise<{ code: number; body: Object }> => {
     const response = await fetch(url, {
         method: "POST",
         mode: "cors",
@@ -21,7 +24,11 @@ export const postData = async (url = "", data = {}) => {
         referrerPolicy: "no-referrer",
         body: JSON.stringify(data),
     });
-    return response.json();
+
+    let code: number = response.status;
+    let body = await response.json();
+
+    return { code, body };
 };
 
 export const postFormData = async (url = "", data: FormData) => {
