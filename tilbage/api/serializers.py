@@ -13,11 +13,11 @@ class UserSerializer(serializers.Serializer):
     utype = serializers.CharField(max_length=2)  # MS or ST
     first_name = serializers.CharField(
         max_length=100,
-        error_messages=error_messages,
+        error_messages=DEFAULT_ERRORS,
     )
     last_name = serializers.CharField(
         max_length=100,
-        error_messages=error_messages,
+        error_messages=DEFAULT_ERRORS,
     )
     email = serializers.EmailField(error_messages=DEFAULT_ERRORS)
     password = serializers.CharField(error_messages=DEFAULT_ERRORS)

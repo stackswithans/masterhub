@@ -5,6 +5,7 @@
 <style>
     .form-layout{
         display: flex;
+        align-items: stretch;
         font-size: 16px;
         width: 55.5em; /*width-height ratio: 0.49*/
         height: 27.195em;

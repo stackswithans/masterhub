@@ -44,8 +44,10 @@
             }
             let response = await postData(reverse("users"), data);
             if(response.code == 400){
+                console.log(response.body);
                 for(let field in data){
                     //Get specific field errors
+                    if(!response.body[field]) continue;
                     errors[field] = response.body[field];
                 }
                 return;
@@ -118,11 +120,6 @@
 </MainLayout>
 
 <style>
-    form{
-        width: 100%;
-        padding: 1rem;
-    }
-
     .grid{
         display: grid;
         grid-template-columns: 1fr 1fr; 
