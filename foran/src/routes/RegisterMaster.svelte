@@ -33,7 +33,6 @@
     };
 </script>
 
-
 <MainLayout>
     <RegisterLayout>
         <RegisterAside header="Seja bem-vindo, mestre!" src="/assets/images/register-img-2.png" alt="Girl studying"/>
