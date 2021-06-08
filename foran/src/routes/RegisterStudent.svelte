@@ -41,41 +41,39 @@
 <MainLayout>
     <RegisterLayout>
         <RegisterAside header="Seja bem-vindo, caro estudante!" src="/assets/images/register-img-1.png" alt="Girl studying"/>
-        <RegisterForm>
-            <form on:submit|preventDefault={handleSubmit}>
-                <FormSection sectionStep={1} currentStep={step}>
-                    <RegisterHeader {steps} {step} description="Informações Pessoais"/>
-                    <div class="grid">
-                        <RegisterInput name="first_name" label="Nome"/>
-                        <RegisterInput name="last_name" label="Sobrenome"/>
-                        <RegisterInput name="email" label="E-mail"/>
-                        <RegisterInput name="telephone" label="Telefone"/>
+        <RegisterForm on:submit={handleSubmit}>
+            <FormSection sectionStep={1} currentStep={step}>
+                <RegisterHeader {steps} {step} description="Informações Pessoais"/>
+                <div class="grid">
+                    <RegisterInput name="first_name" label="Nome"/>
+                    <RegisterInput name="last_name" label="Sobrenome"/>
+                    <RegisterInput name="email" label="E-mail"/>
+                    <RegisterInput name="telephone" label="Telefone"/>
+                </div>
+                <div class="radio-group">
+                    <h1>Gênero</h1>
+                    <div class="buttons">
+                        <RegisterRadio label="Masculino" bind:group={gender} value="0"/>
+                        <RegisterRadio label="Feminino" bind:group={gender} value="1"/>
+                        <RegisterRadio label="Prefiro não divulgar" bind:group={gender} value="2" checked/>
                     </div>
-                    <div class="radio-group">
-                        <h1>Gênero</h1>
-                        <div class="buttons">
-                            <RegisterRadio label="Masculino" bind:group={gender} value="0"/>
-                            <RegisterRadio label="Feminino" bind:group={gender} value="1"/>
-                            <RegisterRadio label="Prefiro não divulgar" bind:group={gender} value="2" checked/>
-                        </div>
-                    </div>
-                    <div class="footer">
-                        <RegisterButton on:click={nextSection} text="Próximo passo"/>
-                    </div>
-                </FormSection>
-                <FormSection sectionStep={2} currentStep={step}>
-                    <RegisterHeader {steps} {step} description="Detalhes de Acesso"/>
-                    <div class="grid">
-                        <RegisterInput name="password" type="password" label="Palavra-passe"/>
-                        <RegisterInput type="password" label="Confirm palavra-passe"/>
-                        <RegisterInput label="Pergunta de segurança"/>
-                        <RegisterInput label="Resposta"/>
-                    </div>
-                    <div class="footer">
-                        <RegisterButton type="submit" arrow={false} text="Finalizar"/>
-                    </div>
-                </FormSection>
-            </form>
+                </div>
+                <div class="footer">
+                    <RegisterButton on:click={nextSection} text="Próximo passo"/>
+                </div>
+            </FormSection>
+            <FormSection sectionStep={2} currentStep={step}>
+                <RegisterHeader {steps} {step} description="Detalhes de Acesso"/>
+                <div class="grid">
+                    <RegisterInput name="password" type="password" label="Palavra-passe"/>
+                    <RegisterInput type="password" label="Confirm palavra-passe"/>
+                    <RegisterInput label="Pergunta de segurança"/>
+                    <RegisterInput label="Resposta"/>
+                </div>
+                <div class="footer">
+                    <RegisterButton type="submit" arrow={false} text="Finalizar"/>
+                </div>
+            </FormSection>
         </RegisterForm>
     </RegisterLayout>
 </MainLayout>

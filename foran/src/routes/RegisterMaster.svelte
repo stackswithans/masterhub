@@ -37,71 +37,63 @@
     <RegisterLayout>
         <RegisterAside header="Seja bem-vindo, mestre!" src="/assets/images/register-img-2.png" alt="Girl studying"/>
         <RegisterForm>
-            <form>
-                <FormSection currentStep={step} sectionStep={1}>
-                    <RegisterHeader {steps} {step} description="Informações Pessoais"/>
-                    <div class="grid">
-                        <RegisterInput label="Nome"/>
-                        <RegisterInput label="Sobrenome"/>
-                        <RegisterInput label="Grau Académico"/>
-                        <RegisterInput label="Profissão"/>
+            <FormSection currentStep={step} sectionStep={1}>
+                <RegisterHeader {steps} {step} description="Informações Pessoais"/>
+                <div class="grid">
+                    <RegisterInput label="Nome"/>
+                    <RegisterInput label="Sobrenome"/>
+                    <RegisterInput label="Grau Académico"/>
+                    <RegisterInput label="Profissão"/>
+                </div>
+                <div class="radio-group">
+                    <h1>Gênero</h1>
+                    <div class="buttons">
+                        <RegisterRadio label="Masculino" bind:group={gender} value="0"/>
+                        <RegisterRadio label="Feminino" bind:group={gender} value="1"/>
+                        <RegisterRadio label="Prefiro não divulgar" bind:group={gender} value="2" checked/>
                     </div>
-                    <div class="radio-group">
-                        <h1>Gênero</h1>
-                        <div class="buttons">
-                            <RegisterRadio label="Masculino" bind:group={gender} value="0"/>
-                            <RegisterRadio label="Feminino" bind:group={gender} value="1"/>
-                            <RegisterRadio label="Prefiro não divulgar" bind:group={gender} value="2" checked/>
-                        </div>
-                    </div>
-                    <div class="footer">
-                        <RegisterButton on:click={nextSection} text="Próximo passo"/>
-                    </div>
-                </FormSection>
-                <FormSection  currentStep={step} sectionStep={2}>
-                    <RegisterHeader {steps} {step} description="Quais as áreas que domina?"/>
-                    <div class="grid-3">
-                        {#each categories as category}
-                            <RegisterCheckbox group={areas} value="{category.description}" id="master-check-{category.id}" label="{category.description}"/>
-                        {/each}
-                    </div>
-                    <div class="footer">
-                        <RegisterButton  text="Próximo passo" on:click={nextSection}/>
-                    </div>
-                </FormSection>
-                <FormSection  currentStep={step} sectionStep={3}>
-                    <RegisterHeader {steps} {step} description="Qual a sua disponibilidade?"/>
-                    <div class="schedule">
-                        <ScheduleMaker/>
-                    </div>
-                    <div class="footer">
-                        <RegisterButton  text="Próximo passo" on:click={nextSection}/>
-                    </div>
-                </FormSection>
-                <FormSection  currentStep={step} sectionStep={4}>
-                    <RegisterHeader {steps} {step} description="Acesso e Contactos"/>
-                    <div class="grid">
-                        <RegisterInput label="Email"/>
-                        <RegisterInput label="Telefone"/>
-                        <RegisterInput type="password" label="Palavra-passe"/>
-                        <RegisterInput type="password" label="Confirmar Palavra-passe"/>
-                    </div>
-                    <div class="footer">
-                        <RegisterButton arrow={false} text="Finalizar"/>
-                    </div>
-                </FormSection>
-            </form>
+                </div>
+                <div class="footer">
+                    <RegisterButton on:click={nextSection} text="Próximo passo"/>
+                </div>
+            </FormSection>
+            <FormSection  currentStep={step} sectionStep={2}>
+                <RegisterHeader {steps} {step} description="Quais as áreas que domina?"/>
+                <div class="grid-3">
+                    {#each categories as category}
+                        <RegisterCheckbox group={areas} value="{category.description}" id="master-check-{category.id}" label="{category.description}"/>
+                    {/each}
+                </div>
+                <div class="footer">
+                    <RegisterButton  text="Próximo passo" on:click={nextSection}/>
+                </div>
+            </FormSection>
+            <FormSection  currentStep={step} sectionStep={3}>
+                <RegisterHeader {steps} {step} description="Qual a sua disponibilidade?"/>
+                <div class="schedule">
+                    <ScheduleMaker/>
+                </div>
+                <div class="footer">
+                    <RegisterButton  text="Próximo passo" on:click={nextSection}/>
+                </div>
+            </FormSection>
+            <FormSection  currentStep={step} sectionStep={4}>
+                <RegisterHeader {steps} {step} description="Acesso e Contactos"/>
+                <div class="grid">
+                    <RegisterInput label="Email"/>
+                    <RegisterInput label="Telefone"/>
+                    <RegisterInput type="password" label="Palavra-passe"/>
+                    <RegisterInput type="password" label="Confirmar Palavra-passe"/>
+                </div>
+                <div class="footer">
+                    <RegisterButton arrow={false} text="Finalizar"/>
+                </div>
+            </FormSection>
         </RegisterForm>
     </RegisterLayout>
 </MainLayout>
 
 <style>
-    form{
-        width: 100%;
-        height: 100%;
-        padding: 1rem;
-    }
-
     .grid{
         display: grid;
         grid-template-columns: 1fr 1fr; 
