@@ -6,8 +6,6 @@
     import RegisterRadio from "./RegisterRadio.svelte";
     import  FormSection from "./FormSection.svelte";
 
-    let section1Visible = true;
-    let section2Visible = false;
  
     let step = 1;
     let steps = 2;
@@ -16,8 +14,6 @@
     const nextSection = () => {
         //Validate fields here
         step += 1;
-        section1Visible = false;
-        section2Visible = true;
     };
 
     const handleSubmit = async (event) => {
@@ -40,7 +36,7 @@
 
 <aside class="form-container">
     <form on:submit|preventDefault={handleSubmit}>
-        <FormSection visible={section1Visible}>
+        <FormSection sectionStep={1} currentStep={step}>
             <RegisterHeader {steps} {step} description="Informações Pessoais"/>
             <div class="grid">
                 <RegisterInput name="first_name" label="Nome"/>
@@ -60,7 +56,7 @@
                 <RegisterButton on:click={nextSection} text="Próximo passo"/>
             </div>
         </FormSection>
-        <FormSection visible={section2Visible}>
+        <FormSection sectionStep={2} currentStep={step}>
             <RegisterHeader {steps} {step} description="Detalhes de Acesso"/>
             <div class="grid">
                 <RegisterInput name="password" type="password" label="Palavra-passe"/>

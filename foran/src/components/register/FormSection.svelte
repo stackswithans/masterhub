@@ -1,8 +1,9 @@
 
 <script lang="typescript">
-    export let visible: boolean;
+    export let currentStep: number;
+    export let sectionStep: number;
 </script>
 
-<div style="display: {(visible)?'block':'none'}" class="form-section">
+<div style="display: {(currentStep == sectionStep)?'block':'none'}" class="form-section">
     <slot></slot>
 </div>
