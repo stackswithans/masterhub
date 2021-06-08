@@ -1,11 +1,12 @@
 <script lang="typescript">
     export let label = "";
     export let type: string = "text";
+    export let name: string; 
 </script>
 
 <div>
     <label class="description">{label}</label>
-    <input type="{type}" class="input-after">
+    <input name={name} type="{type}" class="input-after">
 </div>
 
 <style>

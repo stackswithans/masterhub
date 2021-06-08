@@ -2,15 +2,14 @@
     import RegisterHeader  from "./RegisterHeader.svelte";
     import RegisterInput from "./RegisterInput.svelte";
     import RegisterButton from "./RegisterButton.svelte";
-    import RadioGroup from "./RadioGroup.svelte";
     import RegisterCheckbox from "./RegisterCheckbox.svelte";
+    import RegisterRadio from "./RegisterRadio.svelte";
     import ScheduleMaker from "./ScheduleMaker.svelte";
  
     let step = 1;
     let steps = 3;
     //Gender options
-    let options: Array<[string, string, boolean?]> = [["Masculino", "0"], ["Feminino", "1"], ["Prefiro não divulgar", "2", true]]
-    let sex: string = "1";
+    let gender: string = "1";
 
     //Knowledge Domain
     let categories = [
@@ -42,7 +41,9 @@
             <div class="radio-group">
                 <h1>Gênero</h1>
                 <div class="buttons">
-                    <RadioGroup group={sex}  {options}/>
+                    <RegisterRadio label="Masculino" bind:group={gender} value="0"/>
+                    <RegisterRadio label="Feminino" bind:group={gender} value="1"/>
+                    <RegisterRadio label="Prefiro não divulgar" bind:group={gender} value="2" checked/>
                 </div>
             </div>
             <div class="footer">
