@@ -15,8 +15,6 @@
             input.style.borderColor = "";
         }
     }
-
-    console.log(errors, name);
 </script>
 
 <div class="container">

@@ -55,6 +55,14 @@ class UserSerializer(serializers.Serializer):
             )
         return value
 
+    def validate_telephone(self, value):
+        user = MasterhubUser.objects.filter(telephone=value)
+        if user:
+            raise serializers.ValidationError(
+                "Esse número de telefone já está registrado",
+            )
+        return value
+
 
 class MasterSerializer(UserSerializer):
     job = serializers.CharField(max_length=100)

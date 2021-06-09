@@ -60,12 +60,17 @@
         }
         else if(step == 2){
             //Check passwords match
+            let hasError: boolean;
+            [hasError, errors] = await validateFormSection(
+                "ST", fields, errors, ["password"]
+            );
+            if(hasError) return;
             if(!(fields.password === fields.passwd_confirm)){
-                errors.password =  ["As palavras-passes devem ser iguais"]; 
-                errors.passwd_confirm = ["As palavras-passes devem ser iguais"]; 
+                errors.passwd_confirm = errors.password =  [{message: "As palavras-passes devem ser iguais"}]; 
                 return;
             }
-            errors.password = errors.passwd_confirm = [];
+            errors.password = [];
+            errors.passwd_confirm = [];
             registerUser();
             return
         }
@@ -103,9 +108,7 @@
                 <RegisterHeader {steps} {step} description="Detalhes de Acesso"/>
                 <div class="grid">
                     <RegisterInput errors={errors.password} bind:value={fields.password} name="password" type="password" label="Palavra-passe"/>
-                    <RegisterInput name="passwd_confirm" errors={errors.passwd_confirm} bind:value={fields.passwd_confirm} label="Confirm palavra-passe"/>
-                    <RegisterInput label="Pergunta de segurança"/>
-                    <RegisterInput label="Resposta"/>
+                    <RegisterInput name="passwd_confirm" type="password" errors={errors.passwd_confirm} bind:value={fields.passwd_confirm} label="Confirm palavra-passe"/>
                 </div>
                 <div class="footer">
                     <RegisterButton type="button" on:click={nextSection} arrow={false} text="Finalizar"/>
