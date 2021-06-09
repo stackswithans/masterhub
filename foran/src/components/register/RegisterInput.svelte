@@ -11,7 +11,12 @@
         if(input && errors.length){
             input.style.borderColor = "red";
         }
+        else if(input && !errors.length){
+            input.style.borderColor = "";
+        }
     }
+
+    console.log(errors, name);
 </script>
 
 <div class="container">
@@ -27,6 +32,7 @@
             <div>{error.message}</div>
         {/each}
     </div>
+    {:else}
     {/if}
 </div>
 

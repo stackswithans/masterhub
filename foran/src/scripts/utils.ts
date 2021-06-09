@@ -11,7 +11,7 @@ const endpoints = {
 export const postData = async (
     url = "",
     data = {}
-): Promise<{ code: number; body: Object }> => {
+): Promise<{ ok: boolean; code: number; body: Object }> => {
     const response = await fetch(url, {
         method: "POST",
         mode: "cors",
@@ -28,7 +28,7 @@ export const postData = async (
     let code: number = response.status;
     let body = await response.json();
 
-    return { code, body };
+    return { ok: response.ok, code, body };
 };
 
 export const postFormData = async (url = "", data: FormData) => {
@@ -73,26 +73,26 @@ export const reverse = (path: string, pathParams?: Array<string>): string => {
 export const validateFormSection = async (
     utype: string,
     formData: object,
+    errors: object,
     sectionFields: Array<string>
-): Promise<[boolean, object]> => {
+): Promise<[boolean, any]> => {
     //Get the value of the fields of this section from the form
     let data = { utype };
-    let errors = {};
     sectionFields.forEach((value) => {
         data[value] = formData[value];
-        errors[value] = [];
     });
-
     //Send request and get errors
     let response = await postData(reverse("users"), data);
-    if (response.code >= 400 && response.code <= 499) {
+    if (!response.ok) {
         console.log(response.body);
         //Get field erros
+        let hasErrors = false;
         sectionFields.forEach((field) => {
             if (!response.body[field]) return;
+            hasErrors = true;
             errors[field] = response.body[field];
         });
-        return [true, errors];
+        return [hasErrors, errors];
     }
     return [false, errors];
 };

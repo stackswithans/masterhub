@@ -17,6 +17,7 @@
         "last_name": null, 
         "telephone":null, 
         "password":null,  
+        "passwd_confirm": null,
         "gender": "2",  
     };
 
@@ -26,10 +27,23 @@
         "last_name": [], 
         "telephone": [], 
         "password": [],  
+        "passwd_confirm": [],
     };
 
     let step = 1;
     let steps = 2;
+
+    const registerUser = async () => {
+        let data = { "utype": "ST", ...fields };
+        console.log(data);
+        let response = await postData(reverse("users"), data);
+        if(response.ok){
+            console.log(response.body);
+        } else {
+            alert("there has been an error");
+            console.log(response.body);
+        }
+    };
 
     const nextSection = async () => {
         //Validate fields here
@@ -38,41 +52,33 @@
             [hasError, errors] = await validateFormSection(
                 "ST",
                 fields,
+                errors,
                 ["email", "first_name", "last_name", "telephone", "gender"]
             );
             errors = errors;
             if(hasError) return;
         }
+        else if(step == 2){
+            //Check passwords match
+            if(!(fields.password === fields.passwd_confirm)){
+                errors.password =  ["As palavras-passes devem ser iguais"]; 
+                errors.passwd_confirm = ["As palavras-passes devem ser iguais"]; 
+                return;
+            }
+            errors.password = errors.passwd_confirm = [];
+            registerUser();
+            return
+        }
         step += 1;
     };
 
-    const handleSubmit = async (event) => {
-        let form: HTMLFormElement = event.target;
-        let data = {
-            "utype": "ST", 
-            "email": "stexor12@gmail.com",
-            "first_name": form.first_name.value, 
-            "last_name":form.last_name.value, 
-            //"gender": gender, 
-            "telephone":form.telephone.value, 
-            "password":form.password.value, 
-        };
-        console.log(data);
-        let response = await postData(reverse("users"), data);
-        if(response.code >= 200 && response.code <= 299){
-            console.log(response.body);
-        } else {
-            alert("there has been an error");
-            console.log(response.body);
-        }
-    };
 </script>
 
 
 <MainLayout>
     <RegisterLayout>
         <RegisterAside header="Seja bem-vindo, caro estudante!" src="/assets/images/register-img-1.png" alt="Girl studying"/>
-        <RegisterForm on:submit={handleSubmit}>
+        <RegisterForm>
             <FormSection sectionStep={1} currentStep={step}>
                 <RegisterHeader {steps} {step} description="Informações Pessoais"/>
                 <div class="grid">
@@ -96,13 +102,13 @@
             <FormSection sectionStep={2} currentStep={step}>
                 <RegisterHeader {steps} {step} description="Detalhes de Acesso"/>
                 <div class="grid">
-                    <RegisterInput bind:this={fields.password} name="password" type="password" label="Palavra-passe"/>
-                    <RegisterInput type="password" label="Confirm palavra-passe"/>
+                    <RegisterInput errors={errors.password} bind:value={fields.password} name="password" type="password" label="Palavra-passe"/>
+                    <RegisterInput name="passwd_confirm" errors={errors.passwd_confirm} bind:value={fields.passwd_confirm} label="Confirm palavra-passe"/>
                     <RegisterInput label="Pergunta de segurança"/>
                     <RegisterInput label="Resposta"/>
                 </div>
                 <div class="footer">
-                    <RegisterButton type="submit" arrow={false} text="Finalizar"/>
+                    <RegisterButton type="button" on:click={nextSection} arrow={false} text="Finalizar"/>
                 </div>
             </FormSection>
         </RegisterForm>
