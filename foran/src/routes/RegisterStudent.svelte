@@ -1,5 +1,5 @@
 <script lang="typescript">
-    import { reverse, postData } from "../scripts/utils";
+    import { reverse, postData, validateFormSection} from "../scripts/utils";
     import RegisterAside  from "../components/register/RegisterAside.svelte";
     import RegisterForm  from "../components/register/RegisterForm.svelte";
     import RegisterLayout  from "../components/register/RegisterLayout.svelte";
@@ -30,28 +30,18 @@
 
     let step = 1;
     let steps = 2;
-    let gender: string = "2";
 
     const nextSection = async () => {
         //Validate fields here
         if (step == 1){
-            let data = {
-                "utype": "ST", 
-                "email": fields.email, 
-                "first_name": fields.first_name, 
-                "last_name": fields.last_name, 
-                "telephone":fields.telephone, 
-            }
-            let response = await postData(reverse("users"), data);
-            if(response.code == 400){
-                console.log(response.body);
-                for(let field in data){
-                    //Get specific field errors
-                    if(!response.body[field]) continue;
-                    errors[field] = response.body[field];
-                }
-                return;
-            }
+            let hasError: boolean;
+            [hasError, errors] = await validateFormSection(
+                "ST",
+                fields,
+                ["email", "first_name", "last_name", "telephone", "gender"]
+            );
+            errors = errors;
+            if(hasError) return;
         }
         step += 1;
     };
@@ -63,7 +53,7 @@
             "email": "stexor12@gmail.com",
             "first_name": form.first_name.value, 
             "last_name":form.last_name.value, 
-            "gender": gender, 
+            //"gender": gender, 
             "telephone":form.telephone.value, 
             "password":form.password.value, 
         };
