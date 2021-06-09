@@ -19,7 +19,12 @@ class UserSerializer(serializers.Serializer):
         max_length=100,
         error_messages=DEFAULT_ERRORS,
     )
-    email = serializers.EmailField(error_messages=DEFAULT_ERRORS)
+    email = serializers.EmailField(
+        error_messages={
+            "invalid": "Este e-mail é inválido",
+            **DEFAULT_ERRORS,
+        }
+    )
     password = serializers.CharField(error_messages=DEFAULT_ERRORS)
     gender = serializers.IntegerField(error_messages=DEFAULT_ERRORS)
     telephone = serializers.CharField(
@@ -41,6 +46,14 @@ class UserSerializer(serializers.Serializer):
             user=user, gender=data["gender"], telephone=data["telephone"]
         )
         return mh_user
+
+    def validate_email(self, value):
+        user = User.objects.filter(username=value)
+        if user:
+            raise serializers.ValidationError(
+                "Já existe um usuário com este e-mail", "email_exists"
+            )
+        return value
 
 
 class MasterSerializer(UserSerializer):
