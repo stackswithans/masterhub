@@ -1,5 +1,7 @@
 <script lang="typescript">
     import { reverse, postData, validateFormSection} from "../scripts/utils";
+    import { push } from "svelte-spa-router";
+    import { saveSessionData} from "../scripts/auth";
     import RegisterAside  from "../components/register/RegisterAside.svelte";
     import RegisterForm  from "../components/register/RegisterForm.svelte";
     import RegisterLayout  from "../components/register/RegisterLayout.svelte";
@@ -38,10 +40,10 @@
         console.log(data);
         let response = await postData(reverse("users"), data);
         if(response.ok){
-            console.log(response.body);
+            saveSessionData(response.body);
+            push("/home");
         } else {
             alert("there has been an error");
-            console.log(response.body);
         }
     };
 
@@ -76,7 +78,6 @@
         }
         step += 1;
     };
-
 </script>
 
 
