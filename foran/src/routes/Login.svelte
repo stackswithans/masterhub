@@ -41,8 +41,8 @@
             <form>
                 <h1 style="color:var(--color-4);"><span style="color:var(--color-2);">Master</span>Hub</h1>
                 <div class="input-group">
-                    <LoginInput bind:value={fields.email} name="email" description="E-mail"/>
-                    <LoginInput bind:value={fields.password} name="password" type="password" description="Palavra-passe"/>
+                    <LoginInput errors={errors.email} bind:value={fields.email} name="email" description="E-mail"/>
+                    <LoginInput errors={errors.password} bind:value={fields.password} name="password" type="password" description="Palavra-passe"/>
                 </div>
                 <button type="button" on:click={login}>Entrar</button>
             </form>

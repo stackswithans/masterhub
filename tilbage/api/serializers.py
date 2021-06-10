@@ -22,6 +22,7 @@ class SessionSerializer(serializers.Serializer):
 
     def validate(self, data):
         user = authenticate(username=data["email"], password=data["password"])
+        print(user)
         if not user:
             raise serializers.ValidationError(
                 {"email": BAD_CREDS_MSG, "password": BAD_CREDS_MSG}
@@ -59,12 +60,13 @@ class UserSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         data = validated_data
-        user = User.objects.create(
-            first_name=data["first_name"],
-            last_name=data["last_name"],
-            username=data["email"],
+        create_user(username, email=None, password=None, **extra_fields)
+        user = User.objects.create_user(
+            data["email"],
             email=data["email"],
             password=data["password"],
+            first_name=data["first_name"],
+            last_name=data["last_name"],
         )
 
         mh_user = MasterhubUser.objects.create(
