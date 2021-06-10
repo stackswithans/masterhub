@@ -5,6 +5,7 @@ export const apiHost = host + ":" + "8000" + "/";
 //endpoints
 const endpoints = {
     users: apiHost + "api/users/",
+    login: apiHost + "api/sessions/",
     call: apiHost + "call/",
     callSocket: `ws://${window.location.hostname + ":" + "8000"}/ws/call`,
 };
@@ -72,6 +73,7 @@ export const reverse = (path: string, pathParams?: Array<string>): string => {
 
 export const validateFormSection = async (
     utype: string,
+    path: string,
     formData: object,
     errors: object,
     sectionFields: Array<string>
@@ -82,7 +84,7 @@ export const validateFormSection = async (
         data[value] = formData[value];
     });
     //Send request and get errors
-    let response = await postData(reverse("users"), data);
+    let response = await postData(reverse(path), data);
     if (!response.ok) {
         console.log(response.body);
         //Get field erros
@@ -94,5 +96,5 @@ export const validateFormSection = async (
         });
         return [hasErrors, errors];
     }
-    return [false, errors];
+    return [false, response.body];
 };

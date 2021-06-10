@@ -1,12 +1,37 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 from .models import MasterhubUser, Master
 
 REQUIRED_ERR_MSG = "Este campo deve ser preenchido"
+BAD_CREDS_MSG = "O e-mail e/ou  a palavra-passe estão incorrectos"
 DEFAULT_ERRORS = {
     "blank": REQUIRED_ERR_MSG,
     "null": REQUIRED_ERR_MSG,
 }
+
+
+class SessionSerializer(serializers.Serializer):
+    email = serializers.EmailField(
+        error_messages={
+            "invalid": "Este e-mail é inválido",
+            **DEFAULT_ERRORS,
+        }
+    )
+    password = serializers.CharField(error_messages=DEFAULT_ERRORS)
+
+    def validate(self, data):
+        user = authenticate(username=data["email"], password=data["password"])
+        if not user:
+            raise serializers.ValidationError(
+                {"email": BAD_CREDS_MSG, "password": BAD_CREDS_MSG}
+            )
+        utype = (
+            MasterhubUser.MASTER
+            if Master.objects.filter(email=data["email"])
+            else MasterhubUser.STUDENT
+        )
+        return {"utype": utype, "user": user, **data}
 
 
 class UserSerializer(serializers.Serializer):

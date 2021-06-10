@@ -1,9 +1,15 @@
 <script lang="typescript">
+    export let name: string;
+    export let value: string;
     export let type: string = "text";
     export let description: string = "";
 </script>
 
-<input type="{type}" placeholder={description} class="input-after">
+{#if type === "text"}
+    <input {name} bind:value={value} type="text" placeholder={description} class="input-after">
+{:else}
+    <input {name} bind:value={value} type="password" placeholder={description} class="input-after">
+{/if}
 
 <style>
     .input-after{

@@ -37,11 +37,10 @@
 
     const registerUser = async () => {
         let data = { "utype": "ST", ...fields };
-        console.log(data);
         let response = await postData(reverse("users"), data);
         if(response.ok){
             saveSessionData(response.body);
-            push("/home");
+            push("/search");
         } else {
             alert("there has been an error");
         }
@@ -53,6 +52,7 @@
             let hasError: boolean;
             [hasError, errors] = await validateFormSection(
                 "ST",
+                "users", 
                 fields,
                 errors,
                 ["email", "first_name", "last_name", "telephone", "gender"]
@@ -64,7 +64,7 @@
             //Check passwords match
             let hasError: boolean;
             [hasError, errors] = await validateFormSection(
-                "ST", fields, errors, ["password"]
+                "ST", "users", fields, errors, ["password"]
             );
             if(hasError) return;
             if(!(fields.password === fields.passwd_confirm)){
