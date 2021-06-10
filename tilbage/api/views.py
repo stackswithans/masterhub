@@ -19,7 +19,7 @@ def sessions(request):
         return Response(
             {
                 "email": user.email,
-                "utype": serializers.validated_data["utype"],
+                "utype": serializer.validated_data["utype"],
                 "name": f"{user.first_name} {user.last_name}",
                 "access_token": str(token.access_token),
                 "refresh_token": str(token),

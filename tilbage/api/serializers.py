@@ -29,7 +29,7 @@ class SessionSerializer(serializers.Serializer):
             )
         utype = (
             MasterhubUser.MASTER
-            if Master.objects.filter(email=data["email"])
+            if Master.objects.filter(user__email=data["email"])
             else MasterhubUser.STUDENT
         )
         return {"utype": utype, "user": user, **data}
@@ -60,7 +60,6 @@ class UserSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         data = validated_data
-        create_user(username, email=None, password=None, **extra_fields)
         user = User.objects.create_user(
             data["email"],
             email=data["email"],
