@@ -35,11 +35,10 @@
 <style>
     .card{
         width: 35%;
-        height: 13vh;
         border-radius: 20px;
         display: flex;
         box-shadow: 0rem 0rem 1rem -0.3rem;
-        padding: 0.6rem 0 0 0;
+        padding: 0.6rem;
         background-color: white;
     }
 

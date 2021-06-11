@@ -91,10 +91,10 @@
 
     .image{
         margin: auto;
-        width: 90px;
-        height: 100%;
+        width: 5em;
+        height: 5em ;
         border: 1px solid  black;
-        border-radius: 100px;
+        border-radius: 100%;
     }
 
     .third{

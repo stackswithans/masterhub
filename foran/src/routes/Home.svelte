@@ -39,6 +39,7 @@
     .first-section{
         width: 65%;
         height: 100%;
+        overflow-y: scroll;
         display: flex;
         flex-direction: column;
     }
