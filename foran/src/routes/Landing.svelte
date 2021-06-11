@@ -5,6 +5,7 @@
     import LandingInput from "../components/landing/LandingInput.svelte";
     import ContactFormHeader from "../components/landing/ContactFormHeader.svelte";
     import CardGrid from "../components/landing/CardGrid.svelte";
+    import Spinner from "../components/Spinner.svelte";
 </script>
 
 

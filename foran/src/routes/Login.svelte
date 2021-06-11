@@ -3,9 +3,12 @@
     import { isLoggedIn, saveSessionData }  from "../scripts/auth";
     import { push }  from "svelte-spa-router";
     import MainLayout  from "../components/MainLayout.svelte";
+    import Spinner  from "../components/Spinner.svelte";
     import LoginInput from "../components/login/LoginInput.svelte";
 
     if(isLoggedIn()) push("/search"); 
+
+    let loading = false;
 
     let fields = {
         "email": null, 
@@ -19,12 +22,15 @@
 
     const login = async () => {
         let hasErrors, result;
+        loading = true;
         [hasErrors, result] = await validateFormSection("", "login", fields, errors, ["email", "password"]);
         if(hasErrors){
             errors = result;
             console.log(result);
+            loading = false
             return;
         }
+        loading = false;
         saveSessionData(result);
         push("/search");
     };
@@ -32,6 +38,7 @@
 </script>
 
 
+<Spinner loading={loading}/>
 <MainLayout>
     <div class="login-layout">
         <aside class="image">
