@@ -138,19 +138,11 @@
         .split{
             margin-top: 2rem;
         }
-
-        :global(html){
-            font-size: 12px;
-        }
     }
 
     @media(max-width: 1024px){
         .split{
             margin-top: 3rem;
-        }
-
-        :global(html){
-            font-size: 12px;
         }
     }
 </style>
