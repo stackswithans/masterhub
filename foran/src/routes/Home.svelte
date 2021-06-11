@@ -2,7 +2,6 @@
     import HomeLayout from "../components/HomeLayout.svelte";
     import MasterProfile from "../components/MasterProfile.svelte";
     import MasterMainInfo from "../components/MasterMainInfo.svelte";
-
 </script>
 
     <HomeLayout>
@@ -40,6 +39,7 @@
     .first-section{
         width: 65%;
         height: 100%;
+        overflow-y: scroll;
         display: flex;
         flex-direction: column;
     }

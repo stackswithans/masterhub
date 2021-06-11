@@ -46,6 +46,7 @@
         display: flex;
     }
 
+
     .side-bar{
         background-color: white;
         display: flex;
