@@ -1,14 +1,20 @@
 <script lang="typescript">
     import { onMount } from "svelte";
     export let description: string = "";
-    export let step: number = 1;
-    export let steps: number = 3;
+    export let step: number;
+    export let steps: number;
 
     let loader: HTMLDivElement; 
 
     onMount(() => {
         loader.style.width = `${(105/steps) * step}%`;
     });
+
+    $:{
+        if(loader !== undefined){
+            loader.style.width = `${(105/steps) * step}%`;
+        }  
+    }
 </script>
 
 <div class="main">

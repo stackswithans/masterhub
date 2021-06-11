@@ -2,7 +2,7 @@
     import NavBar from "./NavBar.svelte";
 </script>
 
-<div class="container">
+<div class="main">
     <div class="overlay"></div>
     <img class="background" src="/assets/images/main_bg.png" alt="A library"/>
     <NavBar brand={true} theme="light"/>
@@ -13,7 +13,7 @@
 
 
 <style>
-    .container{
+    .main{
         position: relative;
         display: flex;
         flex-direction: column;
