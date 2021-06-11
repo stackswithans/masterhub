@@ -1,19 +1,17 @@
 <script lang="typescript">
-
+    import Brand from "./Brand.svelte";
 
 </script>
     <main>
         <aside class="side-bar">
             <div>
-                <h1>Master<span>Hub</span></h1>
+                <Brand theme="dark"/>
             </div>
-            <div class="menu-list">
-                <ul>
+                <ul class="menu-list">
                     <li><a href=""><i class="fas fa-home"></i>Home</a></li>
                     <li><a href=""><i class="far fa-calendar-alt"></i>Horário</a></li>
                     <li><a href=""><i class="fas fa-video"></i>Sala</a></li>
                 </ul>
-            </div>
             <div class="adds">
 
             </div>
@@ -26,9 +24,10 @@
                 </div>
                 <div class="profile">
                     <i class="fas fa-bell fa-2x"></i>
+                    <div class="separador"></div>
                     <div class="sub-profile">
                         <img src="" alt="">
-                        <span>Peter P.</span>
+                        <span>Migue Voa</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
                 </div>
@@ -39,103 +38,99 @@
         </div>
     </main>
 
-
 <style>
-    *{
-        padding: 0;
-        margin: 0;
-    }
 
     main{
-        background-color: var(--color-3);
+        width: 100%;
+        height: 100vh;
         display: flex;
     }
 
     .side-bar{
-        width: 15vw;
-        height: 100vh;
         background-color: white;
-    }
-
-    h1{
-        font-family: 'Roboto Slab';
-        color: var(--color-1);
-        text-align: center;
-        font-size: 2rem;
-        padding: 1rem 0rem;
-    }
-
-    span{
-        font-family: 'Roboto Slab';
-        color: var(--color-3);
-    }
-
-    .menu-list ul{
-        padding: 4rem 0rem;
         display: flex;
         flex-direction: column;
+        height: 100%;
+        padding: 1rem 0;
+        gap: 4rem;
+        width: 12%;
+        align-items: center;
     }
 
-    .menu-list ul li{
-        padding: 1rem;
+    .menu-list{
+        width: 100%;
+        gap: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .menu-list li{
+        display: flex;
         list-style-type: none;
-        font-size: 'Amiri';
+        width: 100%;
+        padding: 1rem 2rem;
     }
 
-    .menu-list ul a{
+    .menu-list a{
+        align-items: center;
+        display: flex;
         font-size: 1.2rem;
         text-decoration: none;
         color: var(--color-3);
         font-family: 'Roboto Slab';
-        padding: 0.6rem 3rem;
     }
 
     i{
-        padding-right: 1.8rem;
+        padding-right: 1rem;
      }
 
-     .menu-list ul a:hover{
+     .menu-list li:hover{
          background-color: var(--color-1);
-         border-radius: 5px;
+         border-radius: 1rem;
          font-weight: bolder;
      }
 
-     .adds{
-         width: 10vw;
-         height: 16vh;
-         border: 1px solid var(--color-3);
-         margin: auto;
-         border-radius: 5px;
-         margin-top: 20rem;
+     .container{
+         width: 88%;
+         background-color: var(--color-8);
+         height: 100%;
      }
 
      .nav-bar{
-        background-color: var(--color-4);
-        width: 85vw;
-        height: 100%;
-        display: flex;
-        padding: 1rem;
+         width: 100%;
+         background-color: white;
+         height: 7%;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         padding: 0 2rem;
      }
 
      .search-bar{
-         background-color: var(--color-4);
+         background-color: white;
          border-radius: 25px;
-         border: 1px solid grey;
-         width: 30rem;
-         height: 3rem;
+         border: 2px solid grey;
+         width: 30%;
+         max-height: 70%;
+         display: flex;
+         align-items: center;
+         padding: 0.2rem;
      }
 
      .search-bar input{
-         width: 86%;
+         width: 90%;
          height: 100%;
-         border-radius: 30px;
+         border-radius: 40px;
          border: 0px solid black;
          text-indent: 1rem;
+         background-color: white;
+         margin: auto 0;
      }
 
      .fa-search{
          color: white;
-         border-radius: 30px;
+         border-radius: 40px;
          background-color:var(--color-3);
          padding: 0.6rem;
      }
@@ -149,21 +144,18 @@
      }
 
      .profile{
-         width: 10rem;
          display: flex;
-         padding: 0.4rem;
-         margin-left: 40rem;
+         align-items: center;
      }
 
      .sub-profile{
          display: flex;
-         border-left: 2px solid grey;
-         padding: 0.5rem;
+         align-items: center;
+         gap: 0.5rem;
      }
 
      .sub-profile span{
-         width: 5vw;
-         padding: 0.3rem;
+        font-family: 'Roboto Slab';
      }
 
      .sub-profile img{
@@ -173,18 +165,11 @@
          border-radius: 20px;
      }
 
-     .fa-bell{
-        margin: auto;
-     }
-
-     .fa-chevron-down{
-        padding: 0.4rem;
-     }
-
-     .main-container{
-         background-color: rgb(224, 224, 224);
-         width: 85vw;
-         height: 90vh;
+     .separador{
+         width: 1px;
+         background-color: var(--color-3);
+         height: 1.8rem;
+        margin-right: 1rem;
      }
 
 </style>
