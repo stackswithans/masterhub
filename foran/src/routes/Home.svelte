@@ -2,6 +2,7 @@
     import HomeLayout from "../components/HomeLayout.svelte";
     import MasterProfile from "../components/MasterProfile.svelte";
     import MasterMainInfo from "../components/MasterMainInfo.svelte";
+
 </script>
 
     <HomeLayout>
