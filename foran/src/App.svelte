@@ -27,6 +27,12 @@
         height: fit-content;
     }
 
+    :global(.container){
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
     /*color pallete*/
     :global(:root){
         --color-1: #FFC800;

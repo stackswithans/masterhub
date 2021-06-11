@@ -4,9 +4,14 @@ from django.contrib.auth.models import User
 
 
 class MasterhubUser(models.Model):
+    # User types
+    MASTER = "MS"
+    STUDENT = "ST"
+    # Genders
     MALE = "M"
     FEMALE = "F"
     UNKNOWN = "U"
+
     GENDERS = ((MALE, "Male"), (FEMALE, "Female"), (UNKNOWN, "UNKNOWN"))
     user = models.OneToOneField(
         User, primary_key=True, on_delete=models.CASCADE

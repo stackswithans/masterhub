@@ -5,10 +5,14 @@ export const apiHost = host + ":" + "8000" + "/";
 //endpoints
 const endpoints = {
     users: apiHost + "api/users/",
+    login: apiHost + "api/sessions/",
     call: apiHost + "call/",
     callSocket: `ws://${window.location.hostname + ":" + "8000"}/ws/call`,
 };
-export const postData = async (url = "", data = {}) => {
+export const postData = async (
+    url = "",
+    data = {}
+): Promise<{ ok: boolean; code: number; body: Object }> => {
     const response = await fetch(url, {
         method: "POST",
         mode: "cors",
@@ -21,7 +25,11 @@ export const postData = async (url = "", data = {}) => {
         referrerPolicy: "no-referrer",
         body: JSON.stringify(data),
     });
-    return response.json();
+
+    let code: number = response.status;
+    let body = await response.json();
+
+    return { ok: response.ok, code, body };
 };
 
 export const postFormData = async (url = "", data: FormData) => {
@@ -61,4 +69,32 @@ export const reverse = (path: string, pathParams?: Array<string>): string => {
     return [endpoints[path], ...pathParams].reduce(
         (accumulator, current) => accumulator + current
     );
+};
+
+export const validateFormSection = async (
+    utype: string,
+    path: string,
+    formData: object,
+    errors: object,
+    sectionFields: Array<string>
+): Promise<[boolean, any]> => {
+    //Get the value of the fields of this section from the form
+    let data = { utype };
+    sectionFields.forEach((value) => {
+        data[value] = formData[value];
+    });
+    //Send request and get errors
+    let response = await postData(reverse(path), data);
+    if (!response.ok) {
+        console.log(response.body);
+        //Get field erros
+        let hasErrors = false;
+        sectionFields.forEach((field) => {
+            if (!response.body[field]) return;
+            hasErrors = true;
+            errors[field] = response.body[field];
+        });
+        return [hasErrors, errors];
+    }
+    return [false, response.body];
 };

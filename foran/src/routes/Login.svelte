@@ -1,6 +1,34 @@
 <script lang="typescript">
+    import { reverse, postData, validateFormSection}  from "../scripts/utils";
+    import { isLoggedIn, saveSessionData }  from "../scripts/auth";
+    import { push }  from "svelte-spa-router";
     import MainLayout  from "../components/MainLayout.svelte";
     import LoginInput from "../components/login/LoginInput.svelte";
+
+    if(isLoggedIn()) push("/search"); 
+
+    let fields = {
+        "email": null, 
+        "password": null, 
+    };
+
+    let errors = {
+        "email": [], 
+        "password": [], 
+    };
+
+    const login = async () => {
+        let hasErrors, result;
+        [hasErrors, result] = await validateFormSection("", "login", fields, errors, ["email", "password"]);
+        if(hasErrors){
+            errors = result;
+            console.log(result);
+            return;
+        }
+        saveSessionData(result);
+        push("/search");
+    };
+
 </script>
 
 
@@ -13,10 +41,10 @@
             <form>
                 <h1 style="color:var(--color-4);"><span style="color:var(--color-2);">Master</span>Hub</h1>
                 <div class="input-group">
-                    <LoginInput description="E-mail"/>
-                    <LoginInput type="password" description="Palavra-passe"/>
+                    <LoginInput errors={errors.email} bind:value={fields.email} name="email" description="E-mail"/>
+                    <LoginInput errors={errors.password} bind:value={fields.password} name="password" type="password" description="Palavra-passe"/>
                 </div>
-                <button type="button">Entrar</button>
+                <button type="button" on:click={login}>Entrar</button>
             </form>
         </aside>
     </div>
