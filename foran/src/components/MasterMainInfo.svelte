@@ -13,7 +13,7 @@
     <div class="info-div">
         <h3 class="name">{name}</h3>
         <h3 class="course">{course}</h3>
-        <h4>{payment} Kz/h</h4>
+        <h5>{payment} Kz/h</h5>
         <div class="week-days">
             <div>D</div>
             <div class="workweek">S</div>
@@ -34,7 +34,7 @@
 
 <style>
     .card{
-        width: 35%;
+        width: 40%;
         border-radius: 20px;
         display: flex;
         box-shadow: 0rem 0rem 1rem -0.3rem;
@@ -50,8 +50,8 @@
     .photo{
         border: 1px solid black;
         border-radius: 40px;
-        width: 4rem;
-        height: 4rem;
+        width: 3.2em;
+        height: 3.2em;
         float: right;
     }
 
@@ -71,7 +71,7 @@
 
     .week-days div{
         font-family: 'Roboto Slab';
-        font-size: 1.2rem;
+        font-size: 1em;
     }
 
     .workweek{
@@ -82,7 +82,8 @@
         height: 100%;
         width: 15%;
         display: flex;
-        align-items: center;
+        float: right;
+        margin-top: 10%;
     }
 
     .icon{
@@ -92,18 +93,18 @@
     .name{
         font-size: 'Roboto';
         color: var(--color-3);
-        font-size: 1.2rem;
+        font-size: 1em;
         padding-top: 0.2rem
     }
 
     .course{
         font-size: 'Roboto Bold';
         color: var(--color-3);
-        font-size: 1.2rem;
+        font-size: 1em;
         padding-top: 0.2;
     }
 
-    h4{
+    h5{
         font-family: 'Roboto Condensed';
         color: var(--color-1);
     }

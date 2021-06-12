@@ -16,7 +16,7 @@
             </div>
             <h2>{name}</h2>
             <h2>{course}</h2>
-            <h4>x classificações</h4>
+            <h5>x classificações</h5>
         </div>
         <div class="second">
             <div class="sobre">
@@ -43,7 +43,7 @@
         border-radius: 15px;
         border: 0px solid black;
         box-shadow: 0rem 0rem 0.3rem;
-        padding: 1rem 1rem 0 1rem;
+        padding: 0.5em 0.5em 0 0.5em;
         background-color: white;
         display: flex;
         flex-direction: column;
@@ -54,18 +54,18 @@
         height: 32%;
         display: flex;
         flex-direction: column;
+        margin-top: -25%;
     }
 
     .container h2{
         text-align: center;
-        padding: 0.5rem;
-        font-size: 1.6rem;
+        font-size: 1.4em;
         font-family: 'Roboto';
     }
 
-    .container h4{
+    .container h5{
         text-align: center;
-        padding: 0.5rem;
+        padding: 0.4em;
         opacity: 0.7;
     }
 
@@ -73,20 +73,20 @@
         width: 100%;
         height: 5%;
         display: flex;
-        padding: 1rem;
+        margin-top: 5%;
     }
 
     .sobre{
         display: flex;
         width: 20%;
-        justify-content: center;
         margin: auto;
         border-bottom: 3px solid var(--color-3);
+        justify-content: center;
     }
 
     .sobre h3{
         font-family: 'Roboto Slab';
-        font-size: 1.2rem;
+        font-size: 1em;
     }
 
     .image{
@@ -109,7 +109,7 @@
         display: flex;
         flex-direction: column;
         gap: 2rem;
-        padding-top: 2rem;
+        padding: 2em 0.5em 0 1em;
     }
 
     .skills-list h3{
@@ -119,6 +119,7 @@
         padding: 0 0 0 4%;
         color: var(--color-3);
         opacity: 0.7;
+        font-size: 0.8em;
     }
 
 </style>
