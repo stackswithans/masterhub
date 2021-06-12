@@ -4,27 +4,23 @@
 </script>
     <main>
         <aside class="side-bar">
-            <div>
-                <Brand theme="dark"/>
+            <div class="logo">
+                <Brand theme="dark" size=100%/>
             </div>
                 <ul class="menu-list">
                     <li><a href=""><i class="fas fa-home"></i>Home</a></li>
                     <li><a href=""><i class="far fa-calendar-alt"></i>Horário</a></li>
                     <li><a href=""><i class="fas fa-video"></i>Sala</a></li>
                 </ul>
-            <div class="adds">
-
-            </div>
         </aside>
         <div class="container">
             <nav class="nav-bar">
                 <div class="search-bar">
                     <input type="text" class="bar" placeholder="Pesquise pela habilidade que deseja">
-                    <i class="fas fa-search fa-lg"></i>
+                    <i class="fas fa-search fa-sm"></i>
                 </div>
                 <div class="profile">
-                    <i class="fas fa-bell fa-2x"></i>
-                    <div class="separador"></div>
+                    <i class="fas fa-bell fa-lg"></i>
                     <div class="sub-profile">
                         <img src="" alt="">
                         <span>Migue Voa</span>
@@ -59,37 +55,33 @@
     }
 
     .menu-list{
-        width: 100%;
-        gap: 1rem;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        gap: 1.6em;
     }
 
     .menu-list li{
         display: flex;
         list-style-type: none;
-        width: 100%;
-        padding: 1rem 2rem;
     }
 
     .menu-list a{
-        align-items: center;
         display: flex;
-        font-size: 1.2rem;
-        text-decoration: none;
+        align-items: center;
+        gap: 1em;
         color: var(--color-3);
-        font-family: 'Roboto Slab';
+        padding: 0.2em 0.8em;
     }
-
-    i{
-        padding-right: 1rem;
-     }
 
      .menu-list li:hover{
          background-color: var(--color-1);
          border-radius: 1rem;
          font-weight: bolder;
+         text-decoration: none;
+     }
+
+     .menu-list a:hover{
+         text-decoration: none;
      }
 
      .container{
@@ -117,23 +109,24 @@
          display: flex;
          align-items: center;
          padding: 0.2rem;
+         justify-content: space-between;
+         padding: 0.1em 0.2em;
      }
 
-     .search-bar input{
+     .bar{
+         display: flex;
          width: 90%;
-         height: 100%;
-         border-radius: 40px;
+         margin: 0;
+         border-radius: 50px;
          border: 0px solid black;
-         text-indent: 1rem;
-         background-color: white;
-         margin: auto 0;
+         padding: 0;
      }
 
      .fa-search{
-         color: white;
+         background-color: var(--color-3);
          border-radius: 40px;
-         background-color:var(--color-3);
-         padding: 0.6rem;
+         color: white;
+         padding: 0.2em;
      }
 
      .search-bar input:focus{
@@ -142,6 +135,8 @@
 
      .search-bar input::placeholder{
          opacity: 0.5;
+         font-size: 0.75em;
+         font-family: 'Roboto';
      }
 
      .profile{
@@ -157,6 +152,7 @@
 
      .sub-profile span{
         font-family: 'Roboto Slab';
+        font-size: 0.8em;
      }
 
      .sub-profile img{
@@ -166,11 +162,10 @@
          border-radius: 20px;
      }
 
-     .separador{
-         width: 1px;
-         background-color: var(--color-3);
-         height: 1.8rem;
-        margin-right: 1rem;
+     .fa-bell{
+         margin: 0 0.4em;
+         padding: 0 0.4em;
+         border-right: 1px solid black;
      }
 
 </style>

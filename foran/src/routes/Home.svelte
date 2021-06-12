@@ -8,8 +8,8 @@
         <main class="main-sector">
             <div class="first-section">
                 <div class="header">
-                    <h1>Professores</h1>
-                    <h4>40 professores encontrados em Informática</h4>
+                    <h2>Professores</h2>
+                    <h5>40 professores encontrados em Informática</h5>
                 </div>
                 <div class="content">
                     <MasterMainInfo/>
@@ -46,14 +46,14 @@
 
     .header{
         width: 100%;
-        height: 15%;
+        height: 12%;
         display: flex;
         flex-direction: column;
         justify-content: center;
         border-bottom: 1px solid white;
     }
 
-    .header h1,h4{
+    .header h2,h5{
         text-align: center;
         font-family: 'Roboto Slab';
     }
@@ -63,8 +63,8 @@
         height: 85%;
         display: flex;
         flex-wrap: wrap;
-        gap: 3rem;
-        padding: 2rem 0;
+        gap: 2em;
+        padding-top: 1em;
         justify-content: center;
     }
 
