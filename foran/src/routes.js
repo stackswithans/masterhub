@@ -5,7 +5,8 @@ import RegisterMaster from "./routes/RegisterMaster.svelte";
 import Home from "./routes/Home.svelte";
 import Search from "./routes/Search.svelte";
 import Room from "./routes/Room.svelte";
-import Teste from "./components/MasterMainInfo.svelte"
+import MasterProfile from "./routes/MasterMainProfileContacts.svelte";
+import Teste from "./components/MasterIndex.svelte"
 
 const routes = {
     "/": Landing,
@@ -15,6 +16,7 @@ const routes = {
     "/home": Home,
     "/search": Search,
     "/room": Room,
+    "/profile": MasterProfile,
     "/teste": Teste
 }
 

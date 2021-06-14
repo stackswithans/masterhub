@@ -36,7 +36,7 @@
     }
 
     .first-sector{
-        width: 74%;
+        width: 75%;
         height: 100%;
         display: flex;
         flex-direction: column;
@@ -44,7 +44,7 @@
     }
 
     .second-sector{
-        width: 26%;
+        width: 25%;
         height: 100%;
         display: flex;
         align-items: center;
