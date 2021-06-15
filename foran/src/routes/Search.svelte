@@ -43,6 +43,7 @@
 
     .bar{
         display:flex;
+        align-items: center;
         padding:0.4em;
         width: min(30em, 45%);
         background-color: var(--color-4);
