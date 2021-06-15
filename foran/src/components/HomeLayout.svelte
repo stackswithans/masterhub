@@ -2,37 +2,37 @@
     import Brand from "./Brand.svelte";
 
 </script>
-    <main>
-        <aside class="side-bar">
-            <div class="logo">
-                <Brand theme="dark" size=100%/>
-            </div>
-                <ul class="menu-list">
-                    <li><a href=""><i class="fas fa-home"></i>Home</a></li>
-                    <li><a href=""><i class="far fa-calendar-alt"></i>Horário</a></li>
-                    <li><a href=""><i class="fas fa-video"></i>Sala</a></li>
-                </ul>
-        </aside>
-        <div class="container">
-            <nav class="nav-bar">
-                <div class="search-bar">
-                    <input type="text" class="bar" placeholder="Pesquise pela habilidade que deseja">
-                    <i class="fas fa-search fa-sm"></i>
-                </div>
-                <div class="profile">
-                    <i class="fas fa-bell fa-lg"></i>
-                    <div class="sub-profile">
-                        <img src="" alt="">
-                        <span>Migue Voa</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                </div>
-            </nav>
-            <div class="main-container">
-                <slot></slot>
-            </div>
+<main>
+    <aside class="side-bar">
+        <div class="logo">
+            <Brand theme="dark" size="1.3em"/>
         </div>
-    </main>
+        <ul class="menu-list">
+            <li><a href="#/home/"><i class="fas fa-home"></i>Home</a></li>
+            <li><a href="#/"><i class="far fa-calendar-alt"></i>Horário</a></li>
+            <li><a href="#/room/"><i class="fas fa-video"></i>Sala</a></li>
+        </ul>
+    </aside>
+    <div class="container">
+        <nav class="nav-bar">
+            <div class="search-bar">
+                <input type="text" class="bar" placeholder="Pesquise pela habilidade que deseja">
+                <i class="fas fa-search fa-sm"></i>
+            </div>
+            <div class="profile">
+                <i class="fas fa-bell fa-lg"></i>
+                <div class="sub-profile">
+                    <img src="" alt="">
+                    <span>Migue Voa</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </nav>
+        <div class="main-container">
+            <slot></slot>
+        </div>
+    </div>
+</main>
 
 <style>
 
@@ -42,15 +42,13 @@
         display: flex;
     }
 
-
     .side-bar{
         background-color: white;
         display: flex;
         flex-direction: column;
         height: 100%;
-        padding: 1rem 0;
-        gap: 4rem;
-        width: 12%;
+        padding: 1rem 0.5rem 0 0.5rem;
+        gap: 4em;
         align-items: center;
     }
 
@@ -62,6 +60,9 @@
 
     .menu-list li{
         display: flex;
+        padding: 0.5em 1em 0.5em 1em;
+        width: 100%;
+        height: 100%;
         list-style-type: none;
     }
 
@@ -75,7 +76,7 @@
 
      .menu-list li:hover{
          background-color: var(--color-1);
-         border-radius: 1rem;
+         border-radius: 1rem; 
          font-weight: bolder;
          text-decoration: none;
      }
@@ -103,12 +104,12 @@
      .search-bar{
          background-color: white;
          border-radius: 25px;
-         border: 2px solid grey;
-         width: 30%;
+         border: 1px solid grey;
+         width: max(30%, 22rem);
          max-height: 70%;
          display: flex;
          align-items: center;
-         padding: 0.2rem;
+         padding: 0.5rem;
          justify-content: space-between;
          padding: 0.1em 0.2em;
      }
@@ -117,6 +118,10 @@
          display: flex;
          width: 90%;
          margin: 0;
+         font-family: "Roboto";
+         font-weight: normal;
+         font-size: 1rem;
+         text-indent: 1ch;
          border-radius: 50px;
          border: 0px solid black;
          padding: 0;

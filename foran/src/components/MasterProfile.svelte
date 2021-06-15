@@ -1,5 +1,8 @@
 <script lang="typescript">
+    import ContactCircle from "./ContactCircle.svelte";
+
     export let name = "Migue Voa";
+    export let surname = "Voa";
     export let course = "IT";
     export let phone = "945415191";
     export let gender = "Masculino";
@@ -12,10 +15,10 @@
     <div class="container">
         <div class="first">
             <div class="image">
-                <img src="" alt="">
+                <ContactCircle  size="5em"/>
             </div>
-            <h2>{name}</h2>
-            <h2>{course}</h2>
+            <h2>{name} {surname}</h2>
+            <h2 class="course">{course}</h2>
             <h5>x classificações</h5>
         </div>
         <div class="second">
@@ -38,15 +41,15 @@
 <style>
 
     .container{
+        display: flex;
+        flex-direction: column;
         width: 80%;
-        height: 80%;
+        height: fit-content;
         border-radius: 15px;
         border: 0px solid black;
         box-shadow: 0rem 0rem 0.3rem;
-        padding: 0.5em 0.5em 0 0.5em;
+        padding: 1em;
         background-color: white;
-        display: flex;
-        flex-direction: column;
     }
 
     .first{
@@ -54,18 +57,22 @@
         height: 32%;
         display: flex;
         flex-direction: column;
-        margin-top: -25%;
+        gap: 0.5em;
     }
 
     .container h2{
         text-align: center;
-        font-size: 1.4em;
+        font-size: 1.2em;
         font-family: 'Roboto';
+        font-weight: normal;
+    }
+
+    .container .first .course{
+        font-weight: bold;
     }
 
     .container h5{
         text-align: center;
-        padding: 0.4em;
         opacity: 0.7;
     }
 
@@ -91,10 +98,6 @@
 
     .image{
         margin: auto;
-        width: 5em;
-        height: 5em ;
-        border: 1px solid  black;
-        border-radius: 100%;
     }
 
     .third{

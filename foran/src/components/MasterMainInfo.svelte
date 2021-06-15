@@ -1,15 +1,14 @@
 <script lang="typescript">
+    import ContactCircle from "./ContactCircle.svelte";
+
     export let name = "Tony";
+    export let surname = "Stark";
     export let course = "BI";
     export let payment = 2000;
 </script>
 
 <div class="card">
-    <div class="photo-div">
-        <div class="photo">
-            <img src="" alt="">
-        </div>
-    </div>
+    <ContactCircle initials={name[0] + surname[0]}/>
     <div class="info-div">
         <h3 class="name">{name}</h3>
         <h3 class="course">{course}</h3>
@@ -43,16 +42,18 @@
     }
 
     .photo-div{
-        width: 25%;
+        max-width: 25%;
         height: 100%;
     }
 
     .photo{
-        border: 1px solid black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--color-2);
         border-radius: 40px;
         width: 3.2em;
         height: 3.2em;
-        float: right;
     }
 
     .info-div{
@@ -82,7 +83,6 @@
         height: 100%;
         width: 15%;
         display: flex;
-        float: right;
         margin-top: 10%;
     }
 
@@ -91,9 +91,11 @@
     }
 
     .name{
-        font-size: 'Roboto';
+        font-family: 'Roboto';
         color: var(--color-3);
         font-size: 1em;
+        font-weight: normal;
+        margin-bottom: 0.5em;
         padding-top: 0.2rem
     }
 
@@ -108,7 +110,4 @@
         font-family: 'Roboto Condensed';
         color: var(--color-1);
     }
-
-    
-
 </style>

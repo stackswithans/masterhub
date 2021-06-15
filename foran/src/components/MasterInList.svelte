@@ -84,6 +84,4 @@
     .fas{
         padding: 2rem 1.4rem;
     }
-
-
 </style>

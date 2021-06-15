@@ -44,10 +44,22 @@
         flex-direction: column;
     }
 
+    .first-section::-webkit-scrollbar{
+        background-color: var(--color-11);
+        width: 0.4rem;
+        border-radius: 1rem;
+    }
+
+    .first-section::-webkit-scrollbar-thumb{
+        background-color: white;
+        border-radius: 1rem;
+    }
+
     .header{
         width: 100%;
         height: 12%;
         display: flex;
+        padding-bottom: 1em;
         flex-direction: column;
         justify-content: center;
         border-bottom: 1px solid white;
@@ -58,13 +70,18 @@
         font-family: 'Roboto Slab';
     }
 
+    .header h5{
+        font-weight: normal;
+        color: var(--color-6);
+    }
+
     .content{
         width: 100%;
-        height: 85%;
         display: flex;
         flex-wrap: wrap;
         gap: 2em;
         padding-top: 1em;
+        padding-bottom: 1em;
         justify-content: center;
     }
 
@@ -74,9 +91,5 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        border-left: 1px solid black;
     }
-
-    
-
 </style>
