@@ -1,5 +1,5 @@
 <script lang="typescript">
-    export let label = "";
+    export let label : string;
     export let type: string = "text";
     export let name: string; 
     export let value = "";

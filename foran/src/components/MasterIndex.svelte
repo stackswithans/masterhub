@@ -1,14 +1,16 @@
 <script lang="typescript">
-    export let name = "Maria";
-    export let classes = "Chemistry";
+    export let name = "Maria Hill";
+    export let classes = "Chemistry, Mathematics";
 </script>
 
 <div class="main">
     <div class="media">
-        <div class="photo">
-            <img src="" alt="">
+        <div class="photo-org">
+            <div class="photo">
+                <img src="" alt="">
+            </div>
+            <div class="edit">Editar foto</div>
         </div>
-        <div class="edit">Editar foto</div>
     </div>
     <div class="id-div">
         <div class="identification">
@@ -28,66 +30,74 @@
 
 <style>
     .main{
+        width: 90%;
+        height: 80%;
+        background-color: rgb(60, 60, 60);
         display: flex;
-        width: 55vw;
-        height: 30vh;
-        background-color: var(--color-3);
         border-radius: 20px;
+        margin: auto;
     }
 
     .media{
-        width: 8vw;
-        height:16vh;
-        margin: auto 0rem;
-        margin-left: 4rem;
+        width: 20%;
+        height: 100%;
     }
 
     .photo{
-        width: 8vw;
-        height: 8vw;
-        border-radius: 100px;
+        width: 5em;
+        height: 5em;
         border: 1px solid black;
+        border-radius: 100%;
+    }
+
+    .photo-org{
+        float: right;
+        margin-top: 15%;
     }
 
     .edit{
-        padding: 0.8rem 1.8rem;
-        font-family: 'Roboto';
-        font-size: 1rem;
+        text-align: center;
+        font-size: 0.8em;
         color: white;
-        font-weight: lighter;
     }
 
     .id-div{
-        width: 18vw;
-        height: 8vh;
-        margin: auto 0rem;
-        padding-left: 1rem;
+        width: 28%;
+        height: 100%;
+    }
+
+    .identification{
+        margin-top: 18%;
     }
 
     .identification h1{
-        font-family: 'Roboto';
-        font-weight: bold;
-        font-size: 2.2rem;
-        color: var(--color-7);
+        padding-left: 0.6em;
+        font-size: 1.5em;
+        color: white;
     }
 
     .identification h2{
-        font-family: 'Roboto';
-        font-weight: normal;
-        font-size: 1.6rem;
-        color: var(--color-7);
+        padding-left: 1em;
+        font-size: 1em;
+        color: white;
     }
 
     .info{
+        position: relative;
         display: flex;
-        color: var(--color-7);
-        font-size: 1rem;
-        font-family: 'Roboto Regular';
-        margin-top: 13rem;
+        bottom: -70%;
     }
 
     .info div{
-        padding: 0.6rem;
+        padding: 0.5em 1em;
+        font-size: 0.8em;
+        text-align: center;
+        color: white;
     }
+
+    .info div:hover{
+        border-bottom: 2px solid white;
+    }
+
 
 </style>
