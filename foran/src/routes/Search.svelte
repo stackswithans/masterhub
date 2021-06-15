@@ -11,19 +11,23 @@
                 <i class="fas fa-search"></i>
             </div>
         </div>
-        
     </MainLayout>
 
 <style>
     .container{
-        margin-top: -14rem;
+        display: flex;
+        padding-top: 10em;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: 100%;
     }
 
     .container h1{
         text-align: center;
         color: var(--color-4);
         font-family: 'Roboto Condensed';
-        font-size: 4.7rem;
+        font-size: 2.5em;
         font-weight: lighter;
     }
 
@@ -31,15 +35,16 @@
         text-align: center;
         color: var(--color-4);
         font-family: 'Roboto Condensed';
-        font-size: 1.7rem;
-        font-weight: lighter;
+        font-size: 1.5em;
+        font-weight: normal;
         opacity: 0.75;
         padding: 1rem;
     }
 
     .bar{
-        max-width: 45rem;
-        margin-left: 10rem;
+        display:flex;
+        padding:0.4em;
+        width: min(30em, 45%);
         background-color: var(--color-4);
         border-radius: 20px;
         border: 0px solid black;
@@ -52,7 +57,7 @@
         background-color: var(--color-4);
         position: relative;
         width: 95%;
-        text-indent: 14rem;
+        text-indent: 4ch;
     }
 
     .bar input:focus{
@@ -69,5 +74,4 @@
         border-radius: 25px;
         padding: 0.4rem;
     }
-
 </style>
