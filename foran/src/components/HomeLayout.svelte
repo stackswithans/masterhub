@@ -137,6 +137,7 @@
          opacity: 0.5;
          font-size: 0.75em;
          font-family: 'Roboto';
+         text-indent: 1em;
      }
 
      .profile{
