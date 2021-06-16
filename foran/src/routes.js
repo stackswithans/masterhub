@@ -9,12 +9,13 @@ import MasterProfile from "./routes/MasterMainProfileContacts.svelte";
 import Teste from "./components/MasterIndex.svelte"
 
 const routes = {
-    "/": Landing,
+    "/": Search,
+    "/search": Search,
+    "/about": Landing,
     "/login": Login,
     "/register/student": RegisterStudent,
     "/register/master": RegisterMaster,
     "/home": Home,
-    "/search": Search,
     "/room": Room,
     "/profile": MasterProfile,
     "/teste": Teste

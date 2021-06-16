@@ -1,7 +1,6 @@
 <script lang="typescript">
     import { isLoggedIn }  from "../scripts/auth";
     import NavLink from "./NavLink.svelte";
-    import Dropdown from "../components/Dropdown.svelte";
     import ButtonLink from "./ButtonLink.svelte";
     import Brand from "./Brand.svelte"
 
@@ -19,7 +18,7 @@
     {/if}
 
     <ul>
-        <NavLink url="#" text="Acerca" {color}/>
+        <NavLink url="about" text="Acerca" {color}/>
         {#if isLoggedIn()}
             <NavLink url="home/" text="Central de aulas" {color}/>
             <NavLink url="#/" text="Terminar sessão" {color}/>
