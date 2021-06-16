@@ -15,7 +15,7 @@
     <div class="container">
         <div class="first">
             <div class="image">
-                <ContactCircle  size="5em"/>
+                <ContactCircle  size="4em"/>
             </div>
             <h2>{name} {surname}</h2>
             <h2 class="course">{course}</h2>
@@ -43,7 +43,7 @@
     .container{
         display: flex;
         flex-direction: column;
-        width: 80%;
+        width: min(80%, 16.652375em);
         height: fit-content;
         border-radius: 15px;
         border: 0px solid black;

@@ -33,7 +33,7 @@
 
 <style>
     .card{
-        width: 40%;
+        width: min(40%, 15.1875em);
         border-radius: 20px;
         display: flex;
         box-shadow: 0rem 0rem 1rem -0.3rem;

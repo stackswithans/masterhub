@@ -59,6 +59,7 @@
         width: 100%;
         height: 12%;
         display: flex;
+        padding-top: 1em;
         padding-bottom: 1em;
         flex-direction: column;
         justify-content: center;
@@ -80,8 +81,7 @@
         display: flex;
         flex-wrap: wrap;
         gap: 2em;
-        padding-top: 1em;
-        padding-bottom: 1em;
+        padding: 1em;
         justify-content: center;
     }
 
