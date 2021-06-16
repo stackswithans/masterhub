@@ -1,7 +1,8 @@
 <script lang="typescript">
     import Brand from "./Brand.svelte";
-
+    import ContactCircle from "./ContactCircle.svelte";
 </script>
+
 <main>
     <aside class="side-bar">
         <div class="logo">
@@ -22,7 +23,6 @@
             <div class="profile">
                 <i class="fas fa-bell fa-lg"></i>
                 <div class="sub-profile">
-                    <img src="" alt="">
                     <span>Migue Voa</span>
                     <i class="fas fa-chevron-down"></i>
                 </div>
@@ -87,6 +87,7 @@
 
      .container{
          width: 88%;
+         flex-grow: 1;
          background-color: var(--color-8);
          height: 100%;
      }

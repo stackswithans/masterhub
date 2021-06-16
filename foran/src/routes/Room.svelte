@@ -1,67 +1,92 @@
 <script lang="typescript">
     import HomeLayout from "../components/HomeLayout.svelte";
+    import { onMount } from "svelte";
 
+    let remoteVideo: HTMLVideoElement; 
+    let localVideo: HTMLVideoElement; 
+
+    let getVideo = async () => {
+        let constraints = { audio: false, video: true };
+        let stream = null;
+        try{
+            if(navigator.mediaDevices === undefined) throw new Error("Browser does not support mediaDevices");
+            stream = await navigator.mediaDevices.getUserMedia(constraints);
+            if (stream == null){
+                throw new Error("Impossível encontrar uma câmera");
+            }
+            remoteVideo.srcObject = stream;
+            localVideo.srcObject = stream;
+            remoteVideo.play();
+            localVideo.play();
+        }
+        catch(err){
+            console.log(err);
+        }
+    };
+    onMount(() => { getVideo() });
 </script>
 
-    <HomeLayout>
-        <div class="main-sector">
-            <div class="first-sector">
-                <div class="master-camera">
-                    <img src="" alt="">
-                    <div class="subject">
-                        <div class="time"><h4 class="h41">1:00:39</h4></div>
-                        <div class="summary"><h4 class="h42">Aula</h4></div>
-                    </div>
-                    <div class="classroom-options">
-                        <i class="fas fa-microphone fa-lg"></i>
-                        <i class="fas fa-volume-up fa-lg"></i>
-                        <i class="fas fa-phone-alt fa-lg"></i>
-                    </div>
-                </div>
-                <div class="student-camera"></div>
-            </div>
-            <div class="second-sector">
-                <img src="" alt="">
-                <h3>Mais features na próxima versão. <br>Boas Aulas</h3>
-            </div>
+<HomeLayout>
+    <div class="main-sector">
+        <!--
+        <div class="subject">
+            <div class="time"><h4 class="h41">1:00:39</h4></div>
+            <div class="summary"><h4 class="h42">Aula</h4></div>
         </div>
-    </HomeLayout>
+        <div class="classroom-options">
+            <i class="fas fa-microphone fa-lg"></i>
+            <i class="fas fa-volume-up fa-lg"></i>
+            <i class="fas fa-phone-alt fa-lg"></i>
+        </div>
+        -->
+        <div class="master-camera">
+            <video bind:this={remoteVideo} id="remote-video" src=""></video>
+        </div>
+        <video bind:this={localVideo} width="100%" class="student-camera"></video>
+        <div class="classroom-options">
+            <i class="fas fa-microphone fa-lg"></i>
+            <i class="fas fa-volume-up fa-lg"></i>
+            <i class="fas fa-phone-alt fa-lg"></i>
+        </div>
+    </div>
+</HomeLayout>
 
 <style>
-
     .main-sector{
+        padding: 2em;
         width: 100%;
         height: 93vh;
         display: flex;
-    }
-
-    .first-sector{
-        width: 75%;
-        height: 100%;
-        display: flex;
+        gap: 2rem;
         flex-direction: column;
-        border-right: 2px solid white;
-    }
-
-    .second-sector{
-        width: 25%;
-        height: 100%;
-        display: flex;
         align-items: center;
         text-align: center;
     }
 
+
+    .student-camera{
+        max-width: 20%;
+        max-height: 20%;
+    }
+
+
     .master-camera{
+        position: flex;
         border-radius: 4px;
-        border: 1px solid black;
-        width: 100%;
-        height: 65%;
+        max-height: 50%;
+        max-width: 50%;
+    }
+
+    #remote-video{
+        max-width: 100%;
+        max-height: 100%;
     }
 
     .subject{
         display: flex;
         width: 20%;
         float: right;
+        z-index: 2;
     }
 
     .h41{
@@ -79,6 +104,7 @@
         width: 50%;
         background-color: var(--color-3);
         padding: 0.4em 0;
+        z-index: 2;
     }
 
     .summary{
@@ -86,13 +112,15 @@
         width: 50%;
         background-color: var(--color-1);
         padding: 0.4em 0;
+        z-index: 2;
     }
 
     .classroom-options{
+        z-index: 2;
         position: relative;
         display: flex;
         gap: 2em;
-        bottom: -24em;
+        font-size: 0.8em;
         padding: 0 2em;
     }
 
@@ -107,19 +135,6 @@
         border-radius: 100px;
         padding: 0.5em;
         color: rgb(163, 163, 163);
-    }
-
-    .student-camera{
-        margin: auto;
-        width: 20%;
-        height: 20%;
-        border-radius: 10px;
-        border: 1px solid black;
-    }
-
-    .second-sector h3{
-        margin: auto;
-        opacity: 0.3;
     }
 
 </style>
