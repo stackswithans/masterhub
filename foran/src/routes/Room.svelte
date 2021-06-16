@@ -28,17 +28,6 @@
 
 <HomeLayout>
     <div class="main-sector">
-        <!--
-        <div class="subject">
-            <div class="time"><h4 class="h41">1:00:39</h4></div>
-            <div class="summary"><h4 class="h42">Aula</h4></div>
-        </div>
-        <div class="classroom-options">
-            <i class="fas fa-microphone fa-lg"></i>
-            <i class="fas fa-volume-up fa-lg"></i>
-            <i class="fas fa-phone-alt fa-lg"></i>
-        </div>
-        -->
         <div class="master-camera">
             <video bind:this={remoteVideo} id="remote-video" src=""></video>
         </div>
@@ -86,39 +75,6 @@
     #remote-video{
         max-width: 100%;
         max-height: 100%;
-    }
-
-    .subject{
-        display: flex;
-        width: 20%;
-        float: right;
-        z-index: 2;
-    }
-
-    .h41{
-        margin: auto;
-        color: var(--color-7);
-    }
-
-    .h42{
-        margin: auto;
-        color: var(--color-3);
-    }
-
-    .time{
-        display: flex;
-        width: 50%;
-        background-color: var(--color-3);
-        padding: 0.4em 0;
-        z-index: 2;
-    }
-
-    .summary{
-        display: flex;
-        width: 50%;
-        background-color: var(--color-1);
-        padding: 0.4em 0;
-        z-index: 2;
     }
 
     .classroom-options{
