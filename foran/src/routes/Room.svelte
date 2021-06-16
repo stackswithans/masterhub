@@ -42,7 +42,9 @@
         <div class="master-camera">
             <video bind:this={remoteVideo} id="remote-video" src=""></video>
         </div>
-        <video bind:this={localVideo} width="100%" class="student-camera"></video>
+        <div class="video-wrapper">
+            <video bind:this={localVideo} width="100%" class="student-camera"></video>
+        </div>
         <div class="classroom-options">
             <i class="fas fa-microphone fa-lg"></i>
             <i class="fas fa-volume-up fa-lg"></i>
@@ -63,10 +65,14 @@
         text-align: center;
     }
 
-
-    .student-camera{
+    .video-wrapper{
         max-width: 20%;
         max-height: 20%;
+    }
+
+    .student-camera{
+        width: 100%;
+        height: 100%;
     }
 
 
