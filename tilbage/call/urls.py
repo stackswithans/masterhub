@@ -4,6 +4,6 @@ import call.views as views
 
 
 urlpatterns = [
-    path("", views.call_create),
+    path("", views.call_create, name="call-calls"),
     path("<str:call_id>", views.call_join),
 ]

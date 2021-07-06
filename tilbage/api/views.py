@@ -1,4 +1,5 @@
 import uuid
+from django.urls import reverse
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from rest_framework import serializers
@@ -7,6 +8,21 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import UserSerializer, MasterSerializer, SessionSerializer
 from .models import MasterhubUser
+
+
+# Returns the available api endpoints
+@api_view(http_method_names=["GET"])
+def routes(request):
+    socket_protocol = "wss://" if request.is_secure() else "ws://"
+    host = request.get_host()
+    return Response(
+        data={
+            "users": request.build_absolute_uri(reverse("api-users")),
+            "sessions": request.build_absolute_uri(reverse("api-sessions")),
+            "calls": request.build_absolute_uri(reverse("call-calls")),
+            "call_socket": f"{socket_protocol}{host}/ws/call",
+        },
+    )
 
 
 @api_view(http_method_names=["POST", "DELETE"])

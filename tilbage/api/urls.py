@@ -1,8 +1,9 @@
 from django.urls import path, include
-from .views import users, sessions
+from .views import routes, users, sessions
 
 
 urlpatterns = [
-    path("users/", users),
-    path("sessions/", sessions),
+    path("", routes),
+    path("users/", users, name="api-users"),
+    path("sessions/", sessions, name="api-sessions"),
 ]

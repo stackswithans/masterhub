@@ -1,4 +1,7 @@
 <script lang="typescript">
+    import { reverse, postData, validateFormSection} from "../scripts/utils";
+    import { push } from "svelte-spa-router";
+    import { saveSessionData} from "../scripts/auth";
     import RegisterAside  from "../components/register/RegisterAside.svelte";
     import RegisterForm from "../components/register/RegisterForm.svelte";
     import RegisterLayout  from "../components/register/RegisterLayout.svelte";
@@ -13,8 +16,29 @@
     
     let step = 1;
     let steps = 4;
-    //Gender options
-    let gender: string = "1";
+
+    //Form fields
+    let fields = {
+        "email": "", 
+        "first_name": "", 
+        "last_name": "", 
+        "telephone":"", 
+        "password":"",  
+        "passwd_confirm": "",
+        "gender": "2",  
+        "occupation": "",  
+        "academic_degree": "",  
+        "areas": [],
+    };
+
+    let errors = {
+        "email": [], 
+        "first_name": [], 
+        "last_name": [], 
+        "telephone": [], 
+        "password": [],  
+        "passwd_confirm": [],
+    };
 
     //Knowledge Domain
     let categories = [
@@ -25,10 +49,48 @@
         { id: 4, description: "Desporto" }, 
         { id: 5, description: "Saúde" }, 
     ];
-    let areas: string[] = [];
 
-    const nextSection = () => {
+    const registerUser = async () => {
+        let data = { "utype": "MS", ...fields };
+        let response = await postData(reverse("users"), data);
+        if(response.ok){
+            saveSessionData(response.body);
+            push("/search");
+        } else {
+            alert("there has been an error");
+        }
+    };
+
+    const nextSection = async () => {
         //Validate fields here
+        if (step == 1){
+            let hasError: boolean;
+            [hasError, errors] = await validateFormSection(
+                "ST",
+                "users", 
+                fields,
+                errors,
+                ["email", "first_name", "last_name", "telephone", "gender"]
+            );
+            errors = errors;
+            if(hasError) return;
+        }
+        else if(step == 2){
+            //Check passwords match
+            let hasError: boolean;
+            [hasError, errors] = await validateFormSection(
+                "ST", "users", fields, errors, ["password"]
+            );
+            if(hasError) return;
+            if(!(fields.password === fields.passwd_confirm)){
+                errors.passwd_confirm = errors.password =  [{message: "As palavras-passes devem ser iguais"}]; 
+                return;
+            }
+            errors.password = [];
+            errors.passwd_confirm = [];
+            registerUser();
+            return
+        }
         step += 1;
     };
 </script>
@@ -40,17 +102,17 @@
             <FormSection currentStep={step} sectionStep={1}>
                 <RegisterHeader {steps} {step} description="Informações Pessoais"/>
                 <div class="grid">
-                    <RegisterInput label="Nome"/>
-                    <RegisterInput label="Sobrenome"/>
-                    <RegisterInput label="Grau Académico"/>
-                    <RegisterInput label="Profissão"/>
+                    <RegisterInput errors={errors.first_name} bind:value={fields.first_name} label="Nome"/>
+                    <RegisterInput errors={errors.last_name} bind:value={fields.last_name} label="Sobrenome"/>
+                    <RegisterInput bind:value={fields.academic_degree} label="Grau Académico"/>
+                    <RegisterInput bind:value={fields.occupation} label="Profissão"/>
                 </div>
                 <div class="radio-group">
                     <h1>Gênero</h1>
                     <div class="buttons">
-                        <RegisterRadio label="Masculino" bind:group={gender} value="0"/>
-                        <RegisterRadio label="Feminino" bind:group={gender} value="1"/>
-                        <RegisterRadio label="Prefiro não divulgar" bind:group={gender} value="2" checked/>
+                        <RegisterRadio label="Masculino" bind:group={fields.gender} value="0"/>
+                        <RegisterRadio label="Feminino" bind:group={fields.gender} value="1"/>
+                        <RegisterRadio label="Prefiro não divulgar" bind:group={fields.gender} value="2" checked/>
                     </div>
                 </div>
                 <div class="footer">
@@ -61,7 +123,7 @@
                 <RegisterHeader {steps} {step} description="Quais as áreas que domina?"/>
                 <div class="grid-3">
                     {#each categories as category}
-                        <RegisterCheckbox group={areas} value="{category.description}" id="master-check-{category.id}" label="{category.description}"/>
+                        <RegisterCheckbox  bind:group={fields.areas} value="{category.description}" id="master-check-{category.id}" label="{category.description}"/>
                     {/each}
                 </div>
                 <div class="footer">
@@ -71,7 +133,7 @@
             <FormSection  currentStep={step} sectionStep={3}>
                 <RegisterHeader {steps} {step} description="Qual a sua disponibilidade?"/>
                 <div class="schedule">
-                    <ScheduleMaker/>
+                    <ScheduleMaker bind:schedule={fields.schedule}/>
                 </div>
                 <div class="footer">
                     <RegisterButton  text="Próximo passo" on:click={nextSection}/>
@@ -80,13 +142,13 @@
             <FormSection  currentStep={step} sectionStep={4}>
                 <RegisterHeader {steps} {step} description="Acesso e Contactos"/>
                 <div class="grid">
-                    <RegisterInput label="Email"/>
-                    <RegisterInput label="Telefone"/>
-                    <RegisterInput type="password" label="Palavra-passe"/>
-                    <RegisterInput type="password" label="Confirmar Palavra-passe"/>
+                    <RegisterInput errors={errors.email} bind:value={fields.email} label="Email"/>
+                    <RegisterInput errors={errors.telephone} bind:value={fields.telephone} label="Telefone"/>
+                    <RegisterInput errors={errors.password} bind:value={fields.password} type="password" label="Palavra-passe"/>
+                    <RegisterInput errors={errors.passwd_confirm} bind:value={fields.passwd_confirm} type="password" label="Confirmar Palavra-passe"/>
                 </div>
                 <div class="footer">
-                    <RegisterButton arrow={false} text="Finalizar"/>
+                    <RegisterButton on:click={nextSection} arrow={false} text="Finalizar"/>
                 </div>
             </FormSection>
         </RegisterForm>
