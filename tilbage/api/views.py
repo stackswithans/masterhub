@@ -7,7 +7,8 @@ from rest_framework.decorators import api_view, authentication_classes
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import UserSerializer, MasterSerializer, SessionSerializer
-from .models import MasterhubUser
+from .models import MasterhubUser, Master, KnowledgeCategory
+from functools import reduce
 
 
 # Returns the available api endpoints
@@ -22,6 +23,24 @@ def routes(request):
             "calls": request.build_absolute_uri(reverse("call-calls")),
             "call_socket": f"{socket_protocol}{host}/ws/call",
         },
+    )
+
+
+@api_view(http_method_names=["GET"])
+def register_info(request):
+
+    # dict tuple into object
+    degree = list(map(lambda d: {"id": d[0], "degree": d[1]}, Master.DEGREES))
+    aois = list(
+        map(
+            lambda k: {"id": k.id, "description": k.description},
+            KnowledgeCategory.objects.all(),
+        )
+    )
+    print(degree, aois)
+
+    return Response(
+        data={"degree": degree, "aois": aois},
     )
 
 

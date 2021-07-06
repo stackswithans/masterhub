@@ -1,5 +1,6 @@
 <script lang="typescript">
-    import { reverse, postData, validateFormSection} from "../scripts/utils";
+    import { onMount } from "svelte";
+    import { reverse, postData, getData, validateFormSection} from "../scripts/utils";
     import { push } from "svelte-spa-router";
     import { saveSessionData} from "../scripts/auth";
     import RegisterAside  from "../components/register/RegisterAside.svelte";
@@ -9,13 +10,26 @@
     import FormSection  from "../components/register/FormSection.svelte";
     import RegisterHeader  from "../components/register/RegisterHeader.svelte";
     import RegisterInput from "../components/register/RegisterInput.svelte";
+    import RegisterSelect from "../components/register/RegisterSelect.svelte";
     import RegisterButton from "../components/register/RegisterButton.svelte";
     import RegisterCheckbox from "../components/register/RegisterCheckbox.svelte";
     import RegisterRadio from "../components/register/RegisterRadio.svelte";
     import ScheduleMaker from "../components/register/ScheduleMaker.svelte";
-    
+
     let step = 1;
     let steps = 4;
+
+    //Knowledge Domain
+    let aois = [];
+    //Academic Degrees
+    let degrees = [];
+
+    onMount(async () => {
+        let register_info = await (await getData(reverse("ms_register_info"))).json();
+        aois = register_info.aois;
+        degrees = register_info.degree;
+        console.log(aois, degrees);
+    });
 
     //Form fields
     let fields = {
@@ -40,15 +54,7 @@
         "passwd_confirm": [],
     };
 
-    //Knowledge Domain
-    let categories = [
-        { id: 0, description: "IOT" }, 
-        { id: 1, description: "IA" }, 
-        { id: 2, description: "Mecânica" }, 
-        { id: 3, description: "Programação" }, 
-        { id: 4, description: "Desporto" }, 
-        { id: 5, description: "Saúde" }, 
-    ];
+
 
     const registerUser = async () => {
         let data = { "utype": "MS", ...fields };
@@ -63,34 +69,6 @@
 
     const nextSection = async () => {
         //Validate fields here
-        if (step == 1){
-            let hasError: boolean;
-            [hasError, errors] = await validateFormSection(
-                "ST",
-                "users", 
-                fields,
-                errors,
-                ["email", "first_name", "last_name", "telephone", "gender"]
-            );
-            errors = errors;
-            if(hasError) return;
-        }
-        else if(step == 2){
-            //Check passwords match
-            let hasError: boolean;
-            [hasError, errors] = await validateFormSection(
-                "ST", "users", fields, errors, ["password"]
-            );
-            if(hasError) return;
-            if(!(fields.password === fields.passwd_confirm)){
-                errors.passwd_confirm = errors.password =  [{message: "As palavras-passes devem ser iguais"}]; 
-                return;
-            }
-            errors.password = [];
-            errors.passwd_confirm = [];
-            registerUser();
-            return
-        }
         step += 1;
     };
 </script>
@@ -104,7 +82,7 @@
                 <div class="grid">
                     <RegisterInput errors={errors.first_name} bind:value={fields.first_name} label="Nome"/>
                     <RegisterInput errors={errors.last_name} bind:value={fields.last_name} label="Sobrenome"/>
-                    <RegisterInput bind:value={fields.academic_degree} label="Grau Académico"/>
+                    <RegisterSelect bind:value={fields.academic_degree} label="Grau Académico" options={degrees}/>
                     <RegisterInput bind:value={fields.occupation} label="Profissão"/>
                 </div>
                 <div class="radio-group">
@@ -122,7 +100,7 @@
             <FormSection  currentStep={step} sectionStep={2}>
                 <RegisterHeader {steps} {step} description="Quais as áreas que domina?"/>
                 <div class="grid-3">
-                    {#each categories as category}
+                    {#each aois as category}
                         <RegisterCheckbox  bind:group={fields.areas} value="{category.description}" id="master-check-{category.id}" label="{category.description}"/>
                     {/each}
                 </div>

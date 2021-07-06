@@ -5,10 +5,12 @@ export const apiHost = host + ":" + "8000" + "/";
 //endpoints
 const endpoints = {
     users: apiHost + "api/users/",
+    ms_register_info: apiHost + "api/users/register_info/",
     login: apiHost + "api/sessions/",
     call: apiHost + "call/",
     callSocket: `ws://${window.location.hostname + ":" + "8000"}/ws/call`,
 };
+
 export const postData = async (
     url = "",
     data = {}
@@ -63,7 +65,10 @@ export const getData = async (url = "") => {
     return response;
 };
 
-export const reverse = (path: string, pathParams?: Array<string>): string => {
+export const reverse = (
+    path: keyof typeof endpoints,
+    pathParams?: Array<string>
+): string => {
     if (!(path in endpoints)) throw new Error("Invalid endpoint path name");
     if (!pathParams) pathParams = [];
     return [endpoints[path], ...pathParams].reduce(

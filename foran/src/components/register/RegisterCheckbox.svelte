@@ -19,6 +19,9 @@
         align-items: center;
         gap: 0.5rem;
         width: fit-content;  
+        flex-wrap: nowrap;
+        white-space:nowrap;
+        text-overflow: ellipsis;
     }
 
     .container:hover{
