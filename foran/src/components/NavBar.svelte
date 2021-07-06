@@ -1,5 +1,5 @@
 <script lang="typescript">
-    import { isLoggedIn }  from "../scripts/auth";
+    import { isLoggedIn, logOut }  from "../scripts/auth";
     import NavLink from "./NavLink.svelte";
     import ButtonLink from "./ButtonLink.svelte";
     import Brand from "./Brand.svelte"
@@ -7,6 +7,12 @@
     export let theme: string;
     export let brand: boolean;
     let color = (theme === "dark")? "--color-3": "--color-7";
+    let loggedIn = isLoggedIn(); 
+
+    let runLogout = () => {
+        logOut();
+        loggedIn = isLoggedIn();
+    };
 </script>
 
 
@@ -19,9 +25,9 @@
 
     <ul>
         <NavLink url="about" text="Acerca" {color}/>
-        {#if isLoggedIn()}
+        {#if loggedIn}
             <NavLink url="home/" text="Central de aulas" {color}/>
-            <NavLink url="#/" text="Terminar sessão" {color}/>
+            <NavLink on:click={runLogout} url="" text="Terminar sessão" {color}/>
         {:else}
             <NavLink url="register/student" text="Quero Aprender" {color}/>
             <NavLink url="register/master" text="Quero Ensinar" {color}/>

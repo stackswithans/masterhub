@@ -25,3 +25,11 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Activate django_heroku
 django_heroku.settings(locals())
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5000",
+    "http://192.168.0.13:5000",
+    "http://192.168.0.185:5000",
+]
+
+CORS_ALLOWED_METHODS = list(default_methods)

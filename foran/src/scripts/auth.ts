@@ -10,3 +10,7 @@ export const saveSessionData = (sessionData: object) => {
         window.localStorage.setItem(key, `${sessionData[key]}`);
     }
 };
+
+export const logOut = () => {
+    window.localStorage.clear();
+};

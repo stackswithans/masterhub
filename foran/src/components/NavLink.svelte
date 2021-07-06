@@ -5,7 +5,7 @@
     export let url: string = ""; 
 </script>
 
-<a bind:this={element} style="color:var({color}); border-color:var({color});--highlight-color:var({color});" href="#/{url}">{text}</a>
+<a on:click bind:this={element} style="color:var({color}); border-color:var({color});--highlight-color:var({color});" href="#/{url}">{text}</a>
 
 <style>
     a{
