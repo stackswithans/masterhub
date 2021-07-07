@@ -1,13 +1,11 @@
 <script lang="typescript">
-    import { onMount } from "svelte";
-
     let startHour = 6;
     let hours = 12; 
 
     //A matrix of boolean that maps to the schedule table
     //True indicates that a time slot has been selected
     //Each time slot is an hour long
-    let schedule: Array<Array<boolean>> = new Array(hours); //Time slots
+    export let schedule: Array<Array<boolean>> = new Array(hours); //Time slots
     for(let i = 0; i < hours; i++)
         schedule[i] = [false, false, false, false, false, false, false];//Weekdays
 
@@ -27,10 +25,6 @@
             cell.style.backgroundColor = "var(--color-8)";
         }
     }
-
-
-
-
 </script>
 
 <table>

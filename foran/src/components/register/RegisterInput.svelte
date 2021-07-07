@@ -30,7 +30,6 @@
             <div>{error.message}</div>
         {/each}
     </div>
-    {:else}
     {/if}
 </div>
 
@@ -66,5 +65,4 @@
         color: red;
         font-size: 0.7rem;
     }
-
 </style>

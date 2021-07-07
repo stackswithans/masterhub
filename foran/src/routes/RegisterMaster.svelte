@@ -12,7 +12,7 @@
     import RegisterInput from "../components/register/RegisterInput.svelte";
     import RegisterSelect from "../components/register/RegisterSelect.svelte";
     import RegisterButton from "../components/register/RegisterButton.svelte";
-    import RegisterCheckbox from "../components/register/RegisterCheckbox.svelte";
+    import CheckboxGroup from "../components/register/CheckboxGroup.svelte";
     import RegisterRadio from "../components/register/RegisterRadio.svelte";
     import ScheduleMaker from "../components/register/ScheduleMaker.svelte";
 
@@ -26,10 +26,13 @@
 
     onMount(async () => {
         let register_info = await (await getData(reverse("ms_register_info"))).json();
-        aois = register_info.aois;
+        aois = register_info.aois.map((value) => {
+            return {value: value.id, label: value.description}
+        });
         degrees = register_info.degree;
-        console.log(aois, degrees);
+        //Add loading logic
     });
+
 
     //Form fields
     let fields = {
@@ -42,7 +45,8 @@
         "gender": "2",  
         "occupation": "",  
         "academic_degree": "",  
-        "areas": [],
+        "schedule": [[]],
+        "knowledge_areas": [],
     };
 
     let errors = {
@@ -50,6 +54,7 @@
         "first_name": [], 
         "last_name": [], 
         "telephone": [], 
+        "occupation": [],  
         "password": [],  
         "passwd_confirm": [],
     };
@@ -68,7 +73,69 @@
     };
 
     const nextSection = async () => {
+        const validateRequired = (field: keyof typeof fields, errors) => { 
+            let value = fields[field] 
+            if(value !== ""){ 
+                errors[field] = [];
+                return [false, errors];
+            }
+            errors[field] = [{message:"Este campo deve ser preenchido"}];
+            return [true, errors]
+        }
         //Validate fields here
+        let hasError: boolean = false;
+        switch(step){
+            case 1:{
+                let s1Fields = ["first_name", "last_name", "occupation"];
+                for(let field of s1Fields ){
+                    [hasError, errors] = validateRequired(field as any, errors);  
+                }
+                errors = errors;
+                console.log(fields);
+                if (hasError) return;
+                break;
+            }
+            case 2:{
+                if(fields.knowledge_areas.length == 0){
+                    alert("Escolha pelo menos 1 categoria!");
+                    return;
+                }
+                console.log(fields)
+                break;
+            }
+            case 3:{
+                //Check that at least one schedule slot has been selected
+                const reducer = (accumulator, currentValue) => {
+                    return accumulator || currentValue;
+                };
+                let slotSet = fields.schedule.map((array) => {
+                    return array.reduce(reducer);
+                }).reduce(reducer);
+                if(!slotSet){
+                    alert("Escolha pelo menos 1 vaga no horário!");
+                    return;
+                }  
+                break;
+            }
+            case 4:{
+                [hasError, errors] = await validateFormSection(
+                    "ST",
+                    "users", 
+                    fields,
+                    errors,
+                    ["email", "password", "passwd_confirm", "telephone"]
+                );
+                errors = errors;
+                if (hasError) return;
+                if(!(fields.password === fields.passwd_confirm)){
+                    errors.passwd_confirm = errors.password =  [{message: "As palavras-passes devem ser iguais"}]; 
+                    return;
+                }
+                errors.password = [];
+                errors.passwd_confirm = [];
+                break;
+            }
+        }
         step += 1;
     };
 </script>
@@ -83,7 +150,7 @@
                     <RegisterInput errors={errors.first_name} bind:value={fields.first_name} label="Nome"/>
                     <RegisterInput errors={errors.last_name} bind:value={fields.last_name} label="Sobrenome"/>
                     <RegisterSelect bind:value={fields.academic_degree} label="Grau Académico" options={degrees}/>
-                    <RegisterInput bind:value={fields.occupation} label="Profissão"/>
+                    <RegisterInput errors={errors.occupation} bind:value={fields.occupation} label="Profissão"/>
                 </div>
                 <div class="radio-group">
                     <h1>Gênero</h1>
@@ -99,11 +166,7 @@
             </FormSection>
             <FormSection  currentStep={step} sectionStep={2}>
                 <RegisterHeader {steps} {step} description="Quais as áreas que domina?"/>
-                <div class="grid-3">
-                    {#each aois as category}
-                        <RegisterCheckbox  bind:group={fields.areas} value="{category.description}" id="master-check-{category.id}" label="{category.description}"/>
-                    {/each}
-                </div>
+                <CheckboxGroup options={aois} bind:group={fields.knowledge_areas} name="aois"/>
                 <div class="footer">
                     <RegisterButton  text="Próximo passo" on:click={nextSection}/>
                 </div>
@@ -192,4 +255,5 @@
         background-color: white;
         border-radius: 1rem;
     }
+
 </style>

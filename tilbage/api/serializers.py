@@ -91,17 +91,34 @@ class UserSerializer(serializers.Serializer):
 
 
 class MasterSerializer(UserSerializer):
-    job = serializers.CharField(max_length=100)
-    timeslot = serializers.CharField(max_length=100)
-    # categories = None
-    academic_degree = serializers.IntegerField()
+    occupation = serializers.CharField(
+        max_length=100, error_messages=DEFAULT_ERRORS
+    )
+    timeslot = serializers.ListField(
+        child=serializers.CharField(max_length=7), error_messages=DEFAULT_ERRORS
+    )
+    knowledge_areas = serializers.ListField(
+        child=serializers.IntegerField(), error_messages=DEFAULT_ERRORS
+    )
+    academic_degree = serializers.ChoiceField(
+        Master.DEGREES, error_messages=DEFAULT_ERRORS
+    )
 
     def create(self, validated_data):
         data = validated_data
         user = super().save()
         master = Master.objects.create(
             mh_user=user,
-            job=data["job"],
+            occupation=data["occupation"],
             academic_degree=data["academic_degree"],
         )
-        return mh_user
+        # Get the selected time slots
+        for h, hour in enumerate(validated_data["knowledge_areas"]):
+            for d, day in enumerate(hours):
+                if day == "false":
+                    continue
+                master.timeslots.add(Timeslot.objects.get(day=d, time=h + 6))
+        # Add knowledge areas
+        for area in knowledge_areas:
+            master.k_categories.add(KnowledgeCategory.objects.get(pk=area))
+        return master

@@ -1,17 +1,18 @@
 <script lang="typescript">
-    export let label: string;
+    export let options: {value: string, label: string}[];
     export let group: string[] = ["1"];
-    export let value: string;
-    export let id: string;
     export let name: string = "aois";
-    let button: HTMLInputElement;
-    $: console.log(group);
+    let buttons: HTMLInputElement[] = new Array(options.length);
 </script>
 
-<div class="container">
-    <input {id} {name} bind:this={button} bind:group={group}  {value} type="checkbox" class="button"/>
-    <div class="box" on:click="{() => { button.click()}}"><i class="fas fa-check-square"></i></div>
-    <label for="{id}" class="lab">{label}</label>
+<div class="grid-3">
+    {#each options as option, i}
+        <div class="container">
+            <input {name} bind:this={buttons[i]} bind:group={group}  value={option.value} type="checkbox" class="button"/>
+            <div class="box" on:click="{() => { buttons[i].click()}}"><i class="fas fa-check-square"></i></div>
+            <label class="lab">{option.label}</label>
+        </div>
+    {/each}
 </div>
 
 <style>
@@ -62,5 +63,14 @@
         color: var(--color-3);
         font-family: "Roboto";
         font-size: 0.9rem;
+    }
+
+    .grid-3{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr; 
+        grid-template-rows: auto;
+        gap: 1rem;
+        width: 100%;
+        justify-items: stretch;
     }
 </style>

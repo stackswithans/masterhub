@@ -42,11 +42,12 @@ class Master(MasterhubUser):
     k_categories = models.ManyToManyField(
         "KnowledgeCategory",
     )
-    job = models.CharField(
+    occupation = models.CharField(
         max_length=100,
     )
     academic_degree = models.IntegerField(default=NONE, choices=DEGREES)
     timeslots = models.ManyToManyField("Timeslot")
+    activated = models.BooleanField(default=False)
 
 
 class Lesson(models.Model):
