@@ -1,8 +1,8 @@
 <script lang="typescript">
     export let label : string;
     export let name: string; 
-    export let value = "";
     export let options = [];
+    export let value = (options.length - 1).toString() ;
     export let errors: Array<any> = [];
 
     let input: HTMLInputElement;
@@ -15,6 +15,7 @@
             input.style.borderColor = "";
         }
     }
+    $: console.log(value);
 </script>
 
 <div class="container">

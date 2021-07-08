@@ -66,10 +66,10 @@
         let response = await postData(reverse("masters"), data);
         console.dir(response.body)
         if(response.ok){
-            //saveSessionData(response.body);
-            console.log(response.body);
+            saveSessionData(response.body);
+            push("/unactivated");
         } else {
-            alert("there has been an error");
+            alert("Ocorreu um erro grave!");
         }
         return;
     };

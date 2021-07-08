@@ -1,7 +1,8 @@
 export const isLoggedIn = () => {
     return (
-        window.localStorage.getItem("access_token") &&
-        window.localStorage.getItem("refresh_token")
+        (window.localStorage.getItem("access_token") &&
+            window.localStorage.getItem("refresh_token")) ||
+        window.localStorage.getItem("utype") === "MS"
     );
 };
 
