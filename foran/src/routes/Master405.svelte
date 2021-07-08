@@ -3,6 +3,8 @@
     import { push } from "svelte-spa-router";
     import ButtonLink from "../components/ButtonLink.svelte";
 
+    let name; 
+
     if(!isLoggedIn()){
         push("/login");
         console.log("hello")
@@ -12,18 +14,19 @@
             push("/search");
         }
         else{
+            name = window.localStorage.getItem("name");
             logOut();
         }
     }
 
-    let name = window.localStorage.getItem("name");
 </script>
 
 
 
 <main class="container">
     <p>
-        Olá mestre {name}, parece que a sua conta ainda não foi activada. 
+        
+        Olá mestre {name}, parece que a sua conta ainda não foi activada (Entraremos em contacto consigo). 
         Porquê que não aprende com outros mestres enquanto aguarda pela sua entrevista!?
     </p>
     <ButtonLink url="#/search" width="8.25rem" height="2.25rem" text="Explorar" color="--7"/>

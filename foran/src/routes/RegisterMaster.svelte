@@ -24,16 +24,6 @@
     //Academic Degrees
     let degrees = [];
 
-    onMount(async () => {
-        let register_info = await (await getData(reverse("masters_info"))).json();
-        aois = register_info.aois.map((value) => {
-            return {value: value.id, label: value.description}
-        });
-        degrees = register_info.degree;
-        //Add loading logic
-    });
-
-
     //Form fields
     let fields = {
         "email": "", 
@@ -48,6 +38,17 @@
         "timeslot": [[]],
         "knowledge_areas": [],
     };
+
+    onMount(async () => {
+        let register_info = await (await getData(reverse("masters_info"))).json();
+        aois = register_info.aois.map((value) => {
+            return {value: value.id, label: value.description}
+        });
+        degrees = register_info.degree;
+        fields.academic_degree = (degrees.length - 1).toString();
+    });
+
+
 
     let errors = {
         "email": [], 
