@@ -36,8 +36,8 @@
     let steps = 2;
 
     const registerUser = async () => {
-        let data = { "utype": "ST", ...fields };
-        let response = await postData(reverse("users"), data);
+        let data = { ...fields };
+        let response = await postData(reverse("students"), data);
         if(response.ok){
             saveSessionData(response.body);
             push("/search");
@@ -52,7 +52,7 @@
             let hasError: boolean;
             [hasError, errors] = await validateFormSection(
                 "ST",
-                "users", 
+                "students", 
                 fields,
                 errors,
                 ["email", "first_name", "last_name", "telephone", "gender"]
@@ -64,7 +64,7 @@
             //Check passwords match
             let hasError: boolean;
             [hasError, errors] = await validateFormSection(
-                "ST", "users", fields, errors, ["password"]
+                "ST", "students", fields, errors, ["password"]
             );
             if(hasError) return;
             if(!(fields.password === fields.passwd_confirm)){

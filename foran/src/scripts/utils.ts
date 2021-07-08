@@ -4,8 +4,9 @@ export const apiHost = host + ":" + "8000" + "/";
 
 //endpoints
 const endpoints = {
-    users: apiHost + "api/users/",
-    ms_register_info: apiHost + "api/users/register_info/",
+    students: apiHost + "api/users/students",
+    masters: apiHost + "api/users/masters",
+    masters_info: apiHost + "api/users/masters/register_info/",
     login: apiHost + "api/sessions/",
     call: apiHost + "call/",
     callSocket: `ws://${window.location.hostname + ":" + "8000"}/ws/call`,

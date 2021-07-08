@@ -25,7 +25,7 @@
     let degrees = [];
 
     onMount(async () => {
-        let register_info = await (await getData(reverse("ms_register_info"))).json();
+        let register_info = await (await getData(reverse("masters_info"))).json();
         aois = register_info.aois.map((value) => {
             return {value: value.id, label: value.description}
         });
@@ -63,7 +63,7 @@
 
     const registerUser = async () => {
         let data = { "utype": "MS", ...fields };
-        let response = await postData(reverse("users"), data);
+        let response = await postData(reverse("masters"), data);
         console.dir(response.body)
         if(response.ok){
             //saveSessionData(response.body);
@@ -123,7 +123,7 @@
                 //TODO: Add loading code here
                 [hasError, errors] = await validateFormSection(
                     "MS",
-                    "users", 
+                    "masters", 
                     fields,
                     errors,
                     ["email", "password", "passwd_confirm", "telephone"]
@@ -138,8 +138,7 @@
                 errors.passwd_confirm = [];
                 console.log(fields);
                 await registerUser()
-                return
-                break;
+                return;
             }
         }
         step += 1;

@@ -12,6 +12,8 @@ urlpatterns = [
     path("", routes),
     path("users/students", users_students, name="apiv2-students"),
     path("users/masters", users_masters, name="apiv2-masters"),
-    path("users/register_info/", register_info, name="apiv2-registerinfo"),
+    path(
+        "users/masters/register_info/", register_info, name="apiv2-registerinfo"
+    ),
     path("sessions/", sessions, name="apiv2-sessions"),
 ]
