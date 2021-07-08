@@ -112,7 +112,9 @@ REST_FRAMEWORK = {
     )
 }
 
-REST_FRAMEWORK["EXCEPTION_HANDLER"] = "api.utils.full_details_exception_handler"
+REST_FRAMEWORK[
+    "EXCEPTION_HANDLER"
+] = "api_v2.utils.full_details_exception_handler"
 
 # JWT settings
 SIMPLE_JWT = {

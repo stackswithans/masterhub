@@ -40,7 +40,7 @@ class UsersViewTest(TestCase):
                 "gender": "M",
                 "telephone": "922532203",
                 "academic_degree": 0,
-                "knowledge_areas": [2, 2],
+                "knowledge_areas": [1, 2],
                 "occupation": "Estudante",
                 "timeslot": timeslot,
             },

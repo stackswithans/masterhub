@@ -20,7 +20,7 @@
         "telephone":null, 
         "password":null,  
         "passwd_confirm": null,
-        "gender": "2",  
+        "gender": "U",  
     };
 
     let errors = {
@@ -96,9 +96,9 @@
                 <div class="radio-group">
                     <h1>Gênero</h1>
                     <div class="buttons">
-                        <RegisterRadio label="Masculino" bind:group={fields.gender} value="0"/>
-                        <RegisterRadio label="Feminino" bind:group={fields.gender} value="1"/>
-                        <RegisterRadio label="Prefiro não divulgar" bind:group={fields.gender} value="2" checked/>
+                        <RegisterRadio label="Masculino" bind:group={fields.gender} value="M"/>
+                        <RegisterRadio label="Feminino" bind:group={fields.gender} value="F"/>
+                        <RegisterRadio label="Prefiro não divulgar" bind:group={fields.gender} value="U" checked/>
                     </div>
                 </div>
                 <div class="footer">
