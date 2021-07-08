@@ -66,20 +66,8 @@ def sessions(request):
 
 
 @api_view(http_method_names=["POST"])
-def users(request):
-    # Validates the type of user that will be created
-    # MS - Master / ST - Student
-    print(request.data)
-    if not request.data.get("utype"):
-        raise serializers.ValidationError(
-            ("utype", "This field must be provided")
-        )
-    if request.data["utype"] == MasterhubUser.STUDENT:
-        serializer = UserSerializer(data=request.data)
-    elif request.data["utype"] == MasterhubUser.MASTER:
-        serializer = MasterSerializer(data=request.data)
-    else:
-        raise serializers.ValidationError(("utype", "Bad user type"))
+def users_students(request):
+    serializer = UserSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
 
     user = serializer.save()
@@ -91,5 +79,21 @@ def users(request):
             "name": f"{user.user.first_name} {user.user.last_name}",
             "access_token": str(token.access_token),
             "refresh_token": str(token),
+        }
+    )
+
+
+@api_view(http_method_names=["POST"])
+def users_masters(request):
+    serializer = MasterSerializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
+
+    user = serializer.save()
+    return Response(
+        {
+            "email": user.user.email,
+            "utype": "MS",
+            "name": f"{user.user.first_name} {user.user.last_name}",
+            "activated": False,
         }
     )

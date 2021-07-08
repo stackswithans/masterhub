@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-from .models import MasterhubUser, Master
+from .models import MasterhubUser, Master, Timeslot, KnowledgeCategory
 
 REQUIRED_ERR_MSG = "Este campo deve ser preenchido"
 BAD_CREDS_MSG = "O e-mail e/ou  a palavra-passe estão incorrectos"
@@ -52,7 +52,9 @@ class UserSerializer(serializers.Serializer):
         }
     )
     password = serializers.CharField(error_messages=DEFAULT_ERRORS)
-    gender = serializers.IntegerField(error_messages=DEFAULT_ERRORS)
+    gender = serializers.ChoiceField(
+        MasterhubUser.GENDERS, error_messages=DEFAULT_ERRORS
+    )
     telephone = serializers.CharField(
         max_length=9,
         error_messages=DEFAULT_ERRORS,
@@ -95,7 +97,8 @@ class MasterSerializer(UserSerializer):
         max_length=100, error_messages=DEFAULT_ERRORS
     )
     timeslot = serializers.ListField(
-        child=serializers.CharField(max_length=7), error_messages=DEFAULT_ERRORS
+        child=serializers.ListField(child=serializers.BooleanField()),
+        error_messages=DEFAULT_ERRORS,
     )
     knowledge_areas = serializers.ListField(
         child=serializers.IntegerField(), error_messages=DEFAULT_ERRORS
@@ -106,19 +109,27 @@ class MasterSerializer(UserSerializer):
 
     def create(self, validated_data):
         data = validated_data
-        user = super().save()
+        user = User.objects.create_user(
+            data["email"],
+            email=data["email"],
+            password=data["password"],
+            first_name=data["first_name"],
+            last_name=data["last_name"],
+        )
         master = Master.objects.create(
-            mh_user=user,
+            user=user,
+            gender=data["gender"],
+            telephone=data["telephone"],
             occupation=data["occupation"],
             academic_degree=data["academic_degree"],
         )
         # Get the selected time slots
-        for h, hour in enumerate(validated_data["knowledge_areas"]):
-            for d, day in enumerate(hours):
-                if day == "false":
+        for h, hour in enumerate(data["timeslot"]):
+            for d, day in enumerate(hour):
+                if not day:
                     continue
                 master.timeslots.add(Timeslot.objects.get(day=d, time=h + 6))
         # Add knowledge areas
-        for area in knowledge_areas:
+        for area in data["knowledge_areas"]:
             master.k_categories.add(KnowledgeCategory.objects.get(pk=area))
         return master

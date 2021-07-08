@@ -45,7 +45,7 @@
         "gender": "2",  
         "occupation": "",  
         "academic_degree": "",  
-        "schedule": [[]],
+        "timeslot": [[]],
         "knowledge_areas": [],
     };
 
@@ -64,12 +64,14 @@
     const registerUser = async () => {
         let data = { "utype": "MS", ...fields };
         let response = await postData(reverse("users"), data);
+        console.dir(response.body)
         if(response.ok){
-            saveSessionData(response.body);
-            push("/search");
+            //saveSessionData(response.body);
+            console.log(response.body);
         } else {
             alert("there has been an error");
         }
+        return;
     };
 
     const nextSection = async () => {
@@ -108,7 +110,7 @@
                 const reducer = (accumulator, currentValue) => {
                     return accumulator || currentValue;
                 };
-                let slotSet = fields.schedule.map((array) => {
+                let slotSet = fields.timeslot.map((array) => {
                     return array.reduce(reducer);
                 }).reduce(reducer);
                 if(!slotSet){
@@ -118,8 +120,9 @@
                 break;
             }
             case 4:{
+                //TODO: Add loading code here
                 [hasError, errors] = await validateFormSection(
-                    "ST",
+                    "MS",
                     "users", 
                     fields,
                     errors,
@@ -133,6 +136,9 @@
                 }
                 errors.password = [];
                 errors.passwd_confirm = [];
+                console.log(fields);
+                await registerUser()
+                return
                 break;
             }
         }
@@ -174,7 +180,7 @@
             <FormSection  currentStep={step} sectionStep={3}>
                 <RegisterHeader {steps} {step} description="Qual a sua disponibilidade?"/>
                 <div class="schedule">
-                    <ScheduleMaker bind:schedule={fields.schedule}/>
+                    <ScheduleMaker bind:schedule={fields.timeslot}/>
                 </div>
                 <div class="footer">
                     <RegisterButton  text="Próximo passo" on:click={nextSection}/>

@@ -78,11 +78,14 @@ export const reverse = (
 
 export const validateFormSection = async (
     utype: string,
-    path: string,
+    path: keyof typeof endpoints,
     formData: object,
     errors: object,
     sectionFields: Array<string>
 ): Promise<[boolean, any]> => {
+    for (let error in errors) {
+        errors[error] = [];
+    }
     //Get the value of the fields of this section from the form
     let data = { utype };
     sectionFields.forEach((value) => {

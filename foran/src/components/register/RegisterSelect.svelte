@@ -21,7 +21,7 @@
     <label class="description">{label}</label>
     <select bind:value={value} class="input-after" id="" name="">
         {#each options as option}
-            <option value="{option.id}">{option.degree}</option>
+            <option value="{option.id}" selected>{option.degree}</option>
         {/each}
     </select>
     {#if errors.length}

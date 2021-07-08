@@ -12,15 +12,14 @@ class MasterhubUser(models.Model):
     FEMALE = "F"
     UNKNOWN = "U"
 
+    id = models.AutoField(primary_key=True)
     GENDERS = ((MALE, "Male"), (FEMALE, "Female"), (UNKNOWN, "UNKNOWN"))
-    user = models.OneToOneField(
-        User, primary_key=True, on_delete=models.CASCADE
-    )
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     gender = models.CharField(choices=GENDERS, default=UNKNOWN, max_length=100)
     telephone = models.CharField(unique=True, max_length=100)
 
 
-class Master(MasterhubUser):
+class Master(models.Model):
 
     BACHELOR = 0
     MASTERS = 1
@@ -36,8 +35,6 @@ class Master(MasterhubUser):
     mh_user = models.OneToOneField(
         MasterhubUser,
         on_delete=models.CASCADE,
-        parent_link=True,
-        primary_key=True,
     )
     k_categories = models.ManyToManyField(
         "KnowledgeCategory",
