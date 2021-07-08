@@ -36,7 +36,6 @@ class SessionSerializer(serializers.Serializer):
 
 
 class UserSerializer(serializers.Serializer):
-    utype = serializers.CharField(max_length=2)  # MS or ST
     first_name = serializers.CharField(
         max_length=100,
         error_messages=DEFAULT_ERRORS,

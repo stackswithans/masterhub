@@ -75,7 +75,7 @@ def users_students(request):
     return Response(
         {
             "email": user.user.email,
-            "utype": request.data["utype"],
+            "utype": "ST",
             "name": f"{user.user.first_name} {user.user.last_name}",
             "access_token": str(token.access_token),
             "refresh_token": str(token),
@@ -94,6 +94,6 @@ def users_masters(request):
             "email": user.user.email,
             "utype": "MS",
             "name": f"{user.user.first_name} {user.user.last_name}",
-            "activated": False,
+            "activated": user.activated,
         }
     )
